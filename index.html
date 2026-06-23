@@ -1,0 +1,2678 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AG Prime</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===================== VARIABLES ===================== */
+:root {
+  --orange: #F47C20;
+  --orange2: #FF9500;
+  --orange-glow: rgba(244,124,32,0.18);
+  --bg: #F2F2F7;
+  --card: #FFFFFF;
+  --text: #1C1C1E;
+  --text2: #6C6C70;
+  --border: #E5E5EA;
+  --nav-bg: #FFFFFF;
+  --search-bg: #FFFFFF;
+  --cat-bg: #FFFFFF;
+  --shadow: 0 2px 12px rgba(0,0,0,0.07);
+  --shadow2: 0 6px 24px rgba(0,0,0,0.11);
+  --green: #27AE60;
+  --red: #E74C3C;
+  --blue: #2980B9;
+  --yellow: #F39C12;
+  --admin-bg: #0F1117;
+  --admin-card: #1A1D27;
+  --admin-border: #2A2D3E;
+  --admin-text: #E8E8F0;
+  --admin-text2: #8888AA;
+  /* OWNER */
+  --owner-bg: #08060F;
+  --owner-card: #110E1C;
+  --owner-card2: #16122A;
+  --owner-border: #2A2245;
+  --owner-gold: #C9A84C;
+  --owner-gold2: #F0D080;
+  --owner-gold-glow: rgba(201,168,76,0.18);
+  --owner-purple: #7C3AED;
+  --owner-text: #EEE8FF;
+  --owner-text2: #8878BB;
+}
+[data-theme="dark"] {
+  --bg: #1C1C1E; --card: #2C2C2E; --text: #FFFFFF; --text2: #AEAEB2;
+  --border: #3A3A3C; --nav-bg: #1C1C1E; --search-bg: #2C2C2E; --cat-bg: #2C2C2E;
+  --shadow: 0 2px 12px rgba(0,0,0,0.35); --shadow2: 0 6px 24px rgba(0,0,0,0.45);
+}
+
+/* ===================== RESET ===================== */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);transition:background .3s,color .3s;min-height:100vh;}
+button{font-family:'Poppins',sans-serif;cursor:pointer;}
+a{text-decoration:none;}
+
+/* ===================== PAGES (ROUTER) ===================== */
+.page{display:none;min-height:100vh;}
+.page.active{display:block;}
+
+/* ===================== AUTH SCREEN ===================== */
+#page-auth{
+  background: linear-gradient(145deg,#0F1117 0%,#1A1D27 50%,#1A0D00 100%);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  min-height:100vh; padding:30px 24px;
+}
+.auth-logo{text-align:center;margin-bottom:36px;}
+.auth-logo .ag{font-size:52px;font-weight:800;color:var(--orange);letter-spacing:-2px;}
+.auth-logo .prime{font-size:18px;font-weight:700;color:#fff;letter-spacing:4px;margin-top:-4px;}
+.auth-logo .tagline{font-size:13px;color:rgba(255,255,255,0.45);margin-top:6px;}
+
+.auth-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:28px 24px;width:100%;max-width:380px;backdrop-filter:blur(10px);}
+.auth-tabs{display:flex;background:rgba(255,255,255,0.06);border-radius:12px;padding:3px;margin-bottom:24px;gap:4px;}
+.auth-tab{flex:1;padding:9px;border-radius:10px;border:none;background:transparent;color:rgba(255,255,255,0.5);font-size:13px;font-weight:600;transition:all .2s;}
+.auth-tab.active{background:var(--orange);color:#fff;}
+
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:12px;font-weight:500;color:rgba(255,255,255,0.6);margin-bottom:6px;}
+.field input,.field select{width:100%;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 14px;color:#fff;font-size:14px;font-family:'Poppins',sans-serif;outline:none;transition:border-color .2s;}
+.field input::placeholder{color:rgba(255,255,255,0.3);}
+.field input:focus,.field select:focus{border-color:var(--orange);}
+.field select option{background:#1A1D27;color:#fff;}
+
+.btn-auth{width:100%;background:var(--orange);color:#fff;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:700;margin-top:8px;transition:all .2s;box-shadow:0 4px 16px rgba(244,124,32,0.35);}
+.btn-auth:hover{background:#e06e10;transform:translateY(-1px);}
+
+/* Demo switch */
+.demo-switch{margin-top:20px;padding:14px;background:rgba(244,124,32,0.1);border:1px dashed rgba(244,124,32,0.3);border-radius:12px;text-align:center;}
+.demo-switch p{font-size:11px;color:rgba(255,255,255,0.45);margin-bottom:10px;}
+.demo-btns{display:flex;gap:8px;}
+.demo-btn{flex:1;padding:8px;border-radius:8px;border:none;font-size:12px;font-weight:600;transition:all .2s;}
+.demo-btn-user{background:rgba(39,174,96,0.15);color:#27AE60;border:1px solid rgba(39,174,96,0.3);}
+.demo-btn-admin{background:rgba(244,124,32,0.15);color:var(--orange);border:1px solid rgba(244,124,32,0.3);}
+.demo-btn:hover{transform:translateY(-1px);}
+
+/* ===================== APP SHELL ===================== */
+#page-app{display:flex;flex-direction:column;min-height:100vh;padding-bottom:72px;}
+
+/* TOP NAV */
+.top-nav{background:var(--nav-bg);padding:12px 16px 10px;display:flex;align-items:center;justify-content:center;position:sticky;top:0;z-index:100;border-bottom:1px solid var(--border);transition:background .3s,border-color .3s;}
+.logo{display:flex;align-items:center;gap:2px;flex:1;justify-content:center;}
+.logo-ag{font-weight:800;font-size:26px;color:var(--orange);letter-spacing:-1px;line-height:1;}
+.logo-prime{font-weight:700;font-size:15px;color:var(--text);margin-left:3px;letter-spacing:1px;align-self:flex-end;margin-bottom:2px;}
+.theme-btn{position:absolute;right:16px;background:var(--cat-bg);border:1.5px solid var(--border);border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .3s;}
+.theme-btn:hover{transform:scale(1.1);}
+
+/* SEARCH */
+.search-wrap{padding:10px 16px 8px;background:var(--nav-bg);border-bottom:1px solid var(--border);transition:background .3s;}
+.search-bar{display:flex;align-items:center;background:var(--search-bg);border:1.5px solid var(--border);border-radius:12px;padding:10px 14px;gap:8px;transition:all .3s;}
+.search-bar:focus-within{border-color:var(--orange);box-shadow:0 0 0 3px var(--orange-glow);}
+.search-bar input{flex:1;border:none;background:transparent;font-family:'Poppins',sans-serif;font-size:13px;color:var(--text);outline:none;}
+.search-bar input::placeholder{color:var(--text2);}
+
+/* ===================== VIEWS inside app ===================== */
+.view{display:none;}
+.view.active{display:block;}
+
+/* ===================== ACCUEIL ===================== */
+/* Banner */
+.banner-section{padding:12px 16px;}
+.banner-slider{overflow:hidden;border-radius:14px;position:relative;}
+.banner-track{display:flex;transition:transform .5s ease;}
+.banner-slide{min-width:100%;height:130px;border-radius:14px;overflow:hidden;display:flex;}
+.slide-left{flex:1;padding:16px;display:flex;flex-direction:column;justify-content:center;}
+.slide-right{width:120px;display:flex;align-items:center;justify-content:center;font-size:58px;}
+.slide-tag{font-size:10px;font-weight:600;color:rgba(255,255,255,.75);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
+.slide-title{font-size:16px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px;}
+.slide-btn{background:#fff;color:var(--orange);border:none;border-radius:7px;padding:5px 12px;font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;width:fit-content;}
+.slide-1{background:linear-gradient(135deg,#1A3A5C,#2E6AA8);}
+.slide-2{background:linear-gradient(135deg,#7B2D00,#F47C20);}
+.slide-3{background:linear-gradient(135deg,#1A4A1A,#2E8B2E);}
+.banner-dots{display:flex;justify-content:center;gap:5px;margin-top:8px;}
+.dot{width:6px;height:6px;border-radius:3px;background:var(--border);transition:all .3s;cursor:pointer;}
+.dot.active{width:18px;background:var(--orange);}
+.banner-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.88);border:none;border-radius:50%;width:26px;height:26px;z-index:10;display:flex;align-items:center;justify-content:center;font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,.2);transition:all .2s;}
+.banner-arrow.left{left:8px;}
+.banner-arrow.right{right:8px;}
+
+/* Categories */
+.section-pad{padding:0 16px;}
+.categories-row{display:flex;justify-content:space-between;gap:4px;padding:4px 0 8px;}
+.cat-item{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;flex:1;}
+.cat-icon-wrap{width:52px;height:52px;background:var(--cat-bg);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:var(--shadow);transition:all .25s;border:1.5px solid var(--border);}
+.cat-item:hover .cat-icon-wrap,.cat-item.active .cat-icon-wrap{background:var(--orange);border-color:var(--orange);transform:translateY(-3px);box-shadow:0 6px 16px rgba(244,124,32,.35);}
+.cat-label{font-size:10px;font-weight:500;color:var(--text2);text-align:center;line-height:1.2;}
+
+/* Section header */
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-top:4px;}
+.section-title{font-size:16px;font-weight:700;color:var(--text);}
+.see-all{font-size:12px;color:var(--orange);font-weight:500;}
+
+/* Flash */
+.flash-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-top:4px;}
+.flash-title{font-size:16px;font-weight:700;color:var(--text);}
+.flash-timer{display:flex;align-items:center;gap:3px;}
+.timer-block{background:var(--orange);color:#fff;font-size:12px;font-weight:700;padding:3px 6px;border-radius:5px;min-width:26px;text-align:center;}
+.timer-sep{color:var(--orange);font-weight:800;}
+
+/* Flash scroll */
+.flash-scroll-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -16px;padding:0 16px;}
+.flash-scroll-wrap::-webkit-scrollbar{display:none;}
+.flash-scroll{display:flex;gap:10px;padding-bottom:6px;width:max-content;}
+
+/* Product cards */
+.product-card{background:var(--card);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);transition:all .25s;cursor:pointer;position:relative;border:1px solid var(--border);}
+.product-card:active{transform:scale(.97);}
+.flash-card{width:155px;flex-shrink:0;}
+.product-img{width:100%;height:105px;display:flex;align-items:center;justify-content:center;font-size:48px;position:relative;overflow:hidden;}
+.flash-card .product-img{height:100px;}
+.badge-discount{position:absolute;top:7px;left:7px;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;}
+.badge-new{position:absolute;top:7px;left:7px;background:var(--green);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;}
+.btn-fav{position:absolute;top:7px;right:7px;background:rgba(255,255,255,.92);border:none;border-radius:50%;width:26px;height:26px;font-size:13px;display:flex;align-items:center;justify-content:center;z-index:2;}
+.card-body{padding:9px;}
+.card-name{font-size:11px;font-weight:600;color:var(--text);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.card-price{font-size:12px;font-weight:700;color:var(--orange);margin-bottom:2px;}
+.card-old{font-size:10px;color:var(--text2);text-decoration:line-through;margin-bottom:5px;}
+.card-meta{display:flex;gap:6px;font-size:10px;color:var(--text2);margin-bottom:7px;}
+.btn-voir{display:block;width:100%;background:var(--orange);color:#fff;border:none;border-radius:7px;padding:6px;font-size:11px;font-weight:600;text-align:center;transition:background .2s;}
+.btn-voir:hover{background:#e06e10;}
+
+/* Grid annonces */
+.annonces-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-bottom:20px;}
+.grid-card .product-img{height:120px;}
+.grid-card .card-name{font-size:12px;white-space:normal;line-height:1.3;}
+.grid-card .card-price{font-size:13px;}
+
+/* Tabs */
+.tabs-scroll{overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px;margin-bottom:12px;}
+.tabs-scroll::-webkit-scrollbar{display:none;}
+.tabs-row{display:flex;gap:7px;width:max-content;}
+.tab-btn{padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);background:var(--card);font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;white-space:nowrap;transition:all .2s;}
+.tab-btn.active{background:var(--orange);border-color:var(--orange);color:#fff;}
+
+.sec-divider{height:8px;background:var(--bg);margin:0 -16px 14px;}
+
+/* Gradient bg for cards */
+.g1{background:linear-gradient(160deg,#1a2a3a,#2d4a6a);}
+.g2{background:linear-gradient(160deg,#1a1a2e,#2d3a6a);}
+.g3{background:linear-gradient(160deg,#1a3a1a,#2a5a2a);}
+.g4{background:linear-gradient(160deg,#3a1a1a,#6a2a2a);}
+.g5{background:linear-gradient(160deg,#2a1a3a,#4a2a6a);}
+.g6{background:linear-gradient(160deg,#1a2a1a,#2a4a3a);}
+
+/* ===================== MON PROFIL (user) ===================== */
+.profile-header{background:linear-gradient(135deg,var(--dark,#1A1A2E),var(--orange));padding:30px 16px 50px;text-align:center;position:relative;}
+.profile-avatar{width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.15);border:3px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 12px;}
+.profile-name{font-size:18px;font-weight:700;color:#fff;}
+.profile-role-badge{display:inline-block;background:rgba(255,255,255,.2);color:#fff;font-size:11px;font-weight:600;padding:3px 12px;border-radius:20px;margin-top:5px;}
+.profile-stats{display:flex;margin:0 16px;margin-top:-24px;background:var(--card);border-radius:16px;box-shadow:var(--shadow2);padding:16px;gap:0;position:relative;z-index:2;}
+.stat-item{flex:1;text-align:center;border-right:1px solid var(--border);}
+.stat-item:last-child{border-right:none;}
+.stat-num{font-size:20px;font-weight:800;color:var(--orange);}
+.stat-label{font-size:10px;color:var(--text2);margin-top:2px;}
+.profile-section{margin:16px;}
+.profile-section-title{font-size:13px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;}
+.annonce-item{background:var(--card);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow);border:1px solid var(--border);}
+.annonce-icon{font-size:28px;width:44px;height:44px;background:var(--bg);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.annonce-info{flex:1;min-width:0;}
+.annonce-name{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.annonce-price{font-size:12px;color:var(--orange);font-weight:600;}
+.status-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap;flex-shrink:0;}
+.status-pending{background:rgba(243,156,18,.15);color:var(--yellow);}
+.status-ok{background:rgba(39,174,96,.15);color:var(--green);}
+.status-rejected{background:rgba(231,76,60,.15);color:var(--red);}
+
+.doc-status-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.doc-card{background:var(--card);border-radius:12px;padding:12px;box-shadow:var(--shadow);border:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.doc-card-icon{font-size:22px;}
+.doc-card-info .doc-card-name{font-size:12px;font-weight:600;color:var(--text);}
+.doc-card-info .doc-card-status{font-size:11px;margin-top:2px;}
+.doc-ok{color:var(--green);}
+.doc-pending{color:var(--yellow);}
+.doc-missing{color:var(--red);}
+
+.btn-logout{display:block;margin:16px;background:rgba(231,76,60,.1);color:var(--red);border:1.5px solid rgba(231,76,60,.25);border-radius:12px;padding:13px;font-size:14px;font-weight:600;text-align:center;width:calc(100% - 32px);transition:all .2s;}
+.btn-logout:hover{background:rgba(231,76,60,.2);}
+
+/* ===================== MESSAGES VIEW ===================== */
+.messages-list{padding:12px 16px;}
+.msg-item{background:var(--card);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow);border:1px solid var(--border);cursor:pointer;transition:all .2s;}
+.msg-item:hover{transform:translateX(4px);}
+.msg-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--orange),#ff9500);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.msg-info{flex:1;min-width:0;}
+.msg-name{font-size:13px;font-weight:600;color:var(--text);}
+.msg-preview{font-size:12px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;}
+.msg-meta{text-align:right;flex-shrink:0;}
+.msg-time{font-size:10px;color:var(--text2);}
+.msg-unread{background:var(--orange);color:#fff;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:4px;margin-left:auto;}
+
+/* ===================== BOTTOM NAV ===================== */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--nav-bg);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-around;padding:6px 8px 14px;z-index:200;transition:background .3s,border-color .3s;}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;flex:1;padding:4px;border-radius:10px;transition:all .2s;}
+.nav-item:hover{background:var(--orange-glow);}
+.nav-item.active .nav-icon,.nav-item.active .nav-label{color:var(--orange);}
+.nav-item.active .nav-label{font-weight:600;}
+.nav-icon{font-size:20px;color:var(--text2);transition:color .2s;}
+.nav-label{font-size:10px;font-weight:400;color:var(--text2);transition:color .2s;}
+.nav-plus{background:var(--orange);border-radius:50%;width:50px;height:50px;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;cursor:pointer;box-shadow:0 4px 16px rgba(244,124,32,.45);transition:transform .2s,box-shadow .2s;margin-top:-16px;flex-shrink:0;}
+.nav-plus:hover{transform:scale(1.08) rotate(90deg);}
+
+/* ===================== ADMIN DASHBOARD ===================== */
+#page-admin{background:var(--admin-bg);min-height:100vh;color:var(--admin-text);}
+.admin-nav{background:var(--admin-card);border-bottom:1px solid var(--admin-border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.admin-logo{display:flex;align-items:center;gap:8px;}
+.admin-logo .ag{font-size:22px;font-weight:800;color:var(--orange);}
+.admin-logo .prime{font-size:13px;font-weight:700;color:#fff;letter-spacing:2px;}
+.admin-badge{background:rgba(244,124,32,.15);color:var(--orange);border:1px solid rgba(244,124,32,.25);font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;letter-spacing:.5px;}
+.admin-user-info{display:flex;align-items:center;gap:10px;}
+.admin-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--orange),#ff9500);display:flex;align-items:center;justify-content:center;font-size:16px;}
+.admin-username{font-size:13px;font-weight:600;color:var(--admin-text);}
+.btn-admin-logout{background:rgba(231,76,60,.15);color:#e74c3c;border:1px solid rgba(231,76,60,.2);border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;transition:all .2s;}
+.btn-admin-logout:hover{background:rgba(231,76,60,.25);}
+
+/* Admin sidebar + content */
+.admin-layout{display:flex;min-height:calc(100vh - 57px);}
+.admin-sidebar{width:220px;background:var(--admin-card);border-right:1px solid var(--admin-border);padding:20px 0;flex-shrink:0;}
+.admin-nav-item{display:flex;align-items:center;gap:10px;padding:11px 20px;cursor:pointer;transition:all .2s;color:var(--admin-text2);font-size:13px;font-weight:500;position:relative;}
+.admin-nav-item:hover{background:rgba(244,124,32,.07);color:var(--admin-text);}
+.admin-nav-item.active{background:rgba(244,124,32,.12);color:var(--orange);}
+.admin-nav-item.active::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--orange);border-radius:0 2px 2px 0;}
+.admin-nav-item .nav-ic{font-size:16px;}
+.admin-notif{background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;margin-left:auto;}
+
+.admin-content{flex:1;padding:24px;overflow-x:hidden;}
+
+/* Admin KPI cards */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.kpi-card{background:var(--admin-card);border:1px solid var(--admin-border);border-radius:14px;padding:18px;transition:transform .2s;}
+.kpi-card:hover{transform:translateY(-3px);}
+.kpi-icon{font-size:26px;margin-bottom:8px;}
+.kpi-value{font-size:28px;font-weight:800;color:var(--admin-text);line-height:1;}
+.kpi-label{font-size:12px;color:var(--admin-text2);margin-top:4px;}
+.kpi-delta{font-size:11px;margin-top:6px;font-weight:600;}
+.kpi-up{color:var(--green);}
+.kpi-down{color:var(--red);}
+
+/* Admin sections */
+.admin-section{background:var(--admin-card);border:1px solid var(--admin-border);border-radius:14px;padding:18px;margin-bottom:20px;}
+.admin-section-title{font-size:14px;font-weight:700;color:var(--admin-text);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.admin-section-title span{font-size:18px;}
+
+/* Annonces table */
+.annonces-table{width:100%;border-collapse:collapse;}
+.annonces-table th{font-size:11px;font-weight:600;color:var(--admin-text2);text-align:left;padding:8px 10px;border-bottom:1px solid var(--admin-border);text-transform:uppercase;letter-spacing:.5px;}
+.annonces-table td{font-size:13px;color:var(--admin-text);padding:11px 10px;border-bottom:1px solid rgba(255,255,255,.04);}
+.annonces-table tr:hover td{background:rgba(255,255,255,.02);}
+.annonce-cell{display:flex;align-items:center;gap:8px;}
+.annonce-thumb{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.btn-approve{background:rgba(39,174,96,.15);color:var(--green);border:1px solid rgba(39,174,96,.25);border-radius:7px;padding:5px 12px;font-size:11px;font-weight:700;transition:all .2s;margin-right:6px;}
+.btn-approve:hover{background:rgba(39,174,96,.3);}
+.btn-reject{background:rgba(231,76,60,.12);color:var(--red);border:1px solid rgba(231,76,60,.2);border-radius:7px;padding:5px 12px;font-size:11px;font-weight:700;transition:all .2s;}
+.btn-reject:hover{background:rgba(231,76,60,.28);}
+
+/* Status pills */
+.pill{font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;}
+.pill-pending{background:rgba(243,156,18,.15);color:var(--yellow);}
+.pill-ok{background:rgba(39,174,96,.15);color:var(--green);}
+.pill-rejected{background:rgba(231,76,60,.15);color:var(--red);}
+.pill-sold{background:rgba(41,128,185,.15);color:var(--blue);}
+
+/* Docs table */
+.docs-list-admin .doc-row-admin{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--admin-border);}
+.docs-list-admin .doc-row-admin:last-child{border-bottom:none;}
+.doc-user-avatar{width:34px;height:34px;border-radius:50%;background:rgba(244,124,32,.15);display:flex;align-items:center;justify-content:center;font-size:15px;}
+.doc-user-info{flex:1;}
+.doc-user-name{font-size:13px;font-weight:600;color:var(--admin-text);}
+.doc-user-type{font-size:11px;color:var(--admin-text2);}
+.doc-actions{display:flex;gap:6px;}
+
+/* Messages admin */
+.admin-msg-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--admin-border);}
+.admin-msg-item:last-child{border-bottom:none;}
+.admin-msg-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#2980B9,#3498DB);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.admin-msg-body{flex:1;}
+.admin-msg-name{font-size:13px;font-weight:600;color:var(--admin-text);}
+.admin-msg-text{font-size:12px;color:var(--admin-text2);margin-top:3px;line-height:1.4;}
+.admin-msg-time{font-size:11px;color:var(--admin-text2);flex-shrink:0;}
+
+/* Commission section */
+.commission-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--admin-border);}
+.commission-row:last-child{border-bottom:none;}
+.comm-info{flex:1;}
+.comm-name{font-size:13px;font-weight:600;color:var(--admin-text);}
+.comm-detail{font-size:11px;color:var(--admin-text2);margin-top:2px;}
+.comm-amount{font-size:14px;font-weight:800;color:var(--orange);}
+
+/* Admin responsive */
+@media(max-width:768px){
+  .admin-sidebar{display:none;}
+  .kpi-row{grid-template-columns:1fr 1fr;}
+  .annonces-table{font-size:12px;}
+}
+
+/* ===================== DETAIL SHEET ===================== */
+.detail-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:300;align-items:flex-end;justify-content:center;}
+.detail-overlay.active{display:flex;}
+.detail-sheet{background:var(--card);border-radius:24px 24px 0 0;width:100%;max-height:92vh;overflow-y:auto;animation:slideUp .35s cubic-bezier(.34,1.56,.64,1);transition:background .3s;}
+@keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+.sheet-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:12px auto 0;}
+.sheet-header{padding:12px 18px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+.sheet-title{font-size:15px;font-weight:700;color:var(--text);}
+.btn-close{background:var(--bg);border:none;width:30px;height:30px;border-radius:50%;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text);}
+.sheet-body{padding:14px 18px;}
+.gallery-main{width:100%;height:190px;background:var(--bg);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:72px;margin-bottom:10px;}
+.gallery-thumbs{display:flex;gap:8px;margin-bottom:14px;}
+.thumb-img{flex:1;height:64px;background:var(--bg);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer;border:2px solid transparent;transition:border-color .2s;}
+.thumb-img.active{border-color:var(--orange);}
+.detail-price{font-size:26px;font-weight:800;color:var(--orange);margin-bottom:12px;}
+.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.spec-label{font-size:11px;color:var(--text2);}
+.spec-val{font-size:13px;font-weight:600;color:var(--text);}
+.docs-box{background:var(--bg);border-radius:12px;padding:12px 14px;margin-bottom:12px;}
+.docs-box-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px;}
+.docs-list{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.doc-row{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text);}
+.doc-check{color:var(--green);}
+.detail-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:14px;}
+.detail-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-bottom:8px;}
+.btn-call{background:var(--text);color:#fff;border:none;border-radius:12px;padding:13px;font-size:13px;font-weight:600;transition:opacity .2s;}
+.btn-call:hover{opacity:.85;}
+.btn-whatsapp{background:#25D366;color:#fff;border:none;border-radius:12px;padding:13px;font-size:13px;font-weight:600;}
+
+/* ===================== OWNER PAGE ===================== */
+#page-owner{background:var(--owner-bg);min-height:100vh;color:var(--owner-text);}
+
+/* Owner Nav */
+.owner-nav{
+  background:linear-gradient(90deg,#08060F 0%,#130E22 60%,#1A0A08 100%);
+  border-bottom:1px solid var(--owner-border);
+  padding:14px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 2px 24px rgba(201,168,76,0.07);
+}
+.owner-logo{display:flex;align-items:center;gap:10px;}
+.owner-logo .ag{font-size:24px;font-weight:800;background:linear-gradient(135deg,var(--owner-gold),var(--owner-gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.owner-logo .prime{font-size:14px;font-weight:700;color:#fff;letter-spacing:2px;}
+.owner-badge{
+  background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(240,208,128,.1));
+  color:var(--owner-gold2);
+  border:1px solid rgba(201,168,76,.35);
+  font-size:10px;font-weight:800;padding:4px 10px;border-radius:6px;letter-spacing:1px;
+}
+.owner-user-info{display:flex;align-items:center;gap:10px;}
+.owner-avatar{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,var(--owner-gold),#b8860b);
+  display:flex;align-items:center;justify-content:center;font-size:17px;
+  box-shadow:0 0 12px rgba(201,168,76,.4);
+}
+.btn-owner-logout{background:rgba(231,76,60,.12);color:#e74c3c;border:1px solid rgba(231,76,60,.18);border-radius:8px;padding:6px 14px;font-size:12px;font-weight:600;transition:all .2s;}
+.btn-owner-logout:hover{background:rgba(231,76,60,.25);}
+
+/* Owner layout */
+.owner-layout{display:flex;min-height:calc(100vh - 57px);}
+.owner-sidebar{
+  width:230px;
+  background:linear-gradient(180deg,#0D0A18 0%,#0A0814 100%);
+  border-right:1px solid var(--owner-border);padding:24px 0;flex-shrink:0;
+}
+.owner-sidebar-label{font-size:10px;font-weight:700;color:var(--owner-text2);letter-spacing:1.5px;padding:0 20px;margin-bottom:8px;margin-top:16px;text-transform:uppercase;}
+.owner-nav-item{
+  display:flex;align-items:center;gap:10px;padding:11px 20px;
+  cursor:pointer;transition:all .2s;color:var(--owner-text2);
+  font-size:13px;font-weight:500;position:relative;
+}
+.owner-nav-item:hover{background:rgba(201,168,76,.06);color:var(--owner-text);}
+.owner-nav-item.active{background:rgba(201,168,76,.1);color:var(--owner-gold2);}
+.owner-nav-item.active::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--owner-gold),var(--owner-gold2));border-radius:0 2px 2px 0;}
+.owner-nav-item .nav-ic{font-size:16px;}
+.owner-notif{background:var(--owner-gold);color:#000;font-size:10px;font-weight:800;padding:1px 6px;border-radius:10px;margin-left:auto;}
+.owner-divider{height:1px;background:var(--owner-border);margin:12px 16px;}
+
+/* Owner content */
+.owner-content{flex:1;padding:28px;overflow-x:hidden;}
+.owner-page-title{font-size:20px;font-weight:800;color:var(--owner-text);margin-bottom:6px;}
+.owner-page-sub{font-size:13px;color:var(--owner-text2);margin-bottom:24px;}
+
+/* Gold KPI cards */
+.owner-kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;}
+.owner-kpi{
+  background:var(--owner-card);border:1px solid var(--owner-border);
+  border-radius:16px;padding:20px;transition:transform .2s;position:relative;overflow:hidden;
+}
+.owner-kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--owner-gold),var(--owner-gold2),transparent);}
+.owner-kpi:hover{transform:translateY(-3px);}
+.owner-kpi-icon{font-size:28px;margin-bottom:10px;}
+.owner-kpi-value{font-size:30px;font-weight:800;background:linear-gradient(135deg,var(--owner-gold),var(--owner-gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+.owner-kpi-label{font-size:12px;color:var(--owner-text2);margin-top:4px;}
+.owner-kpi-delta{font-size:11px;margin-top:6px;font-weight:600;}
+
+/* Owner sections */
+.owner-section{background:var(--owner-card);border:1px solid var(--owner-border);border-radius:16px;padding:20px;margin-bottom:20px;position:relative;}
+.owner-section::before{content:'';position:absolute;top:0;left:20px;right:20px;height:1px;background:linear-gradient(90deg,transparent,var(--owner-gold),transparent);opacity:.4;}
+.owner-section-title{font-size:14px;font-weight:700;color:var(--owner-text);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.owner-section-title .gold{color:var(--owner-gold2);}
+
+/* Owner table */
+.owner-table{width:100%;border-collapse:collapse;}
+.owner-table th{font-size:11px;font-weight:700;color:var(--owner-text2);text-align:left;padding:8px 12px;border-bottom:1px solid var(--owner-border);text-transform:uppercase;letter-spacing:.5px;}
+.owner-table td{font-size:13px;color:var(--owner-text);padding:12px;border-bottom:1px solid rgba(255,255,255,.03);}
+.owner-table tr:hover td{background:rgba(201,168,76,.03);}
+
+/* Owner action buttons */
+.btn-owner-remove{background:rgba(231,76,60,.12);color:#e74c3c;border:1px solid rgba(231,76,60,.2);border-radius:7px;padding:5px 12px;font-size:11px;font-weight:700;transition:all .2s;margin-right:5px;}
+.btn-owner-remove:hover{background:rgba(231,76,60,.28);}
+.btn-owner-ban{background:rgba(120,0,0,.25);color:#ff6b6b;border:1px solid rgba(231,76,60,.35);border-radius:7px;padding:5px 12px;font-size:11px;font-weight:700;transition:all .2s;}
+.btn-owner-ban:hover{background:rgba(180,0,0,.35);}
+.btn-owner-validate{background:rgba(201,168,76,.12);color:var(--owner-gold2);border:1px solid rgba(201,168,76,.25);border-radius:7px;padding:5px 12px;font-size:11px;font-weight:700;transition:all .2s;margin-right:5px;}
+.btn-owner-validate:hover{background:rgba(201,168,76,.25);}
+.btn-owner-reject{background:rgba(231,76,60,.1);color:#e74c3c;border:1px solid rgba(231,76,60,.18);border-radius:7px;padding:5px 12px;font-size:11px;font-weight:700;transition:all .2s;}
+
+/* KYC doc row */
+.kyc-row{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--owner-border);}
+.kyc-row:last-child{border-bottom:none;}
+.kyc-avatar{width:38px;height:38px;border-radius:50%;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.kyc-info{flex:1;}
+.kyc-name{font-size:13px;font-weight:600;color:var(--owner-text);}
+.kyc-detail{font-size:11px;color:var(--owner-text2);margin-top:2px;}
+.kyc-docs{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;}
+.kyc-doc-tag{font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;background:rgba(255,255,255,.05);color:var(--owner-text2);border:1px solid var(--owner-border);}
+.kyc-doc-tag.ok{background:rgba(39,174,96,.1);color:#27ae60;border-color:rgba(39,174,96,.2);}
+
+/* Banner editor */
+.banner-editor-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px;}
+.banner-edit-card{background:var(--owner-card2);border:1px solid var(--owner-border);border-radius:14px;padding:14px;cursor:pointer;transition:all .2s;position:relative;}
+.banner-edit-card:hover{border-color:var(--owner-gold);transform:translateY(-2px);}
+.banner-edit-card.selected{border-color:var(--owner-gold);box-shadow:0 0 0 2px var(--owner-gold-glow);}
+.banner-preview{height:70px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:10px;}
+.banner-edit-title{font-size:12px;font-weight:600;color:var(--owner-text);margin-bottom:4px;}
+.banner-edit-sub{font-size:11px;color:var(--owner-text2);}
+.banner-selected-badge{position:absolute;top:8px;right:8px;background:var(--owner-gold);color:#000;font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;}
+
+/* Finance chart area */
+.finance-row{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:20px;}
+.finance-chart-placeholder{background:var(--owner-card2);border:1px solid var(--owner-border);border-radius:14px;padding:20px;height:180px;display:flex;flex-direction:column;justify-content:space-between;}
+.chart-bars{display:flex;align-items:flex-end;gap:8px;height:100px;}
+.chart-bar{flex:1;border-radius:4px 4px 0 0;background:linear-gradient(0deg,var(--owner-gold),var(--owner-gold2));opacity:.7;transition:opacity .2s;}
+.chart-bar:hover{opacity:1;}
+.chart-labels{display:flex;gap:8px;}
+.chart-label{flex:1;font-size:9px;color:var(--owner-text2);text-align:center;}
+.finance-total-card{background:var(--owner-card2);border:1px solid var(--owner-border);border-radius:14px;padding:20px;}
+.finance-total-label{font-size:11px;color:var(--owner-text2);margin-bottom:4px;}
+.finance-total-value{font-size:26px;font-weight:800;background:linear-gradient(135deg,var(--owner-gold),var(--owner-gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.finance-row-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--owner-border);font-size:12px;}
+.finance-row-item:last-child{border-bottom:none;}
+
+/* Modal overlay */
+.owner-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.owner-modal-overlay.active{display:flex;}
+.owner-modal{background:var(--owner-card);border:1px solid var(--owner-border);border-radius:20px;padding:28px;width:90%;max-width:420px;position:relative;}
+.owner-modal-title{font-size:17px;font-weight:800;color:var(--owner-text);margin-bottom:6px;}
+.owner-modal-sub{font-size:13px;color:var(--owner-text2);margin-bottom:20px;}
+.owner-modal-actions{display:flex;gap:10px;margin-top:20px;}
+.btn-owner-confirm-ban{flex:1;background:linear-gradient(135deg,#7a0000,#c0392b);color:#fff;border:none;border-radius:10px;padding:12px;font-size:13px;font-weight:700;}
+.btn-owner-cancel{flex:1;background:rgba(255,255,255,.05);color:var(--owner-text2);border:1px solid var(--owner-border);border-radius:10px;padding:12px;font-size:13px;font-weight:600;}
+.ban-target-name{font-size:15px;font-weight:700;color:#e74c3c;background:rgba(231,76,60,.1);border-radius:8px;padding:10px 14px;margin-bottom:12px;}
+
+/* Owner pills */
+.owner-pill{font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;}
+.owner-pill-gold{background:rgba(201,168,76,.15);color:var(--owner-gold2);}
+.owner-pill-ok{background:rgba(39,174,96,.15);color:#27ae60;}
+.owner-pill-banned{background:rgba(180,0,0,.2);color:#ff6b6b;border:1px solid rgba(231,76,60,.25);}
+.owner-pill-pending{background:rgba(243,156,18,.15);color:#f39c12;}
+
+/* Owner access modal (secret password) */
+.owner-access-overlay{display:none;position:fixed;inset:0;background:rgba(8,6,15,.92);z-index:600;align-items:center;justify-content:center;backdrop-filter:blur(8px);}
+.owner-access-overlay.active{display:flex;}
+.owner-access-card{background:var(--owner-card);border:1px solid var(--owner-border);border-radius:24px;padding:36px 28px;width:90%;max-width:360px;text-align:center;position:relative;}
+.owner-access-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--owner-gold),var(--owner-gold2),var(--owner-gold),transparent);border-radius:24px 24px 0 0;}
+.owner-crown{font-size:52px;margin-bottom:12px;}
+.owner-access-title{font-size:20px;font-weight:800;color:var(--owner-text);margin-bottom:4px;}
+.owner-access-sub{font-size:13px;color:var(--owner-text2);margin-bottom:24px;}
+.owner-access-input{width:100%;background:rgba(255,255,255,.05);border:1.5px solid var(--owner-border);border-radius:12px;padding:14px;color:var(--owner-text);font-size:22px;letter-spacing:8px;text-align:center;outline:none;font-family:'Poppins',sans-serif;transition:border-color .2s;}
+.owner-access-input:focus{border-color:var(--owner-gold);}
+.btn-owner-access{width:100%;margin-top:16px;background:linear-gradient(135deg,var(--owner-gold),#b8860b);color:#000;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:800;transition:all .2s;box-shadow:0 4px 20px rgba(201,168,76,.3);}
+.btn-owner-access:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(201,168,76,.45);}
+.owner-access-cancel{margin-top:12px;font-size:12px;color:var(--owner-text2);cursor:pointer;display:block;}
+
+@media(max-width:768px){
+  .owner-sidebar{display:none;}
+  .owner-kpi-row{grid-template-columns:1fr 1fr;}
+  .banner-editor-grid{grid-template-columns:1fr;}
+  .finance-row{grid-template-columns:1fr;}
+}
+
+/* Toast notification */
+.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-80px);background:var(--text);color:var(--bg);padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;z-index:999;transition:transform .3s;white-space:nowrap;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.toast.success{background:var(--green);color:#fff;}
+.toast.error{background:var(--red);color:#fff;}
+
+/* =================== PUBLISH MODAL =================== */
+.publish-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:400;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px);}
+.publish-overlay.active{display:flex;}
+.publish-sheet{background:var(--card);border-radius:24px 24px 0 0;width:100%;max-width:520px;max-height:92vh;overflow-y:auto;padding:0 0 30px;animation:slideUp .3s ease;}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.publish-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:12px auto 0;}
+.publish-header{padding:16px 20px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);}
+.publish-title{font-size:17px;font-weight:800;color:var(--text);}
+.publish-body{padding:16px 20px;}
+.pub-step{margin-bottom:18px;}
+.pub-label{font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+.pub-input{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;color:var(--text);font-size:14px;font-family:'Poppins',sans-serif;outline:none;transition:border-color .2s;}
+.pub-input:focus{border-color:var(--orange);box-shadow:0 0 0 3px var(--orange-glow);}
+.pub-textarea{resize:vertical;min-height:80px;}
+.pub-cats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.pub-cat-btn{background:var(--bg);border:2px solid var(--border);border-radius:12px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s;}
+.pub-cat-btn .ico{font-size:22px;margin-bottom:4px;}
+.pub-cat-btn .lbl{font-size:11px;font-weight:600;color:var(--text2);}
+.pub-cat-btn.selected{border-color:var(--orange);background:rgba(244,124,32,.07);}
+.pub-cat-btn.selected .lbl{color:var(--orange);}
+.pub-immo-fields{display:none;}
+.pub-car-fields{display:none;}
+.pub-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.pub-photo-zone{border:2px dashed var(--border);border-radius:14px;padding:20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--bg);}
+.pub-photo-zone:hover{border-color:var(--orange);background:rgba(244,124,32,.04);}
+.pub-photo-icon{font-size:32px;margin-bottom:6px;}
+.pub-photo-text{font-size:12px;color:var(--text2);font-weight:500;}
+.pub-photo-sub{font-size:11px;color:var(--text2);opacity:.7;margin-top:2px;}
+.btn-publish-submit{width:100%;background:linear-gradient(135deg,var(--orange),#ff9500);color:#fff;border:none;border-radius:14px;padding:15px;font-size:15px;font-weight:800;margin-top:4px;box-shadow:0 4px 16px rgba(244,124,32,.35);transition:all .2s;}
+.btn-publish-submit:hover{transform:translateY(-1px);}
+.pub-progress{display:flex;gap:4px;margin-bottom:20px;}
+.pub-prog-step{flex:1;height:3px;border-radius:2px;background:var(--border);transition:background .3s;}
+.pub-prog-step.done{background:var(--orange);}
+
+/* =================== CATEGORY FILTERED VIEW =================== */
+#view-cat-listing{background:var(--bg);}
+.cat-listing-header{background:var(--card);padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);position:sticky;top:57px;z-index:50;}
+.btn-back-cat{background:var(--bg);border:1.5px solid var(--border);border-radius:10px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.cat-listing-title{font-size:16px;font-weight:800;color:var(--text);flex:1;}
+.cat-count{font-size:12px;color:var(--text2);}
+.cat-filter-bar{padding:10px 16px;background:var(--card);border-bottom:1px solid var(--border);display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;}
+.cat-filter-bar::-webkit-scrollbar{display:none;}
+.filter-chip{padding:5px 12px;border-radius:20px;border:1.5px solid var(--border);background:var(--bg);font-size:11px;font-weight:600;color:var(--text2);white-space:nowrap;cursor:pointer;transition:all .2s;flex-shrink:0;}
+.filter-chip.active{background:var(--orange);border-color:var(--orange);color:#fff;}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 16px 80px;}
+
+/* =================== IMMO DETAIL SHEET =================== */
+.immo-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;align-items:flex-end;}
+.immo-overlay.active{display:flex;}
+.immo-sheet{background:var(--card);border-radius:24px 24px 0 0;width:100%;max-height:94vh;overflow-y:auto;animation:slideUp .3s ease;}
+.immo-hero{height:200px;background:linear-gradient(160deg,#1a3a1a,#2a6a3a);display:flex;align-items:center;justify-content:center;font-size:80px;position:relative;}
+.immo-hero-badge{position:absolute;top:14px;left:14px;background:var(--orange);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:8px;}
+.immo-hero-fav{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.9);border:none;border-radius:50%;width:36px;height:36px;font-size:17px;display:flex;align-items:center;justify-content:center;}
+.immo-close-btn{position:absolute;top:14px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.85);border:none;border-radius:20px;padding:5px 16px;font-size:12px;font-weight:700;color:var(--text);}
+.immo-body{padding:18px 20px 30px;}
+.immo-title{font-size:18px;font-weight:800;color:var(--text);margin-bottom:4px;}
+.immo-location{font-size:13px;color:var(--text2);margin-bottom:12px;display:flex;align-items:center;gap:5px;}
+.immo-price{font-size:24px;font-weight:800;color:var(--orange);margin-bottom:16px;}
+.immo-specs-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:18px;}
+.immo-spec{background:var(--bg);border-radius:12px;padding:10px;text-align:center;border:1px solid var(--border);}
+.immo-spec-icon{font-size:20px;margin-bottom:4px;}
+.immo-spec-val{font-size:13px;font-weight:700;color:var(--text);}
+.immo-spec-label{font-size:10px;color:var(--text2);margin-top:2px;}
+.immo-section-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;margin-top:16px;}
+.immo-features{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:16px;}
+.immo-feature{background:var(--bg);border-radius:8px;padding:8px 10px;font-size:12px;font-weight:500;color:var(--text);display:flex;align-items:center;gap:6px;border:1px solid var(--border);}
+.immo-map-placeholder{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-radius:14px;height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:16px;border:1px solid #a5d6a7;}
+.seller-card{background:var(--bg);border-radius:14px;padding:14px;display:flex;align-items:center;gap:12px;border:1px solid var(--border);margin-bottom:18px;}
+.seller-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--orange),#ff9500);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.seller-info{flex:1;}
+.seller-name{font-size:14px;font-weight:700;color:var(--text);}
+.seller-verified{font-size:11px;color:var(--green);font-weight:600;margin-top:2px;}
+.seller-rating{font-size:11px;color:var(--text2);}
+.immo-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.btn-immo-call{background:var(--green);color:#fff;border:none;border-radius:12px;padding:13px;font-size:14px;font-weight:700;}
+.btn-immo-msg{background:var(--orange);color:#fff;border:none;border-radius:12px;padding:13px;font-size:14px;font-weight:700;}
+
+/* =================== CHAT VIEW =================== */
+#view-chat{display:none;flex-direction:column;min-height:calc(100vh - 57px);background:var(--bg);}
+#view-chat.active{display:flex;}
+.chat-header{background:var(--card);padding:12px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);position:sticky;top:57px;z-index:50;}
+.chat-header-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--orange),#ff9500);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.chat-header-info{flex:1;}
+.chat-header-name{font-size:14px;font-weight:700;color:var(--text);}
+.chat-header-status{font-size:11px;color:var(--green);font-weight:500;}
+.chat-header-annonce{font-size:11px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px;}
+.btn-back-chat{background:var(--bg);border:1.5px solid var(--border);border-radius:10px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.chat-annonce-bar{background:var(--card);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:10px;}
+.chat-annonce-thumb{width:40px;height:40px;border-radius:10px;background:linear-gradient(160deg,#1a2a3a,#2d4a6a);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.chat-annonce-name{font-size:13px;font-weight:700;color:var(--text);}
+.chat-annonce-price{font-size:12px;color:var(--orange);font-weight:600;}
+.chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;padding-bottom:80px;}
+.msg-bubble{max-width:75%;padding:10px 14px;border-radius:18px;font-size:13px;line-height:1.4;}
+.msg-bubble.received{background:var(--card);color:var(--text);border-radius:18px 18px 18px 4px;align-self:flex-start;box-shadow:var(--shadow);}
+.msg-bubble.sent{background:var(--orange);color:#fff;border-radius:18px 18px 4px 18px;align-self:flex-end;}
+.msg-time-label{font-size:10px;color:var(--text2);text-align:center;margin:4px 0;}
+.msg-sender{font-size:10px;color:var(--text2);margin-bottom:2px;font-weight:600;}
+.chat-input-bar{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);padding:10px 16px 20px;display:flex;gap:8px;align-items:center;z-index:100;}
+.chat-input{flex:1;background:var(--bg);border:1.5px solid var(--border);border-radius:24px;padding:10px 16px;font-size:14px;font-family:'Poppins',sans-serif;color:var(--text);outline:none;transition:border-color .2s;}
+.chat-input:focus{border-color:var(--orange);}
+.btn-send{background:var(--orange);border:none;border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;box-shadow:0 4px 12px rgba(244,124,32,.4);transition:transform .15s;}
+.btn-send:active{transform:scale(.9);}
+.quick-replies{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none;}
+.quick-replies::-webkit-scrollbar{display:none;}
+.qr-btn{background:var(--bg);border:1.5px solid var(--orange);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:600;color:var(--orange);white-space:nowrap;flex-shrink:0;cursor:pointer;transition:all .2s;}
+.qr-btn:hover{background:var(--orange);color:#fff;}
+.msg-unread-badge{position:relative;}
+.msg-unread-badge::after{content:attr(data-count);position:absolute;top:-6px;right:-6px;background:var(--orange);color:#fff;font-size:9px;font-weight:800;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+
+</style>
+</head>
+<body>
+
+<!-- ==================== TOAST ==================== -->
+<div class="toast" id="toast"></div>
+
+<!-- ==================== AUTH PAGE ==================== -->
+<div id="page-auth" class="page active">
+  <div class="auth-logo">
+    <div class="ag">AG</div>
+    <div class="prime">PRIME</div>
+    <div class="tagline">Automobiles · Maisons · Appartements</div>
+  </div>
+
+  <div class="auth-card">
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="authTab('login',this)">Connexion</button>
+      <button class="auth-tab" onclick="authTab('register',this)">Inscription</button>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="login-form">
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="login-email" placeholder="votre@email.com" value="user@agprime.com">
+      </div>
+      <div class="field">
+        <label>Mot de passe</label>
+        <input type="password" id="login-pass" placeholder="••••••••" value="123456">
+      </div>
+      <button class="btn-auth" onclick="doLogin()">Se connecter</button>
+    </div>
+
+    <!-- REGISTER -->
+    <div id="register-form" style="display:none;">
+      <div class="field">
+        <label>Nom complet</label>
+        <input type="text" placeholder="Kouamé Jean">
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" placeholder="votre@email.com">
+      </div>
+      <div class="field">
+        <label>Téléphone</label>
+        <input type="tel" placeholder="+225 07 00 00 00 00">
+      </div>
+      <div class="field">
+        <label>Mot de passe</label>
+        <input type="password" placeholder="Min. 8 caractères">
+      </div>
+      <button class="btn-auth" onclick="doRegister()">Créer mon compte</button>
+    </div>
+
+    <!-- DEMO SWITCH -->
+    <div class="demo-switch">
+      <p>🎮 Mode démonstration — Choisir un rôle</p>
+      <div class="demo-btns">
+        <button class="demo-btn demo-btn-user" onclick="loginAs('user')">👤 Utilisateur</button>
+        <button class="demo-btn demo-btn-admin" onclick="loginAs('admin')">🛡️ Admin</button>
+      </div>
+      <div class="demo-btns" style="margin-top:8px;">
+        <button class="demo-btn" style="background:rgba(201,168,76,.12);color:#C9A84C;border:1px solid rgba(201,168,76,.3);font-size:11px;" onclick="loginAs('owner')">👑 Owner — Accès secret</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== APP PAGE (USER) ==================== -->
+<div id="page-app" class="page">
+  <!-- TOP NAV -->
+  <div class="top-nav">
+    <div class="logo">
+      <span class="logo-ag">AG</span>
+      <span class="logo-prime">PRIME</span>
+    </div>
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">☀️</button>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="search-wrap">
+    <div class="search-bar">
+      <span style="font-size:15px;color:var(--text2);">🔍</span>
+      <input type="text" id="mainSearchInput" placeholder="Chercher une automobile ou une maison..." oninput="handleSearch(this.value)">
+      <span id="searchClearBtn" style="display:none;cursor:pointer;color:var(--text2);font-size:14px;" onclick="document.getElementById('mainSearchInput').value='';handleSearch('');this.style.display='none';">✕</span>
+    </div>
+  </div>
+
+  <!-- ===== VIEW: ACCUEIL ===== -->
+  <div id="view-accueil" class="view active">
+    <!-- Banner -->
+    <div class="banner-section">
+      <div class="banner-slider" style="position:relative;">
+        <div class="banner-track" id="bannerTrack">
+          <div class="banner-slide slide-1">
+            <div class="slide-left"><div class="slide-tag">Immobilier</div><div class="slide-title">Nouvelles Maisons<br>Disponibles !</div><button class="slide-btn">Découvrir →</button></div>
+            <div class="slide-right">🏠</div>
+          </div>
+          <div class="banner-slide slide-2">
+            <div class="slide-left"><div class="slide-tag">Promo</div><div class="slide-title">Promotions<br>Automobiles d'Occasion</div><button class="slide-btn">Voir offres →</button></div>
+            <div class="slide-right">🚗</div>
+          </div>
+          <div class="banner-slide slide-3">
+            <div class="slide-left"><div class="slide-tag">Terrains</div><div class="slide-title">Terrains à Prix<br>Réduits !</div><button class="slide-btn">Explorer →</button></div>
+            <div class="slide-right">🌿</div>
+          </div>
+        </div>
+        <button class="banner-arrow left" onclick="moveBanner(-1)">‹</button>
+        <button class="banner-arrow right" onclick="moveBanner(1)">›</button>
+      </div>
+      <div class="banner-dots" id="bannerDots">
+        <div class="dot active" onclick="goBanner(0)"></div>
+        <div class="dot" onclick="goBanner(1)"></div>
+        <div class="dot" onclick="goBanner(2)"></div>
+      </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="section-pad">
+      <div class="categories-row">
+        <div class="cat-item active" onclick="selectCat(this)"><div class="cat-icon-wrap">🚗</div><div class="cat-label">Automobiles</div></div>
+        <div class="cat-item" onclick="selectCat(this)"><div class="cat-icon-wrap">🚚</div><div class="cat-label">Camions</div></div>
+        <div class="cat-item" onclick="selectCat(this)"><div class="cat-icon-wrap">🌍</div><div class="cat-label">Terrains</div></div>
+        <div class="cat-item" onclick="selectCat(this)"><div class="cat-icon-wrap">🏠</div><div class="cat-label">Maisons/<br>Apparts</div></div>
+        <div class="cat-item" onclick="selectCat(this)"><div class="cat-icon-wrap">⚙️</div><div class="cat-label">Pièces</div></div>
+      </div>
+    </div>
+    <div class="sec-divider"></div>
+
+    <!-- Flash -->
+    <div class="section-pad">
+      <div class="flash-header">
+        <div style="display:flex;align-items:center;gap:6px;"><span style="font-size:16px;">⚡</span><span class="flash-title">Ventes Flash</span></div>
+        <div class="flash-timer">
+          <div class="timer-block" id="th">02</div><div class="timer-sep">:</div>
+          <div class="timer-block" id="tm">15</div><div class="timer-sep">:</div>
+          <div class="timer-block" id="ts">30</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flash-scroll-wrap">
+      <div class="flash-scroll" id="flashScroll">
+        <!-- Rendu dynamique depuis renderFlashSales() -->
+      </div>
+    </div>
+    <div class="sec-divider" style="margin-top:14px;"></div>
+
+    <!-- Annonces -->
+    <div class="section-pad" style="margin-top:4px;">
+      <div class="section-header">
+        <span class="section-title">Toutes les annonces</span>
+        <a href="#" class="see-all">Voir tout</a>
+      </div>
+      <div class="tabs-scroll">
+        <div class="tabs-row">
+          <button class="tab-btn active" onclick="filterAnnonces(this,'all')">Tout</button>
+          <button class="tab-btn" onclick="filterAnnonces(this,'automobile')">🚗 Automobiles</button>
+          <button class="tab-btn" onclick="filterAnnonces(this,'maison')">🏠 Maisons</button>
+          <button class="tab-btn" onclick="filterAnnonces(this,'appart')">🏢 Apparts</button>
+          <button class="tab-btn" onclick="filterAnnonces(this,'terrain')">🌍 Terrains</button>
+        </div>
+      </div>
+      <div class="annonces-grid" id="annoncesGrid">
+        <!-- Rendu dynamique depuis renderAnnoncesGrid() -->
+      </div>
+    </div>
+  </div><!-- end view-accueil -->
+
+  <!-- ===== VIEW: CATEGORIES ===== -->
+  <div id="view-categories" class="view">
+    <div class="section-pad" style="padding-top:20px;">
+      <div class="section-title" style="margin-bottom:16px;">Toutes les catégories</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-bottom:20px;">
+        <div class="product-card" style="padding:20px;text-align:center;cursor:pointer;" onclick="openCatView('automobile','Automobiles')"><div style="font-size:40px;margin-bottom:8px;">🚗</div><div style="font-weight:700;font-size:14px;">Automobiles</div><div style="font-size:11px;color:var(--text2);margin-top:3px;" id="count-automobile">— annonces</div></div>
+        <div class="product-card" style="padding:20px;text-align:center;cursor:pointer;" onclick="openCatView('camion','Camions')"><div style="font-size:40px;margin-bottom:8px;">🚚</div><div style="font-weight:700;font-size:14px;">Camions</div><div style="font-size:11px;color:var(--text2);margin-top:3px;">— annonces</div></div>
+        <div class="product-card" style="padding:20px;text-align:center;cursor:pointer;" onclick="openCatView('maison','Maisons')"><div style="font-size:40px;margin-bottom:8px;">🏠</div><div style="font-weight:700;font-size:14px;">Maisons</div><div style="font-size:11px;color:var(--text2);margin-top:3px;" id="count-maison">— annonces</div></div>
+        <div class="product-card" style="padding:20px;text-align:center;cursor:pointer;" onclick="openCatView('appart','Appartements')"><div style="font-size:40px;margin-bottom:8px;">🏢</div><div style="font-weight:700;font-size:14px;">Appartements</div><div style="font-size:11px;color:var(--text2);margin-top:3px;" id="count-appart">— annonces</div></div>
+        <div class="product-card" style="padding:20px;text-align:center;cursor:pointer;" onclick="openCatView('terrain','Terrains')"><div style="font-size:40px;margin-bottom:8px;">🌍</div><div style="font-weight:700;font-size:14px;">Terrains</div><div style="font-size:11px;color:var(--text2);margin-top:3px;" id="count-terrain">— annonces</div></div>
+        <div class="product-card" style="padding:20px;text-align:center;cursor:pointer;" onclick="openCatView('pieces','Pièces Auto')"><div style="font-size:40px;margin-bottom:8px;">⚙️</div><div style="font-weight:700;font-size:14px;">Pièces Auto</div><div style="font-size:11px;color:var(--text2);margin-top:3px;">— annonces</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== VIEW: MESSAGES ===== -->
+  <div id="view-messages" class="view">
+    <div class="section-pad" style="padding-top:16px;">
+      <div class="section-header" style="margin-bottom:14px;"><span class="section-title">Messages</span><span style="font-size:12px;color:var(--orange);" id="msg-unread-count">0 non lu</span></div>
+    </div>
+    <div class="messages-list" id="conv-list">
+      <!-- dynamique -->
+    </div>
+  </div>
+
+  <!-- ===== VIEW: MON PROFIL ===== -->
+  <div id="view-profil" class="view">
+    <div class="profile-header">
+      <div class="profile-avatar">👤</div>
+      <div class="profile-name" id="profile-display-name">Kouamé Jean</div>
+      <div class="profile-role-badge" id="profile-role-badge">👤 Utilisateur</div>
+    </div>
+
+    <div class="profile-stats">
+      <div class="stat-item"><div class="stat-num" id="stat-annonces">0</div><div class="stat-label">Annonces</div></div>
+      <div class="stat-item"><div class="stat-num">1</div><div class="stat-label">Vendues</div></div>
+      <div class="stat-item" style="cursor:pointer;" onclick="showView('favoris');renderFavoris();"><div class="stat-num" id="stat-favoris">0</div><div class="stat-label">Favoris</div></div>
+    </div>
+
+    <div class="profile-section">
+      <div class="profile-section-title">Mes annonces</div>
+      <div id="profile-annonces-list">
+        <div class="annonce-item"><div class="annonce-icon">🚗</div><div class="annonce-info"><div class="annonce-name">Toyota RAV4 2018</div><div class="annonce-price">15,500,000 CFA</div></div><div class="status-badge status-ok">✅ Validée</div></div>
+      </div>
+    </div>
+
+    <div class="profile-section">
+      <div class="profile-section-title">Mes documents</div>
+      <div class="doc-status-grid">
+        <div class="doc-card"><div class="doc-card-icon">🪪</div><div class="doc-card-info"><div class="doc-card-name">CNI</div><div class="doc-card-status doc-ok">✅ Vérifié</div></div></div>
+        <div class="doc-card"><div class="doc-card-icon">🚗</div><div class="doc-card-info"><div class="doc-card-name">Carte Rose</div><div class="doc-card-status doc-ok">✅ Vérifiée</div></div></div>
+        <div class="doc-card"><div class="doc-card-icon">📄</div><div class="doc-card-info"><div class="doc-card-name">Assurance</div><div class="doc-card-status doc-pending">⏳ En attente</div></div></div>
+        <div class="doc-card"><div class="doc-card-icon">🔧</div><div class="doc-card-info"><div class="doc-card-name">Contrôle tech.</div><div class="doc-card-status doc-missing">❌ Manquant</div></div></div>
+      </div>
+    </div>
+
+    <button class="btn-logout" onclick="doLogout()">🚪 Se déconnecter</button>
+  </div>
+
+  <!-- ===== VIEW: CAT-LISTING (filtré par catégorie) ===== -->
+  <div id="view-cat-listing" class="view">
+    <div class="cat-listing-header">
+      <button class="btn-back-cat" onclick="showView('categories')">‹</button>
+      <span id="cat-view-icon" style="font-size:22px;"></span>
+      <span class="cat-listing-title" id="cat-view-title">Automobiles</span>
+      <span class="cat-count" id="cat-count">0 annonce</span>
+    </div>
+    <div class="search-wrap" style="border-bottom:1px solid var(--border);">
+      <div class="search-bar">
+        <span style="font-size:15px;color:var(--text2);">🔍</span>
+        <input type="text" id="catSearchInput" placeholder="Rechercher dans cette catégorie..." oninput="handleCatSearch(this.value, currentCatView)">
+      </div>
+    </div>
+    <div class="cat-filter-bar">
+      <div class="filter-chip active">Tout</div>
+      <div class="filter-chip">Moins de 10M</div>
+      <div class="filter-chip">10M–30M</div>
+      <div class="filter-chip">+30M</div>
+      <div class="filter-chip">Récent</div>
+    </div>
+    <div class="cat-grid" id="catGrid"></div>
+  </div>
+
+  <!-- ===== VIEW: FAVORIS ===== -->
+  <div id="view-favoris" class="view">
+    <div class="cat-listing-header">
+      <button class="btn-back-cat" onclick="showView('profil')">‹</button>
+      <span style="font-size:22px;">❤️</span>
+      <span class="cat-listing-title">Mes favoris</span>
+    </div>
+    <div class="cat-grid" id="favorisGrid" style="padding:14px 16px 80px;"></div>
+  </div>
+
+  <!-- ===== VIEW: CHAT ===== -->
+  <div id="view-chat" class="view" style="display:none;flex-direction:column;min-height:calc(100vh - 57px);background:var(--bg);">
+    <div class="chat-header">
+      <button class="btn-back-chat" onclick="backFromChat()">‹</button>
+      <div class="chat-header-avatar">👤</div>
+      <div class="chat-header-info">
+        <div class="chat-header-name" id="chat-contact-name">Vendeur</div>
+        <div class="chat-header-status">● En ligne</div>
+      </div>
+    </div>
+    <div class="chat-annonce-bar">
+      <div class="chat-annonce-thumb" id="chat-annonce-thumb">🚗</div>
+      <div>
+        <div class="chat-annonce-name" id="chat-annonce-name">Annonce</div>
+        <div class="chat-annonce-price" id="chat-annonce-price"></div>
+      </div>
+    </div>
+    <div class="chat-messages" id="chat-messages-box" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;padding-bottom:130px;"></div>
+    <div class="chat-input-bar" style="flex-direction:column;align-items:stretch;gap:8px;">
+      <div class="quick-replies">
+        <div class="qr-btn" onclick="sendQuickReply('Est-ce que c\'est encore disponible ?')">Encore dispo ?</div>
+        <div class="qr-btn" onclick="sendQuickReply('Quel est votre dernier prix ?')">Dernier prix ?</div>
+        <div class="qr-btn" onclick="sendQuickReply('Je suis intéressé(e). On peut se rencontrer ?')">Rencontrer ?</div>
+        <div class="qr-btn" onclick="sendQuickReply('Merci, je vous rappelle.')">Je vous rappelle</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <input class="chat-input" id="chat-input" placeholder="Écrire un message..." onkeydown="if(event.key==='Enter')sendMessage()">
+        <button class="btn-send" onclick="sendMessage()">➤</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav">
+    <div class="nav-item active" id="nav-accueil" onclick="showView('accueil',this)"><div class="nav-icon">🏠</div><div class="nav-label">Accueil</div></div>
+    <div class="nav-item" id="nav-categories" onclick="showView('categories',this)"><div class="nav-icon">⊞</div><div class="nav-label">Catégories</div></div>
+    <div class="nav-plus" onclick="openPublish()">+</div>
+    <div class="nav-item" id="nav-messages" onclick="showView('messages',this)"><div class="nav-icon">✉️</div><div class="nav-label">Messages</div></div>
+    <div class="nav-item" id="nav-profil" onclick="showView('profil',this)"><div class="nav-icon">👤</div><div class="nav-label">Mon Compte</div></div>
+  </div>
+</div><!-- end page-app -->
+
+<!-- ==================== ADMIN PAGE ==================== -->
+<div id="page-admin" class="page">
+  <div class="admin-nav">
+    <div class="admin-logo">
+      <span class="ag">AG</span>
+      <span class="prime">PRIME</span>
+      <div class="admin-badge">ADMIN</div>
+    </div>
+    <div class="admin-user-info">
+      <div class="admin-avatar">🛡️</div>
+      <span class="admin-username" id="admin-username">Gestionnaire</span>
+      <button class="btn-admin-logout" onclick="doLogout()">Déconnexion</button>
+    </div>
+  </div>
+
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <div class="admin-sidebar">
+      <div class="admin-nav-item active" onclick="adminTab('dashboard',this)"><span class="nav-ic">📊</span> Tableau de bord</div>
+      <div class="admin-nav-item" onclick="adminTab('annonces',this)"><span class="nav-ic">📋</span> Annonces <span class="admin-notif">5</span></div>
+      <div class="admin-nav-item" onclick="adminTab('documents',this)"><span class="nav-ic">📁</span> Documents <span class="admin-notif">3</span></div>
+      <div class="admin-nav-item" onclick="adminTab('messages',this)"><span class="nav-ic">💬</span> Messages <span class="admin-notif">7</span></div>
+      <div class="admin-nav-item" onclick="adminTab('commissions',this)"><span class="nav-ic">💰</span> Commissions</div>
+      <div class="admin-nav-item" onclick="adminTab('utilisateurs',this)"><span class="nav-ic">👥</span> Utilisateurs</div>
+    </div>
+
+    <!-- Content -->
+    <div class="admin-content">
+
+      <!-- DASHBOARD TAB -->
+      <div id="admin-tab-dashboard" class="admin-tab-content">
+        <div style="font-size:20px;font-weight:800;color:var(--admin-text);margin-bottom:20px;">Bonjour, <span style="color:var(--orange);" id="admin-greet">Gestionnaire</span> 👋</div>
+
+        <div class="kpi-row">
+          <div class="kpi-card"><div class="kpi-icon">📋</div><div class="kpi-value">5</div><div class="kpi-label">Annonces en attente</div><div class="kpi-delta kpi-up">↑ +2 aujourd'hui</div></div>
+          <div class="kpi-card"><div class="kpi-icon">👥</div><div class="kpi-value">142</div><div class="kpi-label">Utilisateurs inscrits</div><div class="kpi-delta kpi-up">↑ +8 cette semaine</div></div>
+          <div class="kpi-card"><div class="kpi-icon">💰</div><div class="kpi-value">2.4M</div><div class="kpi-label">Commissions (CFA)</div><div class="kpi-delta kpi-up">↑ +15%</div></div>
+          <div class="kpi-card"><div class="kpi-icon">📁</div><div class="kpi-value">3</div><div class="kpi-label">Documents à vérifier</div><div class="kpi-delta kpi-down">↓ -1 hier</div></div>
+        </div>
+
+        <!-- Aperçu annonces récentes -->
+        <div class="admin-section">
+          <div class="admin-section-title"><span>📋</span> Annonces récentes à valider</div>
+          <table class="annonces-table">
+            <thead><tr><th>Annonce</th><th>Vendeur</th><th>Prix</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td><div class="annonce-cell"><div class="annonce-thumb g1">🚗</div><span>Toyota RAV4 2018</span></div></td><td style="color:var(--admin-text2);">Konan K.</td><td style="color:var(--orange);font-weight:700;">15,500,000 CFA</td><td style="color:var(--admin-text2);">Aujourd'hui</td><td><button class="btn-approve" onclick="approveAnnonce(this)">✓ Approuver</button><button class="btn-reject" onclick="rejectAnnonce(this)">✗ Rejeter</button></td></tr>
+              <tr><td><div class="annonce-cell"><div class="annonce-thumb g3">🏡</div><span>Villa Cocody 4P</span></div></td><td style="color:var(--admin-text2);">Amani T.</td><td style="color:var(--orange);font-weight:700;">45,000,000 CFA</td><td style="color:var(--admin-text2);">Hier</td><td><button class="btn-approve" onclick="approveAnnonce(this)">✓ Approuver</button><button class="btn-reject" onclick="rejectAnnonce(this)">✗ Rejeter</button></td></tr>
+              <tr><td><div class="annonce-cell"><div class="annonce-thumb g5">🚘</div><span>Mercedes GLC 2020</span></div></td><td style="color:var(--admin-text2);">Bamba S.</td><td style="color:var(--orange);font-weight:700;">28,000,000 CFA</td><td style="color:var(--admin-text2);">Hier</td><td><button class="btn-approve" onclick="approveAnnonce(this)">✓ Approuver</button><button class="btn-reject" onclick="rejectAnnonce(this)">✗ Rejeter</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ANNONCES TAB -->
+      <div id="admin-tab-annonces" class="admin-tab-content" style="display:none;">
+        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:20px;">📋 Gestion des annonces</div>
+        <div class="admin-section">
+          <div class="admin-section-title"><span>⏳</span> En attente de validation (5)</div>
+          <table class="annonces-table">
+            <thead><tr><th>Annonce</th><th>Vendeur</th><th>Catégorie</th><th>Prix</th><th>Statut</th><th>Actions</th></tr></thead>
+            <tbody id="annonces-tbody">
+              <tr><td><div class="annonce-cell"><div class="annonce-thumb g1">🚗</div><span>Toyota RAV4 2018</span></div></td><td style="color:var(--admin-text2);">Konan K.</td><td style="color:var(--admin-text2);">Automobile</td><td style="color:var(--orange);font-weight:700;">15,500,000</td><td><span class="pill pill-pending">En attente</span></td><td><button class="btn-approve" onclick="approveAnnonce(this)">✓</button><button class="btn-reject" onclick="rejectAnnonce(this)">✗</button></td></tr>
+              <tr><td><div class="annonce-cell"><div class="annonce-thumb g3">🏡</div><span>Villa Cocody 4P</span></div></td><td style="color:var(--admin-text2);">Amani T.</td><td style="color:var(--admin-text2);">Maison</td><td style="color:var(--orange);font-weight:700;">45,000,000</td><td><span class="pill pill-pending">En attente</span></td><td><button class="btn-approve" onclick="approveAnnonce(this)">✓</button><button class="btn-reject" onclick="rejectAnnonce(this)">✗</button></td></tr>
+              <tr><td><div class="annonce-cell"><div class="annonce-thumb g5">🚘</div><span>Mercedes GLC 2020</span></div></td><td style="color:var(--admin-text2);">Bamba S.</td><td style="color:var(--admin-text2);">Automobile</td><td style="color:var(--orange);font-weight:700;">28,000,000</td><td><span class="pill pill-pending">En attente</span></td><td><button class="btn-approve" onclick="approveAnnonce(this)">✓</button><button class="btn-reject" onclick="rejectAnnonce(this)">✗</button></td></tr>
+              <tr><td><div class="annonce-cell"><div class="annonce-thumb g6">🌿</div><span>Terrain 500m² Bingerville</span></div></td><td style="color:var(--admin-text2);">Diallo M.</td><td style="color:var(--admin-text2);">Terrain</td><td style="color:var(--orange);font-weight:700;">8,500,000</td><td><span class="pill pill-ok">Approuvée</span></td><td><button class="btn-reject" onclick="rejectAnnonce(this)">✗ Retirer</button></td></tr>
+              <tr><td><div class="annonce-cell"><div class="annonce-thumb g4">🏢</div><span>Appart F3 Centre</span></div></td><td style="color:var(--admin-text2);">Yao P.</td><td style="color:var(--admin-text2);">Appart</td><td style="color:var(--orange);font-weight:700;">18,000,000</td><td><span class="pill pill-rejected">Refusée</span></td><td><button class="btn-approve" onclick="approveAnnonce(this)">✓ Réactiver</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- DOCUMENTS TAB -->
+      <div id="admin-tab-documents" class="admin-tab-content" style="display:none;">
+        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:20px;">📁 Vérification des documents</div>
+        <div class="admin-section">
+          <div class="admin-section-title"><span>📁</span> Documents soumis</div>
+          <div class="docs-list-admin">
+            <div class="doc-row-admin"><div class="doc-user-avatar">👤</div><div class="doc-user-info"><div class="doc-user-name">Konan Kouamé</div><div class="doc-user-type">CNI + Carte Rose · Automobile</div></div><span class="pill pill-pending" style="margin-right:8px;">En attente</span><div class="doc-actions"><button class="btn-approve" onclick="showToast('Document validé ✅','success')">✓ Valider</button><button class="btn-reject" onclick="showToast('Document refusé','error')">✗</button></div></div>
+            <div class="doc-row-admin"><div class="doc-user-avatar">👤</div><div class="doc-user-info"><div class="doc-user-name">Amani Touré</div><div class="doc-user-type">Assurance + CNI · Maison</div></div><span class="pill pill-pending" style="margin-right:8px;">En attente</span><div class="doc-actions"><button class="btn-approve" onclick="showToast('Document validé ✅','success')">✓ Valider</button><button class="btn-reject" onclick="showToast('Document refusé','error')">✗</button></div></div>
+            <div class="doc-row-admin"><div class="doc-user-avatar">👤</div><div class="doc-user-info"><div class="doc-user-name">Bamba Souleymane</div><div class="doc-user-type">Contrôle technique · Automobile</div></div><span class="pill pill-ok">Validé</span></div>
+            <div class="doc-row-admin"><div class="doc-user-avatar">👤</div><div class="doc-user-info"><div class="doc-user-name">Diallo Moussa</div><div class="doc-user-type">Titre foncier · Terrain</div></div><span class="pill pill-ok">Validé</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MESSAGES TAB -->
+      <div id="admin-tab-messages" class="admin-tab-content" style="display:none;">
+        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:20px;">💬 Messages & Support</div>
+        <div class="admin-section">
+          <div class="admin-section-title"><span>💬</span> Messages de support</div>
+          <div class="admin-msg-item"><div class="admin-msg-avatar">👤</div><div class="admin-msg-body"><div class="admin-msg-name">Konan Kouamé</div><div class="admin-msg-text">Bonjour, mon annonce est en attente depuis 3 jours. Pouvez-vous vérifier ?</div></div><div class="admin-msg-time">09:42</div></div>
+          <div class="admin-msg-item"><div class="admin-msg-avatar" style="background:linear-gradient(135deg,#1a4a1a,#2a7a2a);">👤</div><div class="admin-msg-body"><div class="admin-msg-name">Amani Touré</div><div class="admin-msg-text">Je n'arrive pas à uploader mes documents CNI. Le fichier est rejeté.</div></div><div class="admin-msg-time">Hier</div></div>
+          <div class="admin-msg-item"><div class="admin-msg-avatar" style="background:linear-gradient(135deg,#2a1a3a,#4a2a6a);">👤</div><div class="admin-msg-body"><div class="admin-msg-name">Bamba Souleymane</div><div class="admin-msg-text">Mon automobile a été vendue hier. Quand la commission sera-t-elle calculée ?</div></div><div class="admin-msg-time">Lun.</div></div>
+        </div>
+        <div class="admin-section">
+          <div class="admin-section-title"><span>🔔</span> Notifications — Annonces vendues</div>
+          <div class="commission-row"><div class="comm-info"><div class="comm-name">Toyota RAV4 2018 — Vendue</div><div class="comm-detail">Vendeur : Konan K. · Acheteur : Yao P.</div></div><span class="pill pill-sold">Vendue</span></div>
+          <div class="commission-row"><div class="comm-info"><div class="comm-name">Terrain Bingerville — Vendu</div><div class="comm-detail">Vendeur : Diallo M. · Acheteur : Coulibaly R.</div></div><span class="pill pill-sold">Vendu</span></div>
+        </div>
+      </div>
+
+      <!-- COMMISSIONS TAB -->
+      <div id="admin-tab-commissions" class="admin-tab-content" style="display:none;">
+        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:20px;">💰 Commissions</div>
+        <div class="admin-section">
+          <div class="admin-section-title"><span>💰</span> Commissions à encaisser</div>
+          <div class="commission-row"><div class="comm-info"><div class="comm-name">Toyota RAV4 2018</div><div class="comm-detail">15,500,000 CFA · Taux : 1%</div></div><div class="comm-amount">155,000 CFA</div></div>
+          <div class="commission-row"><div class="comm-info"><div class="comm-name">Terrain 500m² Bingerville</div><div class="comm-detail">8,500,000 CFA · Taux : 1%</div></div><div class="comm-amount">85,000 CFA</div></div>
+          <div class="commission-row"><div class="comm-info"><div class="comm-name">Honda CR-V 2019</div><div class="comm-detail">19,500,000 CFA · Taux : 1%</div></div><div class="comm-amount">195,000 CFA</div></div>
+          <div style="padding-top:12px;border-top:1px solid var(--admin-border);display:flex;justify-content:space-between;align-items:center;"><span style="font-size:13px;color:var(--admin-text2);font-weight:600;">Total commissions</span><span style="font-size:20px;font-weight:800;color:var(--orange);">435,000 CFA</span></div>
+        </div>
+      </div>
+
+      <!-- UTILISATEURS TAB -->
+      <div id="admin-tab-utilisateurs" class="admin-tab-content" style="display:none;">
+        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:20px;">👥 Gestion des utilisateurs</div>
+        <div class="admin-section">
+          <div class="admin-section-title"><span>👥</span> Utilisateurs inscrits</div>
+          <table class="annonces-table">
+            <thead><tr><th>Utilisateur</th><th>Email</th><th>Rôle</th><th>Annonces</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td><div class="annonce-cell"><div class="admin-avatar" style="width:32px;height:32px;font-size:14px;">👤</div><span>Konan Kouamé</span></div></td><td style="color:var(--admin-text2);">konan@mail.com</td><td><span class="pill pill-ok">user</span></td><td style="color:var(--admin-text2);">3</td><td><button class="btn-approve" onclick="showToast('Rôle mis à jour','success')">Promouvoir admin</button></td></tr>
+              <tr><td><div class="annonce-cell"><div class="admin-avatar" style="width:32px;height:32px;font-size:14px;">👤</div><span>Amani Touré</span></div></td><td style="color:var(--admin-text2);">amani@mail.com</td><td><span class="pill pill-ok">user</span></td><td style="color:var(--admin-text2);">1</td><td><button class="btn-approve" onclick="showToast('Rôle mis à jour','success')">Promouvoir admin</button></td></tr>
+              <tr><td><div class="annonce-cell"><div class="admin-avatar" style="width:32px;height:32px;font-size:14px;">🛡️</div><span>Admin AG Prime</span></div></td><td style="color:var(--admin-text2);">admin@agprime.com</td><td><span class="pill" style="background:rgba(244,124,32,.15);color:var(--orange);">admin</span></td><td style="color:var(--admin-text2);">—</td><td style="color:var(--admin-text2);font-size:12px;">Gestionnaire</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- end admin-content -->
+  </div><!-- end admin-layout -->
+</div><!-- end page-admin -->
+
+<!-- ==================== OWNER PAGE ==================== -->
+<div id="page-owner" class="page">
+
+  <!-- Owner Nav -->
+  <div class="owner-nav">
+    <div class="owner-logo">
+      <span class="ag">AG</span>
+      <span class="prime">PRIME</span>
+      <div class="owner-badge">👑 OWNER</div>
+    </div>
+    <div class="owner-user-info">
+      <div class="owner-avatar">👑</div>
+      <span style="font-size:13px;font-weight:700;color:var(--owner-gold2);" id="owner-username">Propriétaire</span>
+      <button class="btn-owner-logout" onclick="doLogout()">Déconnexion</button>
+    </div>
+  </div>
+
+  <div class="owner-layout">
+    <!-- Sidebar -->
+    <div class="owner-sidebar">
+      <div class="owner-sidebar-label">Principal</div>
+      <div class="owner-nav-item active" onclick="ownerTab('dashboard',this)"><span class="nav-ic">📊</span> Vue d'ensemble</div>
+      <div class="owner-nav-item" onclick="ownerTab('finances',this)"><span class="nav-ic">💎</span> Finances complètes</div>
+      <div class="owner-divider"></div>
+      <div class="owner-sidebar-label">Modération</div>
+      <div class="owner-nav-item" onclick="ownerTab('annonces',this)"><span class="nav-ic">📋</span> Annonces <span class="owner-notif">5</span></div>
+      <div class="owner-nav-item" onclick="ownerTab('kyc',this)"><span class="nav-ic">🪪</span> KYC Vendeurs <span class="owner-notif">3</span></div>
+      <div class="owner-nav-item" onclick="ownerTab('utilisateurs',this)"><span class="nav-ic">👥</span> Utilisateurs</div>
+      <div class="owner-divider"></div>
+      <div class="owner-sidebar-label">Plateforme</div>
+      <div class="owner-nav-item" onclick="ownerTab('bannieres',this)"><span class="nav-ic">🖼️</span> Bannières</div>
+    </div>
+
+    <!-- Owner Content -->
+    <div class="owner-content">
+
+      <!-- ---- DASHBOARD ---- -->
+      <div id="owner-tab-dashboard" class="owner-tab-content">
+        <div class="owner-page-title">Vue d'ensemble — Propriétaire</div>
+        <div class="owner-page-sub">Contrôle total de la plateforme AG Prime</div>
+
+        <div class="owner-kpi-row">
+          <div class="owner-kpi"><div class="owner-kpi-icon">💰</div><div class="owner-kpi-value">8.7M</div><div class="owner-kpi-label">Revenus totaux (CFA)</div><div class="owner-kpi-delta kpi-up" style="color:#27ae60;">↑ +23% ce mois</div></div>
+          <div class="owner-kpi"><div class="owner-kpi-icon">👥</div><div class="owner-kpi-value">348</div><div class="owner-kpi-label">Utilisateurs inscrits</div><div class="owner-kpi-delta kpi-up" style="color:#27ae60;">↑ +42 cette semaine</div></div>
+          <div class="owner-kpi"><div class="owner-kpi-icon">📋</div><div class="owner-kpi-value">612</div><div class="owner-kpi-label">Annonces actives</div><div class="owner-kpi-delta kpi-up" style="color:#27ae60;">↑ +18 aujourd'hui</div></div>
+          <div class="owner-kpi"><div class="owner-kpi-icon">🚫</div><div class="owner-kpi-value">4</div><div class="owner-kpi-label">Comptes bannis</div><div class="owner-kpi-delta" style="color:var(--owner-text2);">→ Stable</div></div>
+        </div>
+
+        <div class="owner-section">
+          <div class="owner-section-title"><span>⚡</span> Actions urgentes</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div style="background:rgba(243,156,18,.07);border:1px solid rgba(243,156,18,.2);border-radius:12px;padding:14px;cursor:pointer;" onclick="ownerTab('kyc',document.querySelector('[onclick*=kyc]'))">
+              <div style="font-size:20px;margin-bottom:6px;">🪪</div>
+              <div style="font-size:13px;font-weight:700;color:var(--owner-text);">3 KYC en attente</div>
+              <div style="font-size:11px;color:var(--owner-text2);margin-top:3px;">Vérifier les documents vendeurs</div>
+            </div>
+            <div style="background:rgba(231,76,60,.07);border:1px solid rgba(231,76,60,.2);border-radius:12px;padding:14px;cursor:pointer;" onclick="ownerTab('annonces',document.querySelector('[onclick*=annonces]'))">
+              <div style="font-size:20px;margin-bottom:6px;">📋</div>
+              <div style="font-size:13px;font-weight:700;color:var(--owner-text);">5 annonces à modérer</div>
+              <div style="font-size:11px;color:var(--owner-text2);margin-top:3px;">Approuver ou retirer</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="owner-section">
+          <div class="owner-section-title"><span>📈</span> Activité récente</div>
+          <table class="owner-table">
+            <thead><tr><th>Action</th><th>Utilisateur</th><th>Détail</th><th>Date</th></tr></thead>
+            <tbody>
+              <tr><td>🆕 Inscription</td><td style="color:var(--owner-gold2);">Yao Pélagie</td><td style="color:var(--owner-text2);">Nouveau compte vendeur</td><td style="color:var(--owner-text2);">Il y a 12 min</td></tr>
+              <tr><td>📋 Annonce</td><td style="color:var(--owner-gold2);">Konan K.</td><td style="color:var(--owner-text2);">Toyota RAV4 2018 soumise</td><td style="color:var(--owner-text2);">Il y a 1h</td></tr>
+              <tr><td>✅ Vente</td><td style="color:var(--owner-gold2);">Diallo M.</td><td style="color:var(--owner-text2);">Terrain Bingerville vendu</td><td style="color:var(--owner-text2);">Hier</td></tr>
+              <tr><td>🪪 KYC</td><td style="color:var(--owner-gold2);">Bamba S.</td><td style="color:var(--owner-text2);">Documents soumis</td><td style="color:var(--owner-text2);">Hier</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ---- FINANCES ---- -->
+      <div id="owner-tab-finances" class="owner-tab-content" style="display:none;">
+        <div class="owner-page-title">💎 Finances complètes</div>
+        <div class="owner-page-sub">Données exclusives propriétaire — non visibles des admins</div>
+
+        <div class="finance-row">
+          <div class="finance-chart-placeholder">
+            <div style="font-size:12px;font-weight:700;color:var(--owner-text2);margin-bottom:8px;">REVENUS MENSUELS (CFA)</div>
+            <div class="chart-bars">
+              <div class="chart-bar" style="height:40%;"></div>
+              <div class="chart-bar" style="height:55%;"></div>
+              <div class="chart-bar" style="height:45%;"></div>
+              <div class="chart-bar" style="height:70%;"></div>
+              <div class="chart-bar" style="height:60%;"></div>
+              <div class="chart-bar" style="height:85%;"></div>
+              <div class="chart-bar" style="height:100%;opacity:1;"></div>
+            </div>
+            <div class="chart-labels">
+              <div class="chart-label">Jan</div><div class="chart-label">Fév</div><div class="chart-label">Mar</div>
+              <div class="chart-label">Avr</div><div class="chart-label">Mai</div><div class="chart-label">Jun</div>
+              <div class="chart-label" style="color:var(--owner-gold2);">Jul</div>
+            </div>
+          </div>
+          <div class="finance-total-card">
+            <div class="finance-total-label">TOTAL ENCAISSÉ</div>
+            <div class="finance-total-value">8,735,000</div>
+            <div style="font-size:11px;color:var(--owner-text2);margin-bottom:14px;">CFA — Depuis le lancement</div>
+            <div class="finance-row-item"><span style="color:var(--owner-text2);">Ce mois</span><span style="color:var(--owner-gold2);font-weight:700;">1,245,000</span></div>
+            <div class="finance-row-item"><span style="color:var(--owner-text2);">Semaine</span><span style="color:var(--owner-gold2);font-weight:700;">312,000</span></div>
+            <div class="finance-row-item"><span style="color:var(--owner-text2);">Aujourd'hui</span><span style="color:var(--owner-gold2);font-weight:700;">48,500</span></div>
+          </div>
+        </div>
+
+        <div class="owner-section">
+          <div class="owner-section-title"><span>💰</span> <span class="gold">Commissions détaillées</span></div>
+          <table class="owner-table">
+            <thead><tr><th>Vente</th><th>Vendeur</th><th>Montant vente</th><th>Taux</th><th>Commission</th><th>Statut</th></tr></thead>
+            <tbody>
+              <tr><td>Toyota RAV4 2018</td><td style="color:var(--owner-text2);">Konan K.</td><td style="color:var(--owner-text2);">15,500,000</td><td style="color:var(--owner-text2);">1%</td><td style="color:var(--owner-gold2);font-weight:800;">155,000</td><td><span class="owner-pill owner-pill-ok">Encaissé</span></td></tr>
+              <tr><td>Terrain Bingerville</td><td style="color:var(--owner-text2);">Diallo M.</td><td style="color:var(--owner-text2);">8,500,000</td><td style="color:var(--owner-text2);">1%</td><td style="color:var(--owner-gold2);font-weight:800;">85,000</td><td><span class="owner-pill owner-pill-ok">Encaissé</span></td></tr>
+              <tr><td>Honda CR-V 2019</td><td style="color:var(--owner-text2);">Bamba S.</td><td style="color:var(--owner-text2);">19,500,000</td><td style="color:var(--owner-text2);">1%</td><td style="color:var(--owner-gold2);font-weight:800;">195,000</td><td><span class="owner-pill owner-pill-pending">En attente</span></td></tr>
+              <tr><td>Villa Cocody 4P</td><td style="color:var(--owner-text2);">Amani T.</td><td style="color:var(--owner-text2);">45,000,000</td><td style="color:var(--owner-text2);">1%</td><td style="color:var(--owner-gold2);font-weight:800;">450,000</td><td><span class="owner-pill owner-pill-pending">En attente</span></td></tr>
+            </tbody>
+          </table>
+          <div style="padding-top:14px;border-top:1px solid var(--owner-border);display:flex;justify-content:space-between;align-items:center;margin-top:4px;">
+            <span style="font-size:13px;color:var(--owner-text2);font-weight:600;">Total commissions</span>
+            <span style="font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--owner-gold),var(--owner-gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">885,000 CFA</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---- ANNONCES ---- -->
+      <div id="owner-tab-annonces" class="owner-tab-content" style="display:none;">
+        <div class="owner-page-title">📋 Modération des annonces</div>
+        <div class="owner-page-sub">Retrait définitif possible sur toute annonce, même approuvée</div>
+        <div class="owner-section">
+          <div class="owner-section-title"><span>📋</span> Toutes les annonces</div>
+          <table class="owner-table">
+            <thead><tr><th>Annonce</th><th>Vendeur</th><th>Catégorie</th><th>Prix</th><th>Statut</th><th>Actions Owner</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(160deg,#1a2a3a,#2d4a6a);display:flex;align-items:center;justify-content:center;font-size:16px;">🚗</div><span>Toyota RAV4 2018</span></div></td>
+                <td style="color:var(--owner-text2);">Konan K.</td><td style="color:var(--owner-text2);">Automobile</td>
+                <td style="color:var(--owner-gold2);font-weight:700;">15,500,000</td>
+                <td><span class="owner-pill owner-pill-ok">Approuvée</span></td>
+                <td><button class="btn-owner-remove" onclick="ownerRemoveAnnonce(this,'Toyota RAV4 2018')">🗑 Retirer</button></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(160deg,#1a3a1a,#2a5a2a);display:flex;align-items:center;justify-content:center;font-size:16px;">🏡</div><span>Villa Cocody 4P</span></div></td>
+                <td style="color:var(--owner-text2);">Amani T.</td><td style="color:var(--owner-text2);">Maison</td>
+                <td style="color:var(--owner-gold2);font-weight:700;">45,000,000</td>
+                <td><span class="owner-pill owner-pill-pending">En attente</span></td>
+                <td><button class="btn-owner-remove" onclick="ownerRemoveAnnonce(this,'Villa Cocody 4P')">🗑 Retirer</button></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(160deg,#2a1a3a,#4a2a6a);display:flex;align-items:center;justify-content:center;font-size:16px;">🚘</div><span>Mercedes GLC 2020</span></div></td>
+                <td style="color:var(--owner-text2);">Bamba S.</td><td style="color:var(--owner-text2);">Automobile</td>
+                <td style="color:var(--owner-gold2);font-weight:700;">28,000,000</td>
+                <td><span class="owner-pill owner-pill-ok">Approuvée</span></td>
+                <td><button class="btn-owner-remove" onclick="ownerRemoveAnnonce(this,'Mercedes GLC 2020')">🗑 Retirer</button></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(160deg,#1a2a1a,#2a4a3a);display:flex;align-items:center;justify-content:center;font-size:16px;">🌿</div><span>Terrain Bingerville</span></div></td>
+                <td style="color:var(--owner-text2);">Diallo M.</td><td style="color:var(--owner-text2);">Terrain</td>
+                <td style="color:var(--owner-gold2);font-weight:700;">8,500,000</td>
+                <td><span class="owner-pill owner-pill-ok">Approuvée</span></td>
+                <td><button class="btn-owner-remove" onclick="ownerRemoveAnnonce(this,'Terrain Bingerville')">🗑 Retirer</button></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(160deg,#3a1a1a,#6a2a2a);display:flex;align-items:center;justify-content:center;font-size:16px;">🏢</div><span>Appart F3 Centre</span></div></td>
+                <td style="color:var(--owner-text2);">Yao P.</td><td style="color:var(--owner-text2);">Appart</td>
+                <td style="color:var(--owner-gold2);font-weight:700;">18,000,000</td>
+                <td><span class="owner-pill" style="background:rgba(231,76,60,.15);color:#e74c3c;">Retirée</span></td>
+                <td style="color:var(--owner-text2);font-size:11px;">Déjà retirée</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ---- KYC VENDEURS ---- -->
+      <div id="owner-tab-kyc" class="owner-tab-content" style="display:none;">
+        <div class="owner-page-title">🪪 Vérification KYC</div>
+        <div class="owner-page-sub">Validation personnelle des documents — pouvoir exclusif Owner</div>
+
+        <div class="owner-section">
+          <div class="owner-section-title"><span>⏳</span> Documents en attente <span style="color:var(--owner-text2);font-weight:500;">(3)</span></div>
+          <div class="kyc-row">
+            <div class="kyc-avatar">👤</div>
+            <div class="kyc-info">
+              <div class="kyc-name">Konan Kouamé</div>
+              <div class="kyc-detail">Vendeur automobiles · Soumis il y a 2h</div>
+              <div class="kyc-docs">
+                <span class="kyc-doc-tag">🪪 CNI</span>
+                <span class="kyc-doc-tag">🚗 Carte Rose</span>
+                <span class="kyc-doc-tag">📄 Assurance</span>
+              </div>
+            </div>
+            <span class="owner-pill owner-pill-pending" style="margin-right:10px;">En attente</span>
+            <div style="display:flex;gap:6px;">
+              <button class="btn-owner-validate" onclick="ownerValidateKYC(this,'Konan Kouamé')">✅ Valider</button>
+              <button class="btn-owner-reject" onclick="ownerRejectKYC(this,'Konan Kouamé')">✗</button>
+            </div>
+          </div>
+          <div class="kyc-row">
+            <div class="kyc-avatar">👤</div>
+            <div class="kyc-info">
+              <div class="kyc-name">Amani Touré</div>
+              <div class="kyc-detail">Vendeur immobilier · Soumis hier</div>
+              <div class="kyc-docs">
+                <span class="kyc-doc-tag">🪪 CNI</span>
+                <span class="kyc-doc-tag">📋 Titre foncier</span>
+              </div>
+            </div>
+            <span class="owner-pill owner-pill-pending" style="margin-right:10px;">En attente</span>
+            <div style="display:flex;gap:6px;">
+              <button class="btn-owner-validate" onclick="ownerValidateKYC(this,'Amani Touré')">✅ Valider</button>
+              <button class="btn-owner-reject" onclick="ownerRejectKYC(this,'Amani Touré')">✗</button>
+            </div>
+          </div>
+          <div class="kyc-row">
+            <div class="kyc-avatar">👤</div>
+            <div class="kyc-info">
+              <div class="kyc-name">Yao Pélagie</div>
+              <div class="kyc-detail">Vendeur général · Soumis ce matin</div>
+              <div class="kyc-docs">
+                <span class="kyc-doc-tag">🪪 CNI</span>
+              </div>
+            </div>
+            <span class="owner-pill owner-pill-pending" style="margin-right:10px;">En attente</span>
+            <div style="display:flex;gap:6px;">
+              <button class="btn-owner-validate" onclick="ownerValidateKYC(this,'Yao Pélagie')">✅ Valider</button>
+              <button class="btn-owner-reject" onclick="ownerRejectKYC(this,'Yao Pélagie')">✗</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="owner-section">
+          <div class="owner-section-title"><span>✅</span> Vendeurs vérifiés</div>
+          <div class="kyc-row">
+            <div class="kyc-avatar">👤</div>
+            <div class="kyc-info">
+              <div class="kyc-name">Bamba Souleymane</div>
+              <div class="kyc-detail">Vendeur automobiles · Validé il y a 3 jours</div>
+              <div class="kyc-docs">
+                <span class="kyc-doc-tag ok">🪪 CNI ✅</span>
+                <span class="kyc-doc-tag ok">🔧 Contrôle tech. ✅</span>
+              </div>
+            </div>
+            <span class="owner-pill owner-pill-ok">Vérifié</span>
+          </div>
+          <div class="kyc-row">
+            <div class="kyc-avatar">👤</div>
+            <div class="kyc-info">
+              <div class="kyc-name">Diallo Moussa</div>
+              <div class="kyc-detail">Vendeur terrain · Validé il y a 1 semaine</div>
+              <div class="kyc-docs">
+                <span class="kyc-doc-tag ok">🪪 CNI ✅</span>
+                <span class="kyc-doc-tag ok">📋 Titre foncier ✅</span>
+              </div>
+            </div>
+            <span class="owner-pill owner-pill-ok">Vérifié</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---- UTILISATEURS ---- -->
+      <div id="owner-tab-utilisateurs" class="owner-tab-content" style="display:none;">
+        <div class="owner-page-title">👥 Gestion des utilisateurs</div>
+        <div class="owner-page-sub">Bannissement définitif — action irréversible, pouvoir Owner uniquement</div>
+        <div class="owner-section">
+          <div class="owner-section-title"><span>👥</span> Tous les utilisateurs</div>
+          <table class="owner-table">
+            <thead><tr><th>Utilisateur</th><th>Email</th><th>Rôle</th><th>Annonces</th><th>Statut</th><th>Actions Owner</th></tr></thead>
+            <tbody id="owner-users-tbody">
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:32px;height:32px;border-radius:50%;background:rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;font-size:14px;">👤</div><span>Konan Kouamé</span></div></td>
+                <td style="color:var(--owner-text2);">konan@mail.com</td>
+                <td><span class="owner-pill owner-pill-ok">user</span></td>
+                <td style="color:var(--owner-text2);">3</td>
+                <td><span class="owner-pill owner-pill-ok">Actif</span></td>
+                <td><button class="btn-owner-ban" onclick="openBanModal('Konan Kouamé')">🚫 Bannir</button></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:32px;height:32px;border-radius:50%;background:rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;font-size:14px;">👤</div><span>Amani Touré</span></div></td>
+                <td style="color:var(--owner-text2);">amani@mail.com</td>
+                <td><span class="owner-pill owner-pill-ok">user</span></td>
+                <td style="color:var(--owner-text2);">1</td>
+                <td><span class="owner-pill owner-pill-ok">Actif</span></td>
+                <td><button class="btn-owner-ban" onclick="openBanModal('Amani Touré')">🚫 Bannir</button></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:32px;height:32px;border-radius:50%;background:rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;font-size:14px;">👤</div><span>Bamba Souleymane</span></div></td>
+                <td style="color:var(--owner-text2);">bamba@mail.com</td>
+                <td><span class="owner-pill owner-pill-ok">user</span></td>
+                <td style="color:var(--owner-text2);">2</td>
+                <td><span class="owner-pill owner-pill-ok">Actif</span></td>
+                <td><button class="btn-owner-ban" onclick="openBanModal('Bamba Souleymane')">🚫 Bannir</button></td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:32px;height:32px;border-radius:50%;background:rgba(231,76,60,.1);display:flex;align-items:center;justify-content:center;font-size:14px;">🚫</div><span style="text-decoration:line-through;color:var(--owner-text2);">Utilisateur Banni</span></div></td>
+                <td style="color:var(--owner-text2);">banni@mail.com</td>
+                <td><span class="owner-pill" style="background:rgba(231,76,60,.1);color:#e74c3c;">banni</span></td>
+                <td style="color:var(--owner-text2);">—</td>
+                <td><span class="owner-pill owner-pill-banned">Banni</span></td>
+                <td style="color:var(--owner-text2);font-size:11px;">Définitif</td>
+              </tr>
+              <tr>
+                <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--owner-gold),#b8860b);display:flex;align-items:center;justify-content:center;font-size:14px;">🛡️</div><span>Admin AG Prime</span></div></td>
+                <td style="color:var(--owner-text2);">admin@agprime.com</td>
+                <td><span class="owner-pill owner-pill-gold">admin</span></td>
+                <td style="color:var(--owner-text2);">—</td>
+                <td><span class="owner-pill owner-pill-ok">Actif</span></td>
+                <td style="color:var(--owner-text2);font-size:11px;">Protégé Owner</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ---- BANNIÈRES ---- -->
+      <div id="owner-tab-bannieres" class="owner-tab-content" style="display:none;">
+        <div class="owner-page-title">🖼️ Gestion des bannières</div>
+        <div class="owner-page-sub">Modifier les bannières promotionnelles affichées aux utilisateurs</div>
+
+        <div class="owner-section">
+          <div class="owner-section-title"><span>🖼️</span> Bannières actives — Cliquer pour modifier</div>
+          <div class="banner-editor-grid">
+            <div class="banner-edit-card selected" onclick="selectBanner(this,0)">
+              <div class="banner-selected-badge">ACTIVE</div>
+              <div class="banner-preview" style="background:linear-gradient(135deg,#1A3A5C,#2E6AA8);">🏠</div>
+              <div class="banner-edit-title">Bannière 1 — Immobilier</div>
+              <div class="banner-edit-sub">Nouvelles Maisons Disponibles !</div>
+            </div>
+            <div class="banner-edit-card" onclick="selectBanner(this,1)">
+              <div class="banner-preview" style="background:linear-gradient(135deg,#7B2D00,#F47C20);">🚗</div>
+              <div class="banner-edit-title">Bannière 2 — Automobiles</div>
+              <div class="banner-edit-sub">Promotions Automobiles d'Occasion</div>
+            </div>
+            <div class="banner-edit-card" onclick="selectBanner(this,2)">
+              <div class="banner-preview" style="background:linear-gradient(135deg,#1A4A1A,#2E8B2E);">⚡</div>
+              <div class="banner-edit-title">Bannière 3 — Flash</div>
+              <div class="banner-edit-sub">Ventes Flash — Offres limitées</div>
+            </div>
+          </div>
+
+          <!-- Edit form -->
+          <div style="background:var(--owner-card2);border:1px solid var(--owner-border);border-radius:14px;padding:18px;margin-top:4px;" id="banner-edit-form">
+            <div style="font-size:13px;font-weight:700;color:var(--owner-gold2);margin-bottom:14px;">✏️ Modifier : Bannière 1 — Immobilier</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+              <div>
+                <div style="font-size:11px;color:var(--owner-text2);margin-bottom:6px;font-weight:600;">TAG</div>
+                <input type="text" value="Immobilier" style="width:100%;background:rgba(255,255,255,.05);border:1.5px solid var(--owner-border);border-radius:8px;padding:9px 12px;color:var(--owner-text);font-size:13px;outline:none;font-family:'Poppins',sans-serif;">
+              </div>
+              <div>
+                <div style="font-size:11px;color:var(--owner-text2);margin-bottom:6px;font-weight:600;">ICÔNE</div>
+                <input type="text" value="🏠" style="width:100%;background:rgba(255,255,255,.05);border:1.5px solid var(--owner-border);border-radius:8px;padding:9px 12px;color:var(--owner-text);font-size:13px;outline:none;font-family:'Poppins',sans-serif;">
+              </div>
+            </div>
+            <div style="margin-bottom:12px;">
+              <div style="font-size:11px;color:var(--owner-text2);margin-bottom:6px;font-weight:600;">TITRE PRINCIPAL</div>
+              <input type="text" value="Nouvelles Maisons Disponibles !" style="width:100%;background:rgba(255,255,255,.05);border:1.5px solid var(--owner-border);border-radius:8px;padding:9px 12px;color:var(--owner-text);font-size:13px;outline:none;font-family:'Poppins',sans-serif;">
+            </div>
+            <div style="margin-bottom:16px;">
+              <div style="font-size:11px;color:var(--owner-text2);margin-bottom:6px;font-weight:600;">TEXTE DU BOUTON</div>
+              <input type="text" value="Découvrir →" style="width:100%;background:rgba(255,255,255,.05);border:1.5px solid var(--owner-border);border-radius:8px;padding:9px 12px;color:var(--owner-text);font-size:13px;outline:none;font-family:'Poppins',sans-serif;">
+            </div>
+            <button onclick="showToast('✅ Bannière mise à jour !','success')" style="background:linear-gradient(135deg,var(--owner-gold),#b8860b);color:#000;border:none;border-radius:10px;padding:11px 24px;font-size:13px;font-weight:800;cursor:pointer;">💾 Enregistrer les modifications</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end owner-content -->
+  </div><!-- end owner-layout -->
+</div><!-- end page-owner -->
+
+<!-- ==================== PUBLISH MODAL ==================== -->
+<div class="publish-overlay" id="publishOverlay" onclick="if(event.target===this)closePublish()">
+  <div class="publish-sheet">
+    <div class="publish-handle"></div>
+    <div class="publish-header">
+      <div class="publish-title">📸 Publier une annonce</div>
+      <button class="btn-close" onclick="closePublish()">✕</button>
+    </div>
+    <div class="publish-body">
+      <div class="pub-progress">
+        <div class="pub-prog-step done"></div>
+        <div class="pub-prog-step done"></div>
+        <div class="pub-prog-step done"></div>
+      </div>
+
+      <!-- Catégorie -->
+      <div class="pub-step">
+        <div class="pub-label">Catégorie *</div>
+        <div class="pub-cats">
+          <div class="pub-cat-btn" onclick="selectPubCat(this,'automobile')"><div class="ico">🚗</div><div class="lbl">Automobile</div></div>
+          <div class="pub-cat-btn" onclick="selectPubCat(this,'camion')"><div class="ico">🚚</div><div class="lbl">Camion</div></div>
+          <div class="pub-cat-btn" onclick="selectPubCat(this,'maison')"><div class="ico">🏡</div><div class="lbl">Maison</div></div>
+          <div class="pub-cat-btn" onclick="selectPubCat(this,'appart')"><div class="ico">🏢</div><div class="lbl">Appart</div></div>
+          <div class="pub-cat-btn" onclick="selectPubCat(this,'terrain')"><div class="ico">🌿</div><div class="lbl">Terrain</div></div>
+          <div class="pub-cat-btn" onclick="selectPubCat(this,'pieces')"><div class="ico">⚙️</div><div class="lbl">Pièces</div></div>
+        </div>
+      </div>
+
+      <!-- Titre + Prix -->
+      <div class="pub-step">
+        <div class="pub-label">Titre de l'annonce *</div>
+        <input id="pub-titre" class="pub-input" placeholder="Ex : Toyota RAV4 2018 — Excellent état" maxlength="80">
+      </div>
+      <div class="pub-step pub-row">
+        <div>
+          <div class="pub-label">Prix (USD) *</div>
+          <input id="pub-prix" class="pub-input" type="number" placeholder="15000" min="0" oninput="document.getElementById('pub-prix-cdf-preview').textContent = this.value ? '≈ ' + Math.round(this.value*2850).toLocaleString('fr-FR') + ' FC' : '';">
+          <div style="font-size:10px;color:var(--text2);margin-top:4px;" id="pub-prix-cdf-preview"></div>
+        </div>
+        <div>
+          <div class="pub-label">Localisation</div>
+          <input id="pub-localisation" class="pub-input" placeholder="Abidjan, Cocody">
+        </div>
+      </div>
+
+      <!-- Champs spécifiques automobile -->
+      <div id="pub-car-fields" class="pub-immo-fields" style="display:none;">
+        <div class="pub-step pub-row">
+          <div>
+            <div class="pub-label">Année</div>
+            <input id="pub-annee" class="pub-input" placeholder="2018" maxlength="4">
+          </div>
+          <div>
+            <div class="pub-label">Kilométrage (km)</div>
+            <input id="pub-km" class="pub-input" placeholder="45000" type="number">
+          </div>
+        </div>
+        <div class="pub-step pub-row">
+          <div>
+            <div class="pub-label">Boîte de vitesse</div>
+            <select id="pub-boite" class="pub-input">
+              <option value="">Choisir</option>
+              <option value="Manuelle">Manuelle</option>
+              <option value="Auto">Automatique</option>
+              <option value="Semi-auto">Semi-auto</option>
+            </select>
+          </div>
+          <div>
+            <div class="pub-label">Carburant</div>
+            <select id="pub-carb" class="pub-input">
+              <option value="">Choisir</option>
+              <option value="Essence">Essence</option>
+              <option value="Diesel">Diesel</option>
+              <option value="Hybride">Hybride</option>
+              <option value="Électrique">Électrique</option>
+            </select>
+          </div>
+        </div>
+        <div class="pub-step">
+          <div class="pub-label">Couleur</div>
+          <input id="pub-couleur" class="pub-input" placeholder="Ex : Noire">
+        </div>
+      </div>
+
+      <!-- Champs spécifiques immo -->
+      <div id="pub-immo-fields" class="pub-car-fields" style="display:none;">
+        <div class="pub-step pub-row">
+          <div>
+            <div class="pub-label">Surface (m²)</div>
+            <input id="pub-surface" class="pub-input" placeholder="180" type="number">
+          </div>
+          <div>
+            <div class="pub-label">Nombre de pièces</div>
+            <input id="pub-pieces" class="pub-input" placeholder="4" type="number">
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="pub-step">
+        <div class="pub-label">Description</div>
+        <textarea id="pub-desc" class="pub-input pub-textarea" placeholder="Décrivez votre annonce : état général, équipements, historique..."></textarea>
+      </div>
+
+      <!-- Zone photo (simulée) -->
+      <div class="pub-step">
+        <div class="pub-label">Photos</div>
+        <div class="pub-photo-zone" onclick="showToast('📸 Upload photos — Bientôt disponible','success')">
+          <div class="pub-photo-icon">📷</div>
+          <div class="pub-photo-text">Ajouter des photos</div>
+          <div class="pub-photo-sub">JPG, PNG — Max 5 photos</div>
+        </div>
+      </div>
+
+      <button class="btn-publish-submit" onclick="submitPublish()">🚀 Soumettre l'annonce</button>
+      <div style="font-size:11px;color:var(--text2);text-align:center;margin-top:10px;">Votre annonce sera vérifiée par notre équipe avant publication.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== OWNER BAN MODAL ==================== -->
+<div class="owner-modal-overlay" id="banModalOverlay">
+  <div class="owner-modal">
+    <div class="owner-modal-title">🚫 Bannissement définitif</div>
+    <div class="owner-modal-sub">Cette action est irréversible. L'utilisateur ne pourra plus se connecter ni créer de compte.</div>
+    <div class="ban-target-name" id="banTargetName">Utilisateur</div>
+    <div style="font-size:12px;color:var(--owner-text2);line-height:1.5;">Toutes ses annonces seront automatiquement retirées. Son email sera blacklisté.</div>
+    <div class="owner-modal-actions">
+      <button class="btn-owner-cancel" onclick="closeBanModal()">Annuler</button>
+      <button class="btn-owner-confirm-ban" onclick="confirmBan()">🚫 Confirmer le bannissement</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== OWNER SECRET ACCESS MODAL ==================== -->
+<div class="owner-access-overlay" id="ownerAccessOverlay">
+  <div class="owner-access-card">
+    <div class="owner-crown">👑</div>
+    <div class="owner-access-title">Accès Propriétaire</div>
+    <div class="owner-access-sub">Entrez le mot de passe secret Owner pour accéder au panneau de contrôle exclusif.</div>
+    <input type="password" class="owner-access-input" id="ownerSecretInput" placeholder="••••••" maxlength="10" onkeydown="if(event.key==='Enter')checkOwnerSecret()">
+    <button class="btn-owner-access" onclick="checkOwnerSecret()">🔓 Accéder</button>
+    <span class="owner-access-cancel" onclick="closeOwnerAccess()">← Annuler</span>
+  </div>
+</div>
+
+<!-- ==================== DETAIL SHEET (AUTOMOBILE) ==================== -->
+<div class="detail-overlay" id="detailOverlay" onclick="closeBgClick(event)">
+  <div class="detail-sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <div class="sheet-title" id="dTitle">Fiche Détail</div>
+      <button class="btn-close" onclick="closeDetail()">✕</button>
+    </div>
+    <div class="sheet-body">
+      <div class="gallery-main" id="dMainImg">🚗</div>
+      <div class="gallery-thumbs">
+        <div class="thumb-img active" id="t1">🚗</div>
+        <div class="thumb-img" id="t2">🔍</div>
+        <div class="thumb-img" id="t3">⚙️</div>
+      </div>
+      <div class="detail-price" id="dPrice">15,500,000 CFA</div>
+      <div class="specs-grid">
+        <div><div class="spec-label">Année</div><div class="spec-val" id="dYear">2018</div></div>
+        <div><div class="spec-label">Kilométrage</div><div class="spec-val" id="dKm">45,000 km</div></div>
+        <div><div class="spec-label">Boîte</div><div class="spec-val" id="dBoite">Auto</div></div>
+        <div><div class="spec-label">Carburant</div><div class="spec-val" id="dCarb">Essence</div></div>
+        <div><div class="spec-label">Couleur</div><div class="spec-val" id="dColor">Noire</div></div>
+        <div><div class="spec-label">Peinture</div><div class="spec-val">Origine</div></div>
+      </div>
+      <div class="docs-box">
+        <div class="docs-box-title">📋 Documents Vérifiés</div>
+        <div class="docs-list">
+          <div class="doc-row"><span class="doc-check">✅</span> Carte Rose</div>
+          <div class="doc-row"><span class="doc-check">✅</span> Contrôle tech.</div>
+          <div class="doc-row"><span class="doc-check">✅</span> Assurance</div>
+          <div class="doc-row"><span class="doc-check">✅</span> CNI vendeur</div>
+        </div>
+      </div>
+      <div class="detail-desc" id="dDesc">Description de l'annonce.</div>
+      <div class="seller-card" style="margin-bottom:12px;">
+        <div class="seller-avatar">👤</div>
+        <div class="seller-info">
+          <div class="seller-name" id="dSeller">Vendeur</div>
+          <div class="seller-verified">✅ Vendeur vérifié</div>
+          <div class="seller-rating">⭐ 4.8 · 12 ventes</div>
+        </div>
+      </div>
+      <div class="detail-actions">
+        <button class="btn-call">📞 Appeler</button>
+        <button class="btn-whatsapp" onclick="closeDetail();carStartChat()">💬 Message</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== DETAIL SHEET (IMMOBILIER) ==================== -->
+<div class="immo-overlay" id="immoOverlay" onclick="if(event.target===this)closeImmo()">
+  <div class="immo-sheet">
+    <div class="immo-hero">
+      <span id="immo-icon" style="font-size:80px;">🏡</span>
+      <div class="immo-hero-badge">Immobilier</div>
+      <button class="immo-close-btn" onclick="closeImmo()">✕ Fermer</button>
+      <button class="immo-hero-fav">♡</button>
+    </div>
+    <div class="immo-body">
+      <div class="immo-title" id="immo-titre">Villa moderne</div>
+      <div class="immo-location" id="immo-loc">📍 Abidjan, Cocody</div>
+      <div class="immo-price" id="immo-prix">55,000,000 CFA</div>
+      <div class="immo-specs-grid">
+        <div class="immo-spec"><div class="immo-spec-icon">📐</div><div class="immo-spec-val" id="immo-surface-val">180m²</div><div class="immo-spec-label">Surface</div></div>
+        <div class="immo-spec"><div class="immo-spec-icon">🛏️</div><div class="immo-spec-val" id="immo-pieces-val">4 pièces</div><div class="immo-spec-label">Pièces</div></div>
+        <div class="immo-spec"><div class="immo-spec-icon">📅</div><div class="immo-spec-val" id="immo-annee-val">2021</div><div class="immo-spec-label">Année</div></div>
+      </div>
+      <div class="immo-section-title">Équipements</div>
+      <div class="immo-features">
+        <div class="immo-feature">🔒 Résidence sécurisée</div>
+        <div class="immo-feature">🚗 Garage inclus</div>
+        <div class="immo-feature">💧 Eau courante</div>
+        <div class="immo-feature">⚡ Électricité ANARE</div>
+        <div class="immo-feature">🌿 Jardin</div>
+        <div class="immo-feature">📋 Titre foncier</div>
+      </div>
+      <div class="immo-section-title">Description</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:16px;" id="immo-desc-txt">Description du bien.</div>
+      <div class="immo-map-placeholder">
+        <div style="font-size:28px;margin-bottom:4px;">🗺️</div>
+        <div style="font-size:12px;color:#555;font-weight:600;">Voir sur la carte</div>
+      </div>
+      <div class="seller-card" style="margin-bottom:18px;">
+        <div class="seller-avatar">👤</div>
+        <div class="seller-info">
+          <div class="seller-name" id="immo-seller-name">Vendeur</div>
+          <div class="seller-verified">✅ Vendeur vérifié AG Prime</div>
+          <div class="seller-rating">⭐ 4.9 · Membre depuis 2023</div>
+        </div>
+      </div>
+      <div class="immo-actions">
+        <button class="btn-immo-call">📞 Appeler</button>
+        <button class="btn-immo-msg" onclick="immoStartChat()">💬 Envoyer un message</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== JAVASCRIPT ==================== -->
+<script>
+/* ============================================================
+   AUTH & ROUTER — Gestion des rôles
+   Structure: appState.currentUser = { name, email, role }
+   role: 'user' | 'admin'
+   ============================================================ */
+/* ============================================================
+   PERSISTENCE — localStorage helpers
+   ============================================================ */
+const LS = {
+  get: (k, def) => { try { const v = localStorage.getItem('agp_' + k); return v ? JSON.parse(v) : def; } catch(e) { return def; } },
+  set: (k, v)  => { try { localStorage.setItem('agp_' + k, JSON.stringify(v)); } catch(e) {} },
+};
+
+/* ============================================================
+   DATA STORE — annonces, conversations
+   ============================================================ */
+/* ============================================================
+   DEVISES — USD (référence) + Franc Congolais (CDF)
+   ============================================================ */
+const USD_TO_CDF = 2850; // taux indicatif
+
+function formatPrice(usd) {
+  const cdf = Math.round(usd * USD_TO_CDF);
+  return `$${usd.toLocaleString('en-US')} <span style="opacity:.65;font-size:.85em;">· ${cdf.toLocaleString('fr-FR')} FC</span>`;
+}
+function formatPriceShort(usd) {
+  const cdf = Math.round(usd * USD_TO_CDF);
+  return `$${usd.toLocaleString('en-US')} (${cdf.toLocaleString('fr-FR')} FC)`;
+}
+
+const SEED_ANNONCES = [
+  { id:'a1', cat:'automobile', icon:'🚗', titre:'Toyota RAV4 2018',         prixUSD:28500, vendeur:'Konan Kouamé',  vendeurId:'u1', localisation:'Abidjan, Cocody',    surface:null, pieces:null, annee:'2018', km:'45,000 km', boite:'Auto',    carb:'Essence', couleur:'Noire',  desc:'Excellent état, entretenu régulièrement. Aucun choc. Peinture origine.', status:'approved', date:'2025-01-10', flashDiscount:null },
+  { id:'a2', cat:'maison',     icon:'🏡', titre:'Maison moderne 4P',         prixUSD:84600, vendeur:'Amani Touré',   vendeurId:'u2', localisation:'Abidjan, Cocody',    surface:'180m²', pieces:'4', annee:'2021', km:null,         boite:null,      carb:null,      couleur:null,   desc:'Belle villa moderne avec jardin et garage. Quartier résidentiel calme.', status:'approved', date:'2025-01-09', flashDiscount:null },
+  { id:'a3', cat:'appart',     icon:'🏢', titre:'Appartement F3 Centre',     prixUSD:27700, vendeur:'Bamba Souleymane', vendeurId:'u3', localisation:'Abidjan, Plateau', surface:'85m²',  pieces:'3', annee:'2022', km:null,         boite:null,      carb:null,      couleur:null,   desc:'Appart refait à neuf, cuisine équipée, résidence sécurisée 24h/24.', status:'approved', date:'2025-01-08', flashDiscount:null },
+  { id:'a4', cat:'terrain',    icon:'🌿', titre:'Terrain 500m² Bingerville', prixUSD:13100, vendeur:'Diallo Moussa', vendeurId:'u4', localisation:'Bingerville',        surface:'500m²', pieces:null, annee:'2023', km:null,         boite:null,      carb:null,      couleur:null,   desc:'Terrain viabilisé avec titre foncier. Accès route bitumée.', status:'approved', date:'2025-01-07', flashDiscount:null },
+  { id:'a5', cat:'automobile', icon:'🚕', titre:'Honda CR-V 2019',           prixUSD:30000, vendeur:'Yao Pélagie',   vendeurId:'u5', localisation:'Abidjan, Marcory',   surface:null, pieces:null, annee:'2019', km:'55,000 km', boite:'Auto',    carb:'Essence', couleur:'Blanche', desc:'Très bon état, carnet entretenu. Disponible essai.', status:'approved', date:'2025-01-06', flashDiscount:null },
+  { id:'a6', cat:'maison',     icon:'🏘️', titre:'Villa 5P Marcory',          prixUSD:100000, vendeur:'Konan Kouamé',  vendeurId:'u1', localisation:'Abidjan, Marcory',   surface:'250m²', pieces:'5', annee:'2020', km:null,         boite:null,      carb:null,      couleur:null,   desc:'Grande villa avec piscine, 2 garages, quartier calme.', status:'approved', date:'2025-01-05', flashDiscount:null },
+  { id:'a7', cat:'automobile', icon:'🚘', titre:'Mercedes GLC 2020',         prixUSD:43000, vendeur:'Bamba Souleymane', vendeurId:'u3', localisation:'Abidjan, Cocody', surface:null, pieces:null, annee:'2020', km:'32,000 km', boite:'Auto',    carb:'Diesel',  couleur:'Grise',  desc:'Très bon état général, toutes options. Premium.', status:'pending',  date:'2025-01-11', flashDiscount:40 },
+  { id:'a8', cat:'automobile', icon:'🚗', titre:'Toyota RAV4 2018 — Promo',  prixUSD:23800, prixUSDold:33800, vendeur:'Konan Kouamé',  vendeurId:'u1', localisation:'Abidjan, Cocody', surface:null, pieces:null, annee:'2018', km:'45,000 km', boite:'Auto', carb:'Essence', couleur:'Noire',  desc:'Offre flash limitée. Excellent état, entretenu régulièrement.', status:'approved', date:'2025-01-10', flashDiscount:30 },
+  { id:'a9', cat:'automobile', icon:'🚙', titre:'Toyota RAV4 Sport',         prixUSD:23800, prixUSDold:33800, vendeur:'Yao Pélagie',   vendeurId:'u5', localisation:'Abidjan, Marcory', surface:null, pieces:null, annee:'2019', km:'38,000 km', boite:'Auto', carb:'Hybride', couleur:'Grise', desc:'Offre flash limitée. Très bon état, hybride économique.', status:'approved', date:'2025-01-10', flashDiscount:30 },
+  { id:'a10', cat:'maison',    icon:'🏡', titre:'Villa Cocody 4P — Promo',   prixUSD:69200, prixUSDold:92300, vendeur:'Amani Touré',  vendeurId:'u2', localisation:'Abidjan, Cocody', surface:'200m²', pieces:'4', annee:'2022', km:null, boite:null, carb:null, couleur:null, desc:'Offre flash limitée. Villa moderne, quartier résidentiel.', status:'approved', date:'2025-01-10', flashDiscount:25 },
+];
+
+const FLASH_TIMER_SECONDS = 2*3600+15*60+30;
+
+const SEED_CONVS = [
+  { id:'c1', annonceId:'a1', participants:['Kouamé Jean','Konan Kouamé'], messages:[
+    { auteur:'Konan Kouamé', texte:'Bonjour, est-ce que l\'automobile est encore disponible ?', heure:'09:30', moi:false },
+    { auteur:'Kouamé Jean',  texte:'Oui, toujours disponible ! Vous voulez la voir ?', heure:'09:42', moi:true },
+    { auteur:'Konan Kouamé', texte:'Oui avec plaisir. Vous êtes disponible ce samedi ?', heure:'09:45', moi:false },
+  ]},
+  { id:'c2', annonceId:null, participants:['Kouamé Jean','Support AG Prime'], messages:[
+    { auteur:'Support AG Prime', texte:'Votre annonce "Toyota RAV4" a été approuvée !', heure:'08:00', moi:false },
+  ]},
+  { id:'c3', annonceId:'a2', participants:['Kouamé Jean','Gestionnaire Immo'], messages:[
+    { auteur:'Gestionnaire Immo', texte:'Document CNI bien reçu, validation en cours...', heure:'Lun.', moi:false },
+  ]},
+];
+
+function getAnnonces() { return LS.get('annonces', SEED_ANNONCES); }
+function setAnnonces(arr) { LS.set('annonces', arr); }
+function getConvs()    { return LS.get('convs', SEED_CONVS); }
+function getFavoris()  { return LS.get('favoris', []); }
+function setFavoris(arr) { LS.set('favoris', arr); }
+function setConvs(arr) { LS.set('convs', arr); }
+
+const appState = {
+  currentUser: null,
+  theme: 'light',
+  bannerIdx: 0,
+  flashSecs: 2*3600+15*60+30,
+  activeConvId: null,
+  activeAnnonce: null,
+};
+
+// Simulated user database
+const USERS_DB = [
+  { id:'u0', email: 'user@agprime.com',  password: '123456',     name: 'Kouamé Jean',           role: 'user'  },
+  { id:'ua', email: 'admin@agprime.com', password: 'admin',      name: 'Admin AG Prime',         role: 'admin' },
+  { id:'uo', email: 'owner@agprime.com', password: 'owner2024',  name: 'Propriétaire AG Prime',  role: 'owner' }
+];
+
+// ---- AUTH TABS ----
+function authTab(tab, el) {
+  document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('login-form').style.display    = tab === 'login'    ? '' : 'none';
+  document.getElementById('register-form').style.display = tab === 'register' ? '' : 'none';
+}
+
+// ---- LOGIN ----
+function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass  = document.getElementById('login-pass').value.trim();
+  const found = USERS_DB.find(u => u.email === email && u.password === pass);
+  if (!found) { showToast('Email ou mot de passe incorrect', 'error'); return; }
+  loginAs(found.role, found);
+}
+
+// ---- REGISTER ----
+function doRegister() {
+  // Any new user gets role: 'user' by default
+  showToast('Compte créé ! Redirection...', 'success');
+  setTimeout(() => loginAs('user', { name: 'Nouvel Utilisateur', email: 'nouveau@agprime.com', role: 'user' }), 1200);
+}
+
+// ---- DEMO LOGIN ----
+function loginAs(role, userData) {
+  if (role === 'user') {
+    appState.currentUser = userData || USERS_DB[0];
+    document.getElementById('profile-display-name').textContent = appState.currentUser.name;
+    document.getElementById('profile-role-badge').textContent   = '👤 Utilisateur';
+    showPage('app');
+    showView('accueil');
+    renderAnnoncesGrid();
+    renderFlashSales();
+    renderConvList();
+    updateProfileAnnonces();
+    showToast('Bienvenue ' + appState.currentUser.name + ' !', 'success');
+  } else if (role === 'admin') {
+    appState.currentUser = userData || USERS_DB[1];
+    document.getElementById('admin-username').textContent = appState.currentUser.name;
+    document.getElementById('admin-greet').textContent    = appState.currentUser.name;
+    showPage('admin');
+    showToast('Panneau Admin — ' + appState.currentUser.name, 'success');
+  } else if (role === 'owner') {
+    // Show secret password modal first (demo button bypasses for convenience)
+    if (userData && userData.role === 'owner') {
+      // Coming from direct login — already authenticated
+      appState.currentUser = userData;
+      document.getElementById('owner-username').textContent = appState.currentUser.name;
+      showPage('owner');
+      ownerTab('dashboard', document.querySelector('#page-owner .owner-nav-item'));
+      showToast('👑 Bienvenue Propriétaire — Accès total activé', 'success');
+    } else {
+      // Demo shortcut — open secret modal
+      openOwnerAccess();
+    }
+  }
+  startTimers();
+}
+
+// ---- LOGOUT ----
+function doLogout() {
+  appState.currentUser = null;
+  showPage('auth');
+  showToast('Déconnexion réussie');
+}
+
+/* ============================================================
+   PAGE ROUTER
+   ============================================================ */
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+}
+
+/* ============================================================
+   VIEW ROUTER (inside user app)
+   ============================================================ */
+function showView(name, navEl) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  // Update bottom nav
+  if (navEl) {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    navEl.classList.add('active');
+  }
+}
+
+/* ============================================================
+   ADMIN TAB ROUTER
+   ============================================================ */
+function adminTab(name, el) {
+  document.querySelectorAll('.admin-tab-content').forEach(t => t.style.display = 'none');
+  document.getElementById('admin-tab-' + name).style.display = 'block';
+  document.querySelectorAll('.admin-nav-item').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+}
+
+/* ============================================================
+   ADMIN ACTIONS
+   ============================================================ */
+function approveAnnonce(btn) {
+  const row = btn.closest('tr');
+  const pill = row.querySelector('.pill');
+  if (pill) { pill.className = 'pill pill-ok'; pill.textContent = 'Approuvée'; }
+  btn.parentElement.innerHTML = '<span style="color:var(--green);font-size:12px;">✅ Approuvée</span>';
+  showToast('Annonce approuvée ✅', 'success');
+}
+
+function rejectAnnonce(btn) {
+  const row = btn.closest('tr');
+  const pill = row.querySelector('.pill');
+  if (pill) { pill.className = 'pill pill-rejected'; pill.textContent = 'Refusée'; }
+  btn.parentElement.innerHTML = '<span style="color:var(--red);font-size:12px;">❌ Refusée</span>';
+  showToast('Annonce refusée', 'error');
+}
+
+/* ============================================================
+   BANNER SLIDER
+   ============================================================ */
+function moveBanner(dir) {
+  appState.bannerIdx = (appState.bannerIdx + dir + 3) % 3;
+  applyBanner();
+}
+function goBanner(i) { appState.bannerIdx = i; applyBanner(); }
+function applyBanner() {
+  const track = document.getElementById('bannerTrack');
+  if (track) track.style.transform = `translateX(-${appState.bannerIdx * 100}%)`;
+  document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === appState.bannerIdx));
+}
+
+/* ============================================================
+   TIMERS
+   ============================================================ */
+let timersStarted = false;
+function startTimers() {
+  if (timersStarted) return;
+  timersStarted = true;
+  setInterval(() => {
+    if (appState.flashSecs > 0) appState.flashSecs--;
+    const h = Math.floor(appState.flashSecs/3600);
+    const m = Math.floor((appState.flashSecs%3600)/60);
+    const s = appState.flashSecs%60;
+    ['th','tm','ts'].forEach((id,i) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = String([h,m,s][i]).padStart(2,'0');
+    });
+  }, 1000);
+  setInterval(() => moveBanner(1), 4500);
+}
+
+/* ============================================================
+   UI HELPERS
+   ============================================================ */
+function toggleTheme() {
+  appState.theme = appState.theme === 'light' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', appState.theme === 'dark' ? 'dark' : '');
+  document.getElementById('themeBtn').textContent = appState.theme === 'dark' ? '🌙' : '☀️';
+}
+
+function selectCat(el) {
+  document.querySelectorAll('.cat-item').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function filterAnnonces(el, cat) {
+  if (el) {
+    document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+  document.querySelectorAll('#annoncesGrid .grid-card').forEach(c => {
+    c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
+  });
+}
+
+/* ============================================================
+   PUBLICATION D'ANNONCE
+   ============================================================ */
+let pubCat = null;
+
+function openPublish() {
+  pubCat = null;
+  editingAnnonceId = null;
+  document.querySelector('.publish-title').textContent = '📸 Publier une annonce';
+  document.querySelector('.btn-publish-submit').textContent = '🚀 Soumettre l\'annonce';
+  document.querySelector('.btn-publish-submit').setAttribute('onclick', 'submitPublish()');
+  document.querySelectorAll('.pub-cat-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('pub-car-fields').style.display = 'none';
+  document.getElementById('pub-immo-fields').style.display = 'none';
+  document.getElementById('pub-titre').value = '';
+  document.getElementById('pub-prix').value = '';
+  document.getElementById('pub-desc').value = '';
+  document.getElementById('pub-localisation').value = '';
+  if (document.getElementById('pub-annee'))   document.getElementById('pub-annee').value   = '';
+  if (document.getElementById('pub-km'))      document.getElementById('pub-km').value      = '';
+  if (document.getElementById('pub-boite'))   document.getElementById('pub-boite').value   = '';
+  if (document.getElementById('pub-carb'))    document.getElementById('pub-carb').value    = '';
+  if (document.getElementById('pub-couleur')) document.getElementById('pub-couleur').value = '';
+  if (document.getElementById('pub-surface')) document.getElementById('pub-surface').value = '';
+  if (document.getElementById('pub-pieces'))  document.getElementById('pub-pieces').value  = '';
+  document.getElementById('publishOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePublish() {
+  document.getElementById('publishOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+  editingAnnonceId = null;
+}
+
+function selectPubCat(el, cat) {
+  document.querySelectorAll('.pub-cat-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  pubCat = cat;
+  document.getElementById('pub-car-fields').style.display  = (cat === 'automobile') ? 'block' : 'none';
+  document.getElementById('pub-immo-fields').style.display = (['maison','appart','terrain'].includes(cat)) ? 'block' : 'none';
+}
+
+function submitPublish() {
+  const titre = document.getElementById('pub-titre').value.trim();
+  const prix  = document.getElementById('pub-prix').value.trim();
+  const desc  = document.getElementById('pub-desc').value.trim();
+  const loc   = document.getElementById('pub-localisation').value.trim();
+  if (!pubCat)  { showToast('Choisissez une catégorie', 'error'); return; }
+  if (!titre)   { showToast('Titre requis', 'error'); return; }
+  if (!prix || isNaN(parseFloat(prix)) || parseFloat(prix) <= 0) { showToast('Prix valide requis (en USD)', 'error'); return; }
+  const icons = { automobile:'🚗', camion:'🚚', maison:'🏡', appart:'🏢', terrain:'🌿', pieces:'⚙️' };
+  const nouvelleAnnonce = {
+    id: 'a' + Date.now(),
+    cat: pubCat,
+    icon: icons[pubCat] || '📦',
+    titre,
+    prixUSD: Math.round(parseFloat(prix)),
+    vendeur: appState.currentUser.name,
+    vendeurId: appState.currentUser.id,
+    localisation: loc || 'Abidjan',
+    surface: document.getElementById('pub-surface')?.value || null,
+    pieces: document.getElementById('pub-pieces')?.value || null,
+    annee: document.getElementById('pub-annee')?.value || null,
+    km: document.getElementById('pub-km')?.value ? document.getElementById('pub-km').value + ' km' : null,
+    boite: document.getElementById('pub-boite')?.value || null,
+    carb: document.getElementById('pub-carb')?.value || null,
+    couleur: document.getElementById('pub-couleur')?.value || null,
+    desc: desc || 'Annonce publiée sur AG Prime.',
+    status: 'pending',
+    date: new Date().toISOString().slice(0,10),
+    flashDiscount: null,
+  };
+  const annonces = getAnnonces();
+  annonces.unshift(nouvelleAnnonce);
+  setAnnonces(annonces);
+  closePublish();
+  renderAnnoncesGrid();
+  renderFlashSales();
+  updateProfileAnnonces();
+  showToast('✅ Annonce soumise ! En attente de validation.', 'success');
+}
+
+/* ============================================================
+   RENDU DYNAMIQUE DES ANNONCES
+   ============================================================ */
+/* ============================================================
+   VENTES FLASH (dynamique, connectées au store)
+   ============================================================ */
+function renderFlashSales() {
+  const flash = getAnnonces().filter(a => a.status === 'approved' && a.flashDiscount);
+  const scroll = document.getElementById('flashScroll');
+  if (!scroll) return;
+  if (flash.length === 0) {
+    scroll.innerHTML = '<div style="color:var(--text2);font-size:12px;padding:10px 0;">Aucune vente flash en cours.</div>';
+    return;
+  }
+  scroll.innerHTML = flash.map(a => `
+    <div class="product-card flash-card" onclick="openAnnonceDetail('${a.id}')">
+      <div class="product-img ${catGrad(a.cat)}">${a.icon}
+        <div class="badge-discount">-${a.flashDiscount}%</div>
+        <button class="btn-fav" onclick="event.stopPropagation();favToggle(this,'${a.id}')">${isFavorited(a.id) ? '❤️' : '♡'}</button>
+      </div>
+      <div class="card-body">
+        <div class="card-name">${a.titre}</div>
+        <div class="card-price">${formatPrice(a.prixUSD)}</div>
+        ${a.prixUSDold ? `<div class="card-old">$${a.prixUSDold.toLocaleString('en-US')}</div>` : ''}
+        <button class="btn-voir" onclick="event.stopPropagation();openAnnonceDetail('${a.id}')">Voir</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderAnnoncesGrid(cat, query) {
+  let annonces = getAnnonces().filter(a => a.status === 'approved');
+  const grid = document.getElementById('annoncesGrid');
+  if (!grid) return;
+  if (cat && cat !== 'all') annonces = annonces.filter(a => a.cat === cat);
+  if (query) {
+    const q = query.toLowerCase();
+    annonces = annonces.filter(a =>
+      a.titre.toLowerCase().includes(q) ||
+      (a.localisation || '').toLowerCase().includes(q) ||
+      a.cat.toLowerCase().includes(q) ||
+      a.vendeur.toLowerCase().includes(q)
+    );
+  }
+  if (annonces.length === 0) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--text2);font-size:13px;padding:30px 0;">Aucune annonce trouvée 🔍</div>';
+    return;
+  }
+  grid.innerHTML = annonces.map(a => `
+    <div class="product-card grid-card" data-cat="${a.cat}" onclick="openAnnonceDetail('${a.id}')">
+      <div class="product-img ${catGrad(a.cat)}" style="height:120px;">${a.icon}
+        <button class="btn-fav" onclick="event.stopPropagation();favToggle(this,'${a.id}')">${isFavorited(a.id) ? '❤️' : '♡'}</button>
+      </div>
+      <div class="card-body">
+        <div class="card-name">${a.titre}</div>
+        <div class="card-meta">
+          ${a.annee ? `<span>📅 ${a.annee}</span>` : ''}
+          ${a.km    ? `<span>🛣️ ${a.km}</span>` : ''}
+          ${a.surface ? `<span>📐 ${a.surface}</span>` : ''}
+          ${a.pieces  ? `<span>🛏️ ${a.pieces}P</span>` : ''}
+          ${a.localisation ? `<span>📍 ${a.localisation.split(',')[0]}</span>` : ''}
+        </div>
+        <div class="card-price">${formatPrice(a.prixUSD)}</div>
+        <button class="btn-voir">Voir l'annonce</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function catGrad(cat) {
+  return { automobile:'g1', maison:'g3', appart:'g2', terrain:'g6', camion:'g4', pieces:'g5' }[cat] || 'g1';
+}
+
+/* ============================================================
+   RECHERCHE
+   ============================================================ */
+let searchDebounce = null;
+function handleSearch(val) {
+  const clearBtn = document.getElementById('searchClearBtn');
+  if (clearBtn) clearBtn.style.display = val.trim() ? 'inline' : 'none';
+  clearTimeout(searchDebounce);
+  searchDebounce = setTimeout(() => {
+    const activeTab = document.querySelector('.tab-btn.active');
+    const cat = activeTab ? (activeTab.getAttribute('onclick')?.match(/'([^']+)'\)$/)?.[1] || 'all') : 'all';
+    renderAnnoncesGrid(val.trim() ? null : (cat === 'all' ? null : cat), val.trim() || null);
+  }, 250);
+}
+
+/* ============================================================
+   FILTRES VUE CATÉGORIE
+   ============================================================ */
+function filterAnnonces(el, cat) {
+  if (el) {
+    document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+  renderAnnoncesGrid(cat);
+}
+
+let currentCatView = 'all';
+function openCatView(cat, label) {
+  currentCatView = cat;
+  document.getElementById('cat-view-title').textContent = label;
+  document.getElementById('cat-view-icon').textContent = { automobile:'🚗', maison:'🏠', appart:'🏢', terrain:'🌍', camion:'🚚', pieces:'⚙️' }[cat] || '📦';
+  const searchInput = document.getElementById('catSearchInput');
+  if (searchInput) searchInput.value = '';
+  renderCatGrid(cat);
+  showView('cat-listing');
+}
+
+function renderCatGrid(cat, query) {
+  let annonces = getAnnonces().filter(a => a.status === 'approved' && (cat === 'all' || a.cat === cat));
+  const grid = document.getElementById('catGrid');
+  if (!grid) return;
+  if (query) {
+    const q = query.toLowerCase();
+    annonces = annonces.filter(a => a.titre.toLowerCase().includes(q) || (a.localisation || '').toLowerCase().includes(q));
+  }
+  document.getElementById('cat-count').textContent = annonces.length + ' annonce' + (annonces.length > 1 ? 's' : '');
+  grid.innerHTML = annonces.length === 0
+    ? '<div style="grid-column:1/-1;text-align:center;color:var(--text2);font-size:13px;padding:30px 0;">Aucune annonce trouvée 🔍</div>'
+    : annonces.map(a => `
+    <div class="product-card grid-card" onclick="openAnnonceDetail('${a.id}')">
+      <div class="product-img ${catGrad(a.cat)}" style="height:120px;">${a.icon}
+        <button class="btn-fav" onclick="event.stopPropagation();favToggle(this,'${a.id}')">${isFavorited(a.id) ? '❤️' : '♡'}</button>
+      </div>
+      <div class="card-body">
+        <div class="card-name">${a.titre}</div>
+        <div class="card-meta">
+          ${a.annee ? `<span>📅 ${a.annee}</span>` : ''}
+          ${a.km    ? `<span>🛣️ ${a.km}</span>` : ''}
+          ${a.surface ? `<span>📐 ${a.surface}</span>` : ''}
+          ${a.pieces  ? `<span>🛏️ ${a.pieces}P</span>` : ''}
+        </div>
+        <div class="card-price">${formatPrice(a.prixUSD)}</div>
+        <button class="btn-voir">Voir l'annonce</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function handleCatSearch(val, cat) {
+  clearTimeout(searchDebounce);
+  searchDebounce = setTimeout(() => renderCatGrid(cat, val.trim() || null), 250);
+}
+
+/* ============================================================
+   OUVERTURE DÉTAIL ANNONCE (dispatch automobile vs immo)
+   ============================================================ */
+function openAnnonceDetail(id) {
+  const annonces = getAnnonces();
+  const a = annonces.find(x => x.id === id);
+  if (!a) return;
+  appState.activeAnnonce = a;
+  if (a.cat === 'automobile' || a.cat === 'camion' || a.cat === 'pieces') {
+    openCarDetail(a);
+  } else {
+    openImmoDetail(a);
+  }
+}
+
+function openCarDetail(a) {
+  document.getElementById('dTitle').textContent   = a.titre;
+  document.getElementById('dPrice').innerHTML     = formatPrice(a.prixUSD);
+  document.getElementById('dMainImg').textContent = a.icon;
+  document.getElementById('t1').textContent       = a.icon;
+  document.getElementById('dYear').textContent    = a.annee || '—';
+  document.getElementById('dKm').textContent      = a.km    || '—';
+  document.getElementById('dBoite').textContent   = a.boite || '—';
+  document.getElementById('dCarb').textContent    = a.carb  || '—';
+  document.getElementById('dColor').textContent   = a.couleur || '—';
+  document.getElementById('dDesc').textContent    = a.desc  || '';
+  document.getElementById('dSeller').textContent  = a.vendeur;
+  document.getElementById('detailOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function openImmoDetail(a) {
+  document.getElementById('immo-titre').textContent    = a.titre;
+  document.getElementById('immo-loc').textContent      = '📍 ' + (a.localisation || 'Abidjan');
+  document.getElementById('immo-prix').innerHTML       = formatPrice(a.prixUSD);
+  document.getElementById('immo-icon').textContent     = a.icon;
+  document.getElementById('immo-desc-txt').textContent = a.desc || '';
+  document.getElementById('immo-surface-val').textContent = a.surface || '—';
+  document.getElementById('immo-pieces-val').textContent  = a.pieces ? a.pieces + ' pièces' : '—';
+  document.getElementById('immo-annee-val').textContent   = a.annee  || '—';
+  document.getElementById('immo-seller-name').textContent = a.vendeur;
+  document.getElementById('immoOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeImmo() {
+  document.getElementById('immoOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function immoStartChat() {
+  closeImmo();
+  const a = appState.activeAnnonce;
+  if (!a) return;
+  openChatWith(a.vendeur, a.titre, formatPriceShort(a.prixUSD), a.icon, a.id);
+}
+
+/* ============================================================
+   MESSAGERIE FONCTIONNELLE
+   ============================================================ */
+function renderConvList() {
+  const convs = getConvs();
+  const list  = document.getElementById('conv-list');
+  if (!list) return;
+  list.innerHTML = convs.map(c => {
+    const last = c.messages[c.messages.length - 1];
+    const other = c.participants.find(p => p !== (appState.currentUser?.name || ''));
+    const unread = c.messages.filter(m => !m.moi && !m.lu).length;
+    return `<div class="msg-item" onclick="openConv('${c.id}')">
+      <div class="msg-avatar">${other === 'Support AG Prime' ? '🛡️' : '👤'}</div>
+      <div class="msg-info">
+        <div class="msg-name">${other || c.participants[0]}</div>
+        <div class="msg-preview">${last ? last.texte : 'Aucun message'}</div>
+      </div>
+      <div class="msg-meta">
+        <div class="msg-time">${last ? last.heure : ''}</div>
+        ${unread > 0 ? `<div class="msg-unread">${unread}</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openConv(id) {
+  const convs = getConvs();
+  const conv  = convs.find(c => c.id === id);
+  if (!conv) return;
+  appState.activeConvId = id;
+  const other = conv.participants.find(p => p !== (appState.currentUser?.name || '')) || conv.participants[0];
+  const annonce = conv.annonceId ? getAnnonces().find(a => a.id === conv.annonceId) : null;
+  document.getElementById('chat-contact-name').textContent   = other;
+  document.getElementById('chat-annonce-name').textContent   = annonce ? annonce.titre : 'Conversation générale';
+  document.getElementById('chat-annonce-price').textContent  = annonce ? annonce.prix  : '';
+  document.getElementById('chat-annonce-thumb').textContent  = annonce ? annonce.icon  : '💬';
+  // Mark as read
+  conv.messages.forEach(m => { if (!m.moi) m.lu = true; });
+  setConvs(convs);
+  renderMessages(conv);
+  showView('chat');
+}
+
+function openChatWith(vendeurNom, annonceTitre, annoncePrix, annonceIcon, annonceId) {
+  const convs = getConvs();
+  const myName = appState.currentUser?.name || 'Moi';
+  let conv = convs.find(c => c.annonceId === annonceId && c.participants.includes(myName));
+  if (!conv) {
+    conv = { id:'c'+Date.now(), annonceId, participants:[myName, vendeurNom], messages:[] };
+    convs.unshift(conv);
+    setConvs(convs);
+  }
+  appState.activeConvId = conv.id;
+  document.getElementById('chat-contact-name').textContent  = vendeurNom;
+  document.getElementById('chat-annonce-name').textContent  = annonceTitre;
+  document.getElementById('chat-annonce-price').textContent = annoncePrix;
+  document.getElementById('chat-annonce-thumb').textContent = annonceIcon;
+  renderMessages(conv);
+  showView('chat');
+  renderConvList();
+}
+
+function renderMessages(conv) {
+  const box = document.getElementById('chat-messages-box');
+  if (!box) return;
+  box.innerHTML = conv.messages.map(m => `
+    <div>
+      ${!m.moi ? `<div class="msg-sender">${m.auteur}</div>` : ''}
+      <div class="msg-bubble ${m.moi ? 'sent' : 'received'}">${m.texte}</div>
+      <div class="msg-time-label">${m.heure}</div>
+    </div>
+  `).join('');
+  box.scrollTop = box.scrollHeight;
+}
+
+function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const texte = input.value.trim();
+  if (!texte || !appState.activeConvId) return;
+  const convs = getConvs();
+  const conv  = convs.find(c => c.id === appState.activeConvId);
+  if (!conv) return;
+  const now = new Date();
+  const heure = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  conv.messages.push({ auteur: appState.currentUser?.name || 'Moi', texte, heure, moi: true });
+  setConvs(convs);
+  input.value = '';
+  renderMessages(conv);
+  // Simulate reply after 1.2s
+  setTimeout(() => {
+    const replyConvs = getConvs();
+    const replyConv  = replyConvs.find(c => c.id === appState.activeConvId);
+    if (!replyConv) return;
+    const replies = ['D\'accord, je vous contacte bientôt.', 'Merci pour votre message !', 'Je suis disponible ce weekend.', 'Pouvez-vous me donner plus de détails ?', 'L\'annonce est toujours disponible.', 'On peut se retrouver pour voir le bien ?'];
+    const other = replyConv.participants.find(p => p !== (appState.currentUser?.name || '')) || 'Vendeur';
+    const rHeure = new Date();
+    const rH = rHeure.getHours().toString().padStart(2,'0') + ':' + rHeure.getMinutes().toString().padStart(2,'0');
+    replyConv.messages.push({ auteur: other, texte: replies[Math.floor(Math.random()*replies.length)], heure: rH, moi: false, lu: true });
+    setConvs(replyConvs);
+    renderMessages(replyConv);
+    renderConvList();
+  }, 1200);
+}
+
+function sendQuickReply(txt) {
+  document.getElementById('chat-input').value = txt;
+  sendMessage();
+}
+
+function backFromChat() {
+  showView('messages');
+  renderConvList();
+}
+
+/* ============================================================
+   PROFIL DYNAMIQUE
+   ============================================================ */
+function updateProfileAnnonces() {
+  if (!appState.currentUser) return;
+  const annonces = getAnnonces().filter(a => a.vendeurId === appState.currentUser.id);
+  const list = document.getElementById('profile-annonces-list');
+  if (!list) return;
+  document.getElementById('stat-annonces').textContent = annonces.length;
+  updateFavCount();
+  list.innerHTML = annonces.length === 0
+    ? '<div style="color:var(--text2);font-size:13px;padding:12px 0;">Aucune annonce publiée.</div>'
+    : annonces.map(a => `
+      <div class="annonce-item" style="flex-wrap:wrap;">
+        <div class="annonce-icon">${a.icon}</div>
+        <div class="annonce-info">
+          <div class="annonce-name">${a.titre}</div>
+          <div class="annonce-price">${formatPrice(a.prixUSD)}</div>
+        </div>
+        <div class="status-badge ${a.status==='approved'?'status-ok':a.status==='pending'?'status-pending':'status-rejected'}">
+          ${a.status==='approved'?'✅ Validée':a.status==='pending'?'⏳ En attente':'❌ Refusée'}
+        </div>
+        <div style="display:flex;gap:6px;width:100%;margin-top:8px;">
+          <button onclick="openEditAnnonce('${a.id}')" style="flex:1;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:7px;font-size:11px;font-weight:600;color:var(--text);">✏️ Modifier</button>
+          <button onclick="deleteAnnonce('${a.id}','${a.titre.replace(/'/g,"\\'")}')" style="flex:1;background:rgba(231,76,60,.08);border:1px solid rgba(231,76,60,.2);border-radius:8px;padding:7px;font-size:11px;font-weight:600;color:var(--red);">🗑 Supprimer</button>
+        </div>
+      </div>
+    `).join('');
+}
+
+/* ============================================================
+   ÉDITION / SUPPRESSION D'ANNONCE
+   ============================================================ */
+let editingAnnonceId = null;
+
+function deleteAnnonce(id, titre) {
+  if (!confirm('Supprimer définitivement "' + titre + '" ?')) return;
+  let annonces = getAnnonces();
+  annonces = annonces.filter(a => a.id !== id);
+  setAnnonces(annonces);
+  // Also remove from favorites if present
+  setFavoris(getFavoris().filter(fid => fid !== id));
+  updateProfileAnnonces();
+  renderAnnoncesGrid();
+  renderFlashSales();
+  showToast('🗑 Annonce supprimée', 'error');
+}
+
+function openEditAnnonce(id) {
+  const a = getAnnonces().find(x => x.id === id);
+  if (!a) return;
+  editingAnnonceId = id;
+  pubCat = a.cat;
+  // Pre-fill form
+  document.getElementById('pub-titre').value = a.titre;
+  document.getElementById('pub-prix').value = a.prixUSD || '';
+  document.getElementById('pub-localisation').value = a.localisation || '';
+  document.getElementById('pub-desc').value = a.desc || '';
+  document.querySelectorAll('.pub-cat-btn').forEach(b => {
+    b.classList.toggle('selected', b.getAttribute('onclick')?.includes(`'${a.cat}'`));
+  });
+  document.getElementById('pub-car-fields').style.display  = (a.cat === 'automobile') ? 'block' : 'none';
+  document.getElementById('pub-immo-fields').style.display = (['maison','appart','terrain'].includes(a.cat)) ? 'block' : 'none';
+  if (document.getElementById('pub-annee'))   document.getElementById('pub-annee').value   = a.annee || '';
+  if (document.getElementById('pub-km'))      document.getElementById('pub-km').value      = (a.km || '').replace(/[^\d]/g,'');
+  if (document.getElementById('pub-boite'))   document.getElementById('pub-boite').value   = a.boite || '';
+  if (document.getElementById('pub-carb'))    document.getElementById('pub-carb').value    = a.carb || '';
+  if (document.getElementById('pub-couleur')) document.getElementById('pub-couleur').value = a.couleur || '';
+  if (document.getElementById('pub-surface')) document.getElementById('pub-surface').value = a.surface || '';
+  if (document.getElementById('pub-pieces'))  document.getElementById('pub-pieces').value  = a.pieces || '';
+
+  document.querySelector('.publish-title').textContent = '✏️ Modifier l\'annonce';
+  document.querySelector('.btn-publish-submit').textContent = '💾 Enregistrer les modifications';
+  document.querySelector('.btn-publish-submit').setAttribute('onclick', 'submitEditAnnonce()');
+  document.getElementById('publishOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function submitEditAnnonce() {
+  const titre = document.getElementById('pub-titre').value.trim();
+  const prix  = document.getElementById('pub-prix').value.trim();
+  if (!pubCat) { showToast('Choisissez une catégorie', 'error'); return; }
+  if (!titre)  { showToast('Titre requis', 'error'); return; }
+  if (!prix || isNaN(parseFloat(prix)) || parseFloat(prix) <= 0) { showToast('Prix valide requis (en USD)', 'error'); return; }
+  let annonces = getAnnonces();
+  const idx = annonces.findIndex(a => a.id === editingAnnonceId);
+  if (idx === -1) return;
+  annonces[idx] = {
+    ...annonces[idx],
+    cat: pubCat,
+    titre,
+    prixUSD: Math.round(parseFloat(prix)),
+    localisation: document.getElementById('pub-localisation').value.trim() || annonces[idx].localisation,
+    desc: document.getElementById('pub-desc').value.trim() || annonces[idx].desc,
+    annee: document.getElementById('pub-annee')?.value || annonces[idx].annee,
+    km: document.getElementById('pub-km')?.value ? document.getElementById('pub-km').value + ' km' : annonces[idx].km,
+    boite: document.getElementById('pub-boite')?.value || annonces[idx].boite,
+    carb: document.getElementById('pub-carb')?.value || annonces[idx].carb,
+    couleur: document.getElementById('pub-couleur')?.value || annonces[idx].couleur,
+    surface: document.getElementById('pub-surface')?.value || annonces[idx].surface,
+    pieces: document.getElementById('pub-pieces')?.value || annonces[idx].pieces,
+  };
+  setAnnonces(annonces);
+  closePublish();
+  editingAnnonceId = null;
+  document.querySelector('.publish-title').textContent = '📸 Publier une annonce';
+  document.querySelector('.btn-publish-submit').textContent = '🚀 Soumettre l\'annonce';
+  document.querySelector('.btn-publish-submit').setAttribute('onclick', 'submitPublish()');
+  updateProfileAnnonces();
+  renderAnnoncesGrid();
+  renderFlashSales();
+  showToast('✅ Annonce mise à jour !', 'success');
+}
+
+function carStartChat() {
+  const a = appState.activeAnnonce;
+  if (!a) return;
+  closeDetail();
+  openChatWith(a.vendeur, a.titre, formatPriceShort(a.prixUSD), a.icon, a.id);
+}
+
+function favToggle(btn, annonceId) {
+  const isFav = btn.textContent.trim() === '❤️';
+  btn.textContent = isFav ? '♡' : '❤️';
+  if (!annonceId) return; // legacy cards without id — visual only
+  let favs = getFavoris();
+  if (isFav) {
+    favs = favs.filter(id => id !== annonceId);
+  } else {
+    if (!favs.includes(annonceId)) favs.push(annonceId);
+  }
+  setFavoris(favs);
+  updateFavCount();
+  if (document.getElementById('view-favoris')?.classList.contains('active')) renderFavoris();
+}
+
+function isFavorited(id) {
+  return getFavoris().includes(id);
+}
+
+function updateFavCount() {
+  const el = document.getElementById('stat-favoris');
+  if (el) el.textContent = getFavoris().length;
+}
+
+function renderFavoris() {
+  const favs = getFavoris();
+  const annonces = getAnnonces();
+  const list = favs.map(id => annonces.find(a => a.id === id)).filter(Boolean);
+  const grid = document.getElementById('favorisGrid');
+  if (!grid) return;
+  grid.innerHTML = list.length === 0
+    ? '<div style="grid-column:1/-1;text-align:center;color:var(--text2);font-size:13px;padding:40px 0;">Aucun favori pour le moment. 🤍</div>'
+    : list.map(a => `
+      <div class="product-card grid-card" onclick="openAnnonceDetail('${a.id}')">
+        <div class="product-img ${catGrad(a.cat)}" style="height:120px;">${a.icon}
+          <button class="btn-fav" onclick="event.stopPropagation();favToggle(this,'${a.id}')">❤️</button>
+        </div>
+        <div class="card-body">
+          <div class="card-name">${a.titre}</div>
+          <div class="card-price">${formatPrice(a.prixUSD)}</div>
+          <button class="btn-voir">Voir l'annonce</button>
+        </div>
+      </div>
+    `).join('');
+}
+
+function closeDetail() {
+  document.getElementById('detailOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function closeBgClick(e) {
+  if (e.target === document.getElementById('detailOverlay')) closeDetail();
+}
+
+// Toast
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + (type||'');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+/* ============================================================
+   OWNER TAB ROUTER
+   ============================================================ */
+function ownerTab(name, el) {
+  document.querySelectorAll('.owner-tab-content').forEach(t => t.style.display = 'none');
+  const tab = document.getElementById('owner-tab-' + name);
+  if (tab) tab.style.display = 'block';
+  document.querySelectorAll('.owner-nav-item').forEach(n => n.classList.remove('active'));
+  if (el) el.classList.add('active');
+}
+
+/* ============================================================
+   OWNER SECRET ACCESS
+   ============================================================ */
+const OWNER_SECRET = 'owner2024';
+
+function openOwnerAccess() {
+  document.getElementById('ownerAccessOverlay').classList.add('active');
+  setTimeout(() => document.getElementById('ownerSecretInput').focus(), 200);
+}
+
+function closeOwnerAccess() {
+  document.getElementById('ownerAccessOverlay').classList.remove('active');
+  document.getElementById('ownerSecretInput').value = '';
+}
+
+function checkOwnerSecret() {
+  const val = document.getElementById('ownerSecretInput').value.trim();
+  if (val === OWNER_SECRET) {
+    closeOwnerAccess();
+    const ownerUser = USERS_DB[2];
+    loginAs('owner', ownerUser);
+  } else {
+    showToast('❌ Mot de passe incorrect', 'error');
+    document.getElementById('ownerSecretInput').value = '';
+    document.getElementById('ownerSecretInput').focus();
+  }
+}
+
+/* ============================================================
+   OWNER ACTIONS
+   ============================================================ */
+function ownerRemoveAnnonce(btn, title) {
+  const row = btn.closest('tr');
+  const statusCell = row.querySelector('.owner-pill');
+  if (statusCell) {
+    statusCell.className = 'owner-pill';
+    statusCell.style.background = 'rgba(231,76,60,.15)';
+    statusCell.style.color = '#e74c3c';
+    statusCell.textContent = 'Retirée';
+  }
+  btn.parentElement.innerHTML = '<span style="color:var(--owner-text2);font-size:11px;">Retirée</span>';
+  showToast('🗑 "' + title + '" retirée de la plateforme', 'error');
+}
+
+function ownerValidateKYC(btn, name) {
+  const row = btn.closest('.kyc-row');
+  const pill = row.querySelector('.owner-pill');
+  if (pill) { pill.className = 'owner-pill owner-pill-ok'; pill.textContent = 'Validé ✅'; }
+  btn.closest('div').innerHTML = '<span style="color:#27ae60;font-size:12px;font-weight:700;">✅ Validé</span>';
+  showToast('✅ KYC de ' + name + ' validé !', 'success');
+}
+
+function ownerRejectKYC(btn, name) {
+  const row = btn.closest('.kyc-row');
+  const pill = row.querySelector('.owner-pill');
+  if (pill) { pill.className = 'owner-pill'; pill.style.background='rgba(231,76,60,.15)'; pill.style.color='#e74c3c'; pill.textContent='Refusé'; }
+  btn.closest('div').innerHTML = '<span style="color:#e74c3c;font-size:12px;font-weight:700;">❌ Refusé</span>';
+  showToast('KYC de ' + name + ' refusé', 'error');
+}
+
+let banTargetRow = null;
+function openBanModal(name) {
+  document.getElementById('banTargetName').textContent = '🚫 ' + name;
+  document.getElementById('banModalOverlay').classList.add('active');
+  // Store target row reference
+  document.querySelectorAll('#owner-users-tbody tr').forEach(row => {
+    if (row.textContent.includes(name)) banTargetRow = row;
+  });
+}
+
+function closeBanModal() {
+  document.getElementById('banModalOverlay').classList.remove('active');
+  banTargetRow = null;
+}
+
+function confirmBan() {
+  const name = document.getElementById('banTargetName').textContent.replace('🚫 ','');
+  if (banTargetRow) {
+    const statusCell = banTargetRow.querySelectorAll('td')[4];
+    const actionCell = banTargetRow.querySelectorAll('td')[5];
+    if (statusCell) statusCell.innerHTML = '<span class="owner-pill owner-pill-banned">Banni</span>';
+    if (actionCell) actionCell.innerHTML = '<span style="color:var(--owner-text2);font-size:11px;">Définitif</span>';
+    const nameEl = banTargetRow.querySelector('span:not(.owner-pill)');
+    if (nameEl) nameEl.style.textDecoration = 'line-through';
+  }
+  closeBanModal();
+  showToast('🚫 ' + name + ' banni définitivement', 'error');
+}
+
+function selectBanner(el, idx) {
+  document.querySelectorAll('.banner-edit-card').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.banner-selected-badge').forEach(b => b.remove());
+  el.classList.add('selected');
+  const badge = document.createElement('div');
+  badge.className = 'banner-selected-badge';
+  badge.textContent = 'ACTIVE';
+  el.appendChild(badge);
+  const title = el.querySelector('.banner-edit-title').textContent;
+  document.querySelector('#banner-edit-form div:first-child').textContent = '✏️ Modifier : ' + title;
+}
+
+</script>
+</body>
+</html>
