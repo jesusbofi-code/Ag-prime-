@@ -2673,6 +2673,13 @@ function selectBanner(el, idx) {
   document.querySelector('#banner-edit-form div:first-child').textContent = '✏️ Modifier : ' + title;
 }
 
+// SEED FIRESTORE AUTO
+if (!localStorage.getItem('seeded')) {
+  import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js').then(async () => {
+    await window.seedFirestore && window.seedFirestore();
+    localStorage.setItem('seeded', '1');
+  });
+  }
 </script>
 </body>
 </html>
