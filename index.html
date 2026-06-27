@@ -59,39 +59,95 @@ a{text-decoration:none;}
 .page.active{display:block;}
 
 /* ===================== AUTH SCREEN ===================== */
+/* ===================== AUTH PAGE ===================== */
 #page-auth{
-  background: linear-gradient(145deg,#0F1117 0%,#1A1D27 50%,#1A0D00 100%);
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  min-height:100vh; padding:30px 24px;
+  position:fixed;inset:0;z-index:9999;overflow-y:auto;
+  background:linear-gradient(160deg,#0F1117 0%,#1A1D27 55%,#1A0D00 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:100vh;padding:30px 20px;
 }
-.auth-logo{text-align:center;margin-bottom:36px;}
-.auth-logo .ag{font-size:52px;font-weight:800;color:var(--orange);letter-spacing:-2px;}
-.auth-logo .prime{font-size:18px;font-weight:700;color:#fff;letter-spacing:4px;margin-top:-4px;}
-.auth-logo .tagline{font-size:13px;color:rgba(255,255,255,0.45);margin-top:6px;}
+body.auth-locked{overflow:hidden;}
 
-.auth-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:28px 24px;width:100%;max-width:380px;backdrop-filter:blur(10px);}
-.auth-tabs{display:flex;background:rgba(255,255,255,0.06);border-radius:12px;padding:3px;margin-bottom:24px;gap:4px;}
-.auth-tab{flex:1;padding:9px;border-radius:10px;border:none;background:transparent;color:rgba(255,255,255,0.5);font-size:13px;font-weight:600;transition:all .2s;}
-.auth-tab.active{background:var(--orange);color:#fff;}
+/* Logo premium */
+.auth-logo{text-align:center;margin-bottom:28px;position:relative;}
+.auth-logo-glow{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);
+  width:180px;height:80px;
+  background:radial-gradient(ellipse,rgba(244,124,32,0.25) 0%,transparent 70%);
+  pointer-events:none;
+}
+.auth-logo-row{display:flex;align-items:baseline;justify-content:center;gap:6px;}
+.auth-logo .ag{
+  font-size:72px;font-weight:900;letter-spacing:-3px;line-height:1;
+  background:linear-gradient(135deg,#FF9500 0%,#F47C20 40%,#FF6B00 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 24px rgba(244,124,32,0.6));
+}
+.auth-logo .prime{
+  font-size:24px;font-weight:800;color:#fff;letter-spacing:7px;
+  text-shadow:0 0 30px rgba(255,255,255,0.2);
+}
+.auth-logo .tagline{font-size:11px;color:rgba(255,255,255,0.4);margin-top:8px;letter-spacing:2px;text-transform:uppercase;}
+.auth-logo-sub{font-size:12px;color:rgba(244,124,32,0.6);margin-top:4px;font-weight:600;letter-spacing:1px;}
+.auth-logo-dot{width:7px;height:7px;border-radius:50%;background:var(--orange);margin-bottom:6px;box-shadow:0 0 12px rgba(244,124,32,1);}
 
+/* Auth card */
+.auth-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:24px;padding:28px 22px;width:100%;max-width:380px;backdrop-filter:blur(12px);}
+.auth-tabs{display:flex;background:rgba(255,255,255,0.06);border-radius:12px;padding:3px;margin-bottom:22px;gap:3px;}
+.auth-tab{flex:1;padding:9px;border-radius:10px;border:none;background:transparent;color:rgba(255,255,255,0.45);font-size:13px;font-weight:600;transition:all .2s;font-family:'Poppins',sans-serif;}
+.auth-tab.active{background:var(--orange);color:#fff;box-shadow:0 2px 10px rgba(244,124,32,0.35);}
+
+/* Fields */
 .field{margin-bottom:14px;}
-.field label{display:block;font-size:12px;font-weight:500;color:rgba(255,255,255,0.6);margin-bottom:6px;}
-.field input,.field select{width:100%;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 14px;color:#fff;font-size:14px;font-family:'Poppins',sans-serif;outline:none;transition:border-color .2s;}
-.field input::placeholder{color:rgba(255,255,255,0.3);}
-.field input:focus,.field select:focus{border-color:var(--orange);}
-.field select option{background:#1A1D27;color:#fff;}
+.field label{display:block;font-size:11px;font-weight:600;color:rgba(255,255,255,0.5);margin-bottom:6px;letter-spacing:.5px;text-transform:uppercase;}
+.field input{width:100%;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.1);border-radius:11px;padding:13px 14px;color:#fff;font-size:14px;font-family:'Poppins',sans-serif;outline:none;transition:border-color .2s;box-sizing:border-box;}
+.field input::placeholder{color:rgba(255,255,255,0.25);}
+.field input:focus{border-color:var(--orange);background:rgba(244,124,32,0.06);}
 
-.btn-auth{width:100%;background:var(--orange);color:#fff;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:700;margin-top:8px;transition:all .2s;box-shadow:0 4px 16px rgba(244,124,32,0.35);}
-.btn-auth:hover{background:#e06e10;transform:translateY(-1px);}
+/* Bouton principal */
+.btn-auth{width:100%;background:linear-gradient(135deg,var(--orange),#e06e10);color:#fff;border:none;border-radius:12px;padding:14px;font-size:15px;font-weight:700;margin-top:6px;transition:all .2s;box-shadow:0 4px 16px rgba(244,124,32,0.3);font-family:'Poppins',sans-serif;cursor:pointer;}
+.btn-auth:active{transform:scale(.98);}
 
-/* Demo switch */
-.demo-switch{margin-top:20px;padding:14px;background:rgba(244,124,32,0.1);border:1px dashed rgba(244,124,32,0.3);border-radius:12px;text-align:center;}
-.demo-switch p{font-size:11px;color:rgba(255,255,255,0.45);margin-bottom:10px;}
-.demo-btns{display:flex;gap:8px;}
-.demo-btn{flex:1;padding:8px;border-radius:8px;border:none;font-size:12px;font-weight:600;transition:all .2s;}
-.demo-btn-user{background:rgba(39,174,96,0.15);color:#27AE60;border:1px solid rgba(39,174,96,0.3);}
-.demo-btn-admin{background:rgba(244,124,32,0.15);color:var(--orange);border:1px solid rgba(244,124,32,0.3);}
-.demo-btn:hover{transform:translateY(-1px);}
+/* Divider */
+.auth-divider{display:flex;align-items:center;gap:10px;margin:14px 0;}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.1);}
+.auth-divider span{font-size:11px;color:rgba(255,255,255,0.3);white-space:nowrap;}
+
+/* Bouton Google */
+.btn-google{width:100%;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.12);border-radius:12px;padding:13px;font-size:14px;font-weight:600;color:#fff;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .2s;font-family:'Poppins',sans-serif;cursor:pointer;margin-bottom:6px;}
+.btn-google:active{transform:scale(.98);background:rgba(255,255,255,0.12);}
+
+/* Bouton téléphone */
+.btn-phone{width:100%;background:rgba(37,211,102,0.1);border:1.5px solid rgba(37,211,102,0.25);border-radius:12px;padding:13px;font-size:14px;font-weight:600;color:rgba(255,255,255,0.7);display:flex;align-items:center;justify-content:center;gap:10px;transition:all .2s;font-family:'Poppins',sans-serif;cursor:pointer;position:relative;}
+.btn-phone .soon-badge{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:9px;font-weight:700;background:rgba(255,165,0,.2);color:orange;padding:2px 7px;border-radius:6px;letter-spacing:.5px;}
+
+/* Bouton visiteur */
+.btn-visitor{width:100%;background:transparent;border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:12px;font-size:13px;font-weight:500;color:rgba(255,255,255,0.45);margin-top:10px;transition:all .2s;font-family:'Poppins',sans-serif;cursor:pointer;}
+.btn-visitor:active{background:rgba(255,255,255,0.05);}
+
+/* Lien mot de passe oublié */
+.auth-link{font-size:12px;color:rgba(255,255,255,0.35);text-align:center;margin-top:12px;cursor:pointer;}
+.auth-link span{color:var(--orange);font-weight:600;}
+
+/* Contact numéros */
+.contact-numbers-bar{background:rgba(37,211,102,0.07);border:1px solid rgba(37,211,102,0.15);border-radius:14px;padding:14px 16px;max-width:380px;width:100%;margin-top:12px;text-align:center;}
+.contact-numbers-bar .cn-title{font-size:11px;color:rgba(255,255,255,0.35);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
+.contact-numbers-bar a{display:block;font-size:14px;font-weight:700;color:#25D366;text-decoration:none;margin-bottom:4px;}
+.contact-numbers-bar .cn-other{font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px;line-height:1.8;}
+
+/* Toast connexion */
+.auth-error{background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.25);border-radius:10px;padding:10px 14px;font-size:12px;color:#e74c3c;margin-top:12px;display:none;text-align:center;}
+.auth-error.show{display:block;}
+
+/* Modal "Créer un compte requis" */
+.require-auth-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:999;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px);}
+.require-auth-overlay.active{display:flex;}
+.require-auth-sheet{background:var(--card);border-radius:24px 24px 0 0;padding:28px 24px 36px;width:100%;max-width:500px;text-align:center;}
+.require-auth-icon{font-size:44px;margin-bottom:12px;}
+.require-auth-title{font-size:17px;font-weight:800;color:var(--text);margin-bottom:8px;}
+.require-auth-sub{font-size:13px;color:var(--text2);margin-bottom:22px;line-height:1.5;}
+.btn-require-signup{width:100%;background:var(--orange);color:#fff;border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:700;margin-bottom:10px;font-family:'Poppins',sans-serif;cursor:pointer;}
+.btn-require-cancel{width:100%;background:transparent;border:1px solid var(--border);border-radius:12px;padding:12px;font-size:13px;color:var(--text2);font-family:'Poppins',sans-serif;cursor:pointer;}
 
 /* ===================== APP SHELL ===================== */
 #page-app{display:flex;flex-direction:column;min-height:100vh;padding-bottom:72px;}
@@ -661,70 +717,112 @@ a{text-decoration:none;}
 
 </style>
 </head>
-<body>
+<body class="auth-locked">
 
 <!-- ==================== TOAST ==================== -->
 <div class="toast" id="toast"></div>
 
 <!-- ==================== AUTH PAGE ==================== -->
 <div id="page-auth" class="page active">
+
+  <!-- LOGO PREMIUM -->
   <div class="auth-logo">
-    <div class="ag">AG</div>
-    <div class="prime">PRIME</div>
+    <div class="auth-logo-glow"></div>
+    <div class="auth-logo-row">
+      <span class="ag">AG</span>
+      <div class="auth-logo-dot"></div>
+      <span class="prime">PRIME</span>
+    </div>
     <div class="tagline">Automobiles · Maisons · Appartements</div>
+    <div class="auth-logo-sub">La marketplace de confiance</div>
   </div>
 
   <div class="auth-card">
+    <!-- TABS -->
     <div class="auth-tabs">
       <button class="auth-tab active" onclick="authTab('login',this)">Connexion</button>
       <button class="auth-tab" onclick="authTab('register',this)">Inscription</button>
     </div>
 
-    <!-- LOGIN -->
+    <!-- CONNEXION -->
     <div id="login-form">
+      <!-- Google en premier -->
+      <button class="btn-google" onclick="doGoogleLogin()">
+        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.6 33.1 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 3l5.7-5.7C34 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 19.7-8 19.7-20 0-1.3-.1-2.7-.1-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 15.1 18.9 12 24 12c3 0 5.8 1.1 7.9 3l5.7-5.7C34 6.5 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-1.9 13.4-5l-6.2-5.2C29.4 35.6 26.8 36 24 36c-5.2 0-9.6-2.9-11.4-7.1l-6.5 5C9.5 40.1 16.3 44 24 44z"/><path fill="#1976D2" d="M43.6 20H24v8h11.3c-.9 2.5-2.6 4.6-4.9 6l6.2 5.2C40.3 36.5 44 30.7 44 24c0-1.3-.1-2.7-.4-4z"/></svg>
+        Continuer avec Google
+      </button>
+
+      <!-- Téléphone (placeholder) -->
+      <button class="btn-phone" onclick="showToast('📱 Connexion par téléphone — Bientôt disponible !','')">
+        📱 Continuer avec un numéro
+        <span class="soon-badge">BIENTÔT</span>
+      </button>
+
+      <div class="auth-divider"><span>ou avec email</span></div>
+
       <div class="field">
         <label>Email</label>
-        <input type="email" id="login-email" placeholder="votre@email.com" value="user@agprime.com">
+        <input type="email" id="login-email" placeholder="votre@email.com" autocomplete="email">
       </div>
       <div class="field">
         <label>Mot de passe</label>
-        <input type="password" id="login-pass" placeholder="••••••••" value="123456">
+        <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
       </div>
+      <div class="auth-error" id="login-error"></div>
       <button class="btn-auth" onclick="doLogin()">Se connecter</button>
+      <div class="auth-link" onclick="showForgotPassword()">Mot de passe oublié ? <span>Réinitialiser</span></div>
     </div>
 
-    <!-- REGISTER -->
+    <!-- INSCRIPTION -->
     <div id="register-form" style="display:none;">
+      <!-- Google en premier -->
+      <button class="btn-google" onclick="doGoogleLogin()">
+        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.6 33.1 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 3l5.7-5.7C34 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 19.7-8 19.7-20 0-1.3-.1-2.7-.1-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 15.1 18.9 12 24 12c3 0 5.8 1.1 7.9 3l5.7-5.7C34 6.5 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-1.9 13.4-5l-6.2-5.2C29.4 35.6 26.8 36 24 36c-5.2 0-9.6-2.9-11.4-7.1l-6.5 5C9.5 40.1 16.3 44 24 44z"/><path fill="#1976D2" d="M43.6 20H24v8h11.3c-.9 2.5-2.6 4.6-4.9 6l6.2 5.2C40.3 36.5 44 30.7 44 24c0-1.3-.1-2.7-.4-4z"/></svg>
+        S'inscrire avec Google
+      </button>
+
+      <!-- Téléphone (placeholder) -->
+      <button class="btn-phone" onclick="showToast('📱 Inscription par téléphone — Bientôt disponible !','')">
+        📱 S'inscrire avec un numéro
+        <span class="soon-badge">BIENTÔT</span>
+      </button>
+
+      <div class="auth-divider"><span>ou avec email</span></div>
+
       <div class="field">
         <label>Nom complet</label>
-        <input type="text" placeholder="Kouamé Jean">
+        <input type="text" id="reg-name" placeholder="Jean Kouamé" autocomplete="name">
       </div>
       <div class="field">
         <label>Email</label>
-        <input type="email" placeholder="votre@email.com">
-      </div>
-      <div class="field">
-        <label>Téléphone</label>
-        <input type="tel" placeholder="+225 07 00 00 00 00">
+        <input type="email" id="reg-email" placeholder="votre@email.com" autocomplete="email">
       </div>
       <div class="field">
         <label>Mot de passe</label>
-        <input type="password" placeholder="Min. 8 caractères">
+        <input type="password" id="reg-pass" placeholder="Min. 6 caractères" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()">
       </div>
+      <div class="auth-error" id="reg-error"></div>
       <button class="btn-auth" onclick="doRegister()">Créer mon compte</button>
     </div>
 
-    <!-- DEMO SWITCH -->
-    <div class="demo-switch">
-      <p>🎮 Mode démonstration — Choisir un rôle</p>
-      <div class="demo-btns">
-        <button class="demo-btn demo-btn-user" onclick="loginAs('user')">👤 Utilisateur</button>
-        <button class="demo-btn demo-btn-admin" onclick="loginAs('admin')">🛡️ Admin</button>
-      </div>
-      <div class="demo-btns" style="margin-top:8px;">
-        <button class="demo-btn" style="background:rgba(201,168,76,.12);color:#C9A84C;border:1px solid rgba(201,168,76,.3);font-size:11px;" onclick="loginAs('owner')">👑 Owner — Accès secret</button>
-      </div>
-    </div>
+    <!-- OWNER discret — supprimé, owners se connectent normalement -->
+  </div>
+
+  <!-- VISITEUR — sous la card -->
+  <button class="btn-visitor" onclick="continuerVisiteur()" style="max-width:380px;width:100%;margin-top:14px;">
+    👁 Continuer en tant que visiteur
+  </button>
+
+</div>
+
+<!-- MODAL : Compte requis -->
+<div class="require-auth-overlay" id="requireAuthOverlay">
+  <div class="require-auth-sheet">
+    <div class="require-auth-icon" id="requireAuthIcon">🔒</div>
+    <div class="require-auth-title" id="requireAuthTitle">Compte requis</div>
+    <div class="require-auth-sub" id="requireAuthSub">Créez un compte gratuit pour accéder à cette fonctionnalité.</div>
+    <button class="btn-require-signup" onclick="closeRequireAuth();showPage('auth');authTab('register',document.querySelectorAll('.auth-tab')[1]);">Créer un compte gratuit</button>
+    <button class="btn-require-cancel" onclick="closeRequireAuth()">Plus tard</button>
   </div>
 </div>
 
@@ -1086,8 +1184,8 @@ a{text-decoration:none;}
           <table class="annonces-table">
             <thead><tr><th>Utilisateur</th><th>Email</th><th>Rôle</th><th>Annonces</th><th>Actions</th></tr></thead>
             <tbody>
-              <tr><td><div class="annonce-cell"><div class="admin-avatar" style="width:32px;height:32px;font-size:14px;">👤</div><span>Konan Kouamé</span></div></td><td style="color:var(--admin-text2);">konan@mail.com</td><td><span class="pill pill-ok">user</span></td><td style="color:var(--admin-text2);">3</td><td><button class="btn-approve" onclick="showToast('Rôle mis à jour','success')">Promouvoir admin</button></td></tr>
-              <tr><td><div class="annonce-cell"><div class="admin-avatar" style="width:32px;height:32px;font-size:14px;">👤</div><span>Amani Touré</span></div></td><td style="color:var(--admin-text2);">amani@mail.com</td><td><span class="pill pill-ok">user</span></td><td style="color:var(--admin-text2);">1</td><td><button class="btn-approve" onclick="showToast('Rôle mis à jour','success')">Promouvoir admin</button></td></tr>
+              <tr><td><div class="annonce-cell"><div class="admin-avatar" style="width:32px;height:32px;font-size:14px;">👤</div><span>Konan Kouamé</span></div></td><td style="color:var(--admin-text2);">konan@mail.com</td><td><span class="pill pill-ok">user</span></td><td style="color:var(--admin-text2);">3</td><td style="color:var(--admin-text2);font-size:11px;">Géré par Owner</td></tr>
+              <tr><td><div class="annonce-cell"><div class="admin-avatar" style="width:32px;height:32px;font-size:14px;">👤</div><span>Amani Touré</span></div></td><td style="color:var(--admin-text2);">amani@mail.com</td><td><span class="pill pill-ok">user</span></td><td style="color:var(--admin-text2);">1</td><td style="color:var(--admin-text2);font-size:11px;">Géré par Owner</td></tr>
               <tr><td><div class="annonce-cell"><div class="admin-avatar" style="width:32px;height:32px;font-size:14px;">🛡️</div><span>Admin AG Prime</span></div></td><td style="color:var(--admin-text2);">admin@agprime.com</td><td><span class="pill" style="background:rgba(244,124,32,.15);color:var(--orange);">admin</span></td><td style="color:var(--admin-text2);">—</td><td style="color:var(--admin-text2);font-size:12px;">Gestionnaire</td></tr>
             </tbody>
           </table>
@@ -1129,6 +1227,7 @@ a{text-decoration:none;}
       <div class="owner-divider"></div>
       <div class="owner-sidebar-label">Plateforme</div>
       <div class="owner-nav-item" onclick="ownerTab('bannieres',this)"><span class="nav-ic">🖼️</span> Bannières</div>
+      <div class="owner-nav-item" onclick="openEditContactNumbers()"><span class="nav-ic">📞</span> Numéros contact</div>
     </div>
 
     <!-- Owner Content -->
@@ -1377,7 +1476,10 @@ a{text-decoration:none;}
                 <td><span class="owner-pill owner-pill-ok">user</span></td>
                 <td style="color:var(--owner-text2);">3</td>
                 <td><span class="owner-pill owner-pill-ok">Actif</span></td>
-                <td><button class="btn-owner-ban" onclick="openBanModal('Konan Kouamé')">🚫 Bannir</button></td>
+                <td style="display:flex;gap:4px;flex-wrap:wrap;">
+                  <button class="btn-owner-validate" style="font-size:10px;" onclick="ownerPromoteAdmin(this,'Konan Kouamé')">🛡️ Admin</button>
+                  <button class="btn-owner-ban" onclick="openBanModal('Konan Kouamé')">🚫</button>
+                </td>
               </tr>
               <tr>
                 <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:32px;height:32px;border-radius:50%;background:rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;font-size:14px;">👤</div><span>Amani Touré</span></div></td>
@@ -1385,7 +1487,10 @@ a{text-decoration:none;}
                 <td><span class="owner-pill owner-pill-ok">user</span></td>
                 <td style="color:var(--owner-text2);">1</td>
                 <td><span class="owner-pill owner-pill-ok">Actif</span></td>
-                <td><button class="btn-owner-ban" onclick="openBanModal('Amani Touré')">🚫 Bannir</button></td>
+                <td style="display:flex;gap:4px;flex-wrap:wrap;">
+                  <button class="btn-owner-validate" style="font-size:10px;" onclick="ownerPromoteAdmin(this,'Amani Touré')">🛡️ Admin</button>
+                  <button class="btn-owner-ban" onclick="openBanModal('Amani Touré')">🚫</button>
+                </td>
               </tr>
               <tr>
                 <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:32px;height:32px;border-radius:50%;background:rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;font-size:14px;">👤</div><span>Bamba Souleymane</span></div></td>
@@ -1393,7 +1498,10 @@ a{text-decoration:none;}
                 <td><span class="owner-pill owner-pill-ok">user</span></td>
                 <td style="color:var(--owner-text2);">2</td>
                 <td><span class="owner-pill owner-pill-ok">Actif</span></td>
-                <td><button class="btn-owner-ban" onclick="openBanModal('Bamba Souleymane')">🚫 Bannir</button></td>
+                <td style="display:flex;gap:4px;flex-wrap:wrap;">
+                  <button class="btn-owner-validate" style="font-size:10px;" onclick="ownerPromoteAdmin(this,'Bamba Souleymane')">🛡️ Admin</button>
+                  <button class="btn-owner-ban" onclick="openBanModal('Bamba Souleymane')">🚫</button>
+                </td>
               </tr>
               <tr>
                 <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:32px;height:32px;border-radius:50%;background:rgba(231,76,60,.1);display:flex;align-items:center;justify-content:center;font-size:14px;">🚫</div><span style="text-decoration:line-through;color:var(--owner-text2);">Utilisateur Banni</span></div></td>
@@ -1464,6 +1572,40 @@ a{text-decoration:none;}
               <input type="text" value="Découvrir →" style="width:100%;background:rgba(255,255,255,.05);border:1.5px solid var(--owner-border);border-radius:8px;padding:9px 12px;color:var(--owner-text);font-size:13px;outline:none;font-family:'Poppins',sans-serif;">
             </div>
             <button onclick="showToast('✅ Bannière mise à jour !','success')" style="background:linear-gradient(135deg,var(--owner-gold),#b8860b);color:#000;border:none;border-radius:10px;padding:11px 24px;font-size:13px;font-weight:800;cursor:pointer;">💾 Enregistrer les modifications</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---- NUMÉROS DE CONTACT ---- -->
+      <div id="owner-tab-contacts" class="owner-tab-content" style="display:none;">
+        <div class="owner-page-title">📞 Numéros de contact</div>
+        <div class="owner-page-sub">Ces numéros sont affichés aux utilisateurs et visiteurs — modification réservée Owner</div>
+
+        <div class="owner-section">
+          <div class="owner-section-title"><span>💬</span> <span class="gold">WhatsApp principal</span></div>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <input type="tel" id="owner-wa-number" placeholder="+2430838200845"
+              style="flex:1;background:rgba(255,255,255,.05);border:1.5px solid var(--owner-border);border-radius:10px;padding:12px;color:var(--owner-text);font-size:14px;outline:none;font-family:'Poppins',sans-serif;">
+            <button onclick="saveWhatsApp()" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:10px;padding:12px 16px;font-weight:700;font-size:13px;cursor:pointer;">💾</button>
+          </div>
+        </div>
+
+        <div class="owner-section">
+          <div class="owner-section-title"><span>📱</span> <span class="gold">Numéros additionnels</span> <span style="color:var(--owner-text2);font-weight:400;font-size:12px;">(4 max)</span></div>
+          <div id="owner-other-numbers-list"></div>
+          <div style="display:flex;gap:10px;margin-top:12px;align-items:center;">
+            <input type="tel" id="owner-new-number" placeholder="+243 XXX XXX XXX"
+              style="flex:1;background:rgba(255,255,255,.05);border:1.5px solid var(--owner-border);border-radius:10px;padding:12px;color:var(--owner-text);font-size:14px;outline:none;font-family:'Poppins',sans-serif;">
+            <button onclick="addContactNumber()" style="background:rgba(201,168,76,.2);color:var(--owner-gold2);border:1px solid rgba(201,168,76,.3);border-radius:10px;padding:12px 16px;font-weight:700;font-size:13px;cursor:pointer;">+ Ajouter</button>
+          </div>
+        </div>
+
+        <div class="owner-section">
+          <div class="owner-section-title"><span>👁</span> Aperçu — ce que voient les utilisateurs</div>
+          <div style="background:rgba(37,211,102,0.07);border:1px solid rgba(37,211,102,0.15);border-radius:12px;padding:14px;text-align:center;" id="owner-contact-preview">
+            <div style="font-size:11px;color:var(--owner-text2);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">📞 Contacter le support</div>
+            <div id="owner-preview-wa" style="font-size:14px;font-weight:700;color:#25D366;">💬 WhatsApp : +2430838200845</div>
+            <div id="owner-preview-others" style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px;"></div>
           </div>
         </div>
       </div>
@@ -1602,6 +1744,27 @@ a{text-decoration:none;}
     <div class="owner-modal-actions">
       <button class="btn-owner-cancel" onclick="closeBanModal()">Annuler</button>
       <button class="btn-owner-confirm-ban" onclick="confirmBan()">🚫 Confirmer le bannissement</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== EDIT CONTACT NUMBERS MODAL (OWNER ONLY) ==================== -->
+<div class="owner-modal-overlay" id="editContactOverlay" style="z-index:700;">
+  <div class="owner-modal" style="max-width:380px;">
+    <div class="owner-modal-title">📞 Modifier les numéros de contact</div>
+    <div class="owner-modal-sub">Ces numéros sont visibles par tous les utilisateurs et visiteurs.</div>
+    <div style="margin-bottom:10px;">
+      <div style="font-size:11px;color:var(--owner-text2);font-weight:700;margin-bottom:5px;text-transform:uppercase;">WhatsApp principal *</div>
+      <input id="edit-wa-num" type="tel" placeholder="+2430838200845" style="width:100%;background:rgba(255,255,255,.05);border:1.5px solid var(--owner-border);border-radius:10px;padding:10px 14px;color:var(--owner-text);font-size:14px;outline:none;font-family:'Poppins',sans-serif;box-sizing:border-box;">
+    </div>
+    <div style="font-size:11px;color:var(--owner-text2);font-weight:700;margin-bottom:8px;text-transform:uppercase;">4 numéros supplémentaires</div>
+    <div style="margin-bottom:8px;"><input id="edit-other-0" type="tel" placeholder="Numéro 1 (optionnel)" style="width:100%;background:rgba(255,255,255,.05);border:1.5px solid var(--owner-border);border-radius:10px;padding:10px 14px;color:var(--owner-text);font-size:13px;outline:none;font-family:'Poppins',sans-serif;box-sizing:border-box;"></div>
+    <div style="margin-bottom:8px;"><input id="edit-other-1" type="tel" placeholder="Numéro 2 (optionnel)" style="width:100%;background:rgba(255,255,255,.05);border:1.5px solid var(--owner-border);border-radius:10px;padding:10px 14px;color:var(--owner-text);font-size:13px;outline:none;font-family:'Poppins',sans-serif;box-sizing:border-box;"></div>
+    <div style="margin-bottom:8px;"><input id="edit-other-2" type="tel" placeholder="Numéro 3 (optionnel)" style="width:100%;background:rgba(255,255,255,.05);border:1.5px solid var(--owner-border);border-radius:10px;padding:10px 14px;color:var(--owner-text);font-size:13px;outline:none;font-family:'Poppins',sans-serif;box-sizing:border-box;"></div>
+    <div style="margin-bottom:8px;"><input id="edit-other-3" type="tel" placeholder="Numéro 4 (optionnel)" style="width:100%;background:rgba(255,255,255,.05);border:1.5px solid var(--owner-border);border-radius:10px;padding:10px 14px;color:var(--owner-text);font-size:13px;outline:none;font-family:'Poppins',sans-serif;box-sizing:border-box;"></div>
+    <div class="owner-modal-actions">
+      <button class="btn-owner-cancel" onclick="document.getElementById('editContactOverlay').classList.remove('active')">Annuler</button>
+      <button class="btn-owner-confirm-ban" style="background:linear-gradient(135deg,var(--owner-gold),#b8860b);color:#000;" onclick="saveContactNumbers()">💾 Enregistrer</button>
     </div>
   </div>
 </div>
@@ -1810,63 +1973,290 @@ function authTab(tab, el) {
 }
 
 // ---- LOGIN ----
-function doLogin() {
+/* ============================================================
+   AUTH FUNCTIONS — Firebase + Google + Visiteur
+   ============================================================ */
+let _auth = null, _db = null;
+
+async function initFirebase() {
+  if (_auth) return;
+  try {
+    const { initializeApp, getApps } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js');
+    const { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
+            signInWithPopup, GoogleAuthProvider, updateProfile, signOut } =
+      await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js');
+    const { getFirestore, doc, getDoc, setDoc, serverTimestamp } =
+      await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js');
+    const cfg = {
+      apiKey:"AIzaSyCwLvfgiEtQCDV8l8VuC2VQYtpFMPFesM8",
+      authDomain:"ag-prime-720f8.firebaseapp.com",
+      projectId:"ag-prime-720f8",
+      storageBucket:"ag-prime-720f8.firebasestorage.app",
+      messagingSenderId:"605970765517",
+      appId:"1:605970765517:web:951d1be4c4176eb2d57b84"
+    };
+    const app = getApps().length ? getApps()[0] : initializeApp(cfg);
+    _auth = getAuth(app);
+    _db   = getFirestore(app);
+    const gp = new GoogleAuthProvider();
+    window._fbSignInEmail   = (e,p) => signInWithEmailAndPassword(_auth,e,p);
+    window._fbCreateUser    = (e,p) => createUserWithEmailAndPassword(_auth,e,p);
+    window._fbGoogleSignIn  = ()    => signInWithPopup(_auth, gp);
+    window._fbSignOut       = ()    => signOut(_auth);
+    window._fbUpdateProfile = (u,d) => updateProfile(u,d);
+    window._fbGetDoc  = (col,id) => getDoc(doc(_db,col,id));
+    window._fbSetDoc  = (col,id,data) => setDoc(doc(_db,col,id),{...data,createdAt:serverTimestamp()});
+  } catch(e) { console.warn('Firebase indisponible, mode local'); }
+}
+
+// ============================================================
+// OWNERS PERMANENTS — hardcodés, ne peuvent pas être changés
+// ============================================================
+const OWNER_EMAILS = [
+  'jesus22bofini@gmail.com',
+  'agenceprime1@gmail.com'
+];
+
+/* ============================================================
+   NUMÉROS DE CONTACT — modifiables par Owner uniquement
+   ============================================================ */
+const DEFAULT_CONTACT = {
+  whatsapp: '+2430838200845',
+  others: ['', '', '', '']  // 4 numéros supplémentaires vides par défaut
+};
+
+function getContactNumbers() {
+  return LS.get('agp_contact', DEFAULT_CONTACT);
+}
+function setContactNumbers(data) {
+  LS.set('agp_contact', data);
+}
+
+function renderContactNumbers() {
+  const c = getContactNumbers();
+  const waEl = document.getElementById('contactWhatsapp');
+  const otherEl = document.getElementById('otherContactNumbers');
+  if (waEl) {
+    const clean = c.whatsapp.replace(/\D/g,'');
+    waEl.href = 'https://wa.me/' + clean;
+    waEl.textContent = '💬 WhatsApp : ' + c.whatsapp;
+  }
+  if (otherEl) {
+    otherEl.innerHTML = (c.others || [])
+      .filter(n => n && n.trim())
+      .map(n => `<div><a href="tel:${n}" style="color:rgba(255,255,255,0.5);font-size:12px;text-decoration:none;">📞 ${n}</a></div>`)
+      .join('');
+  }
+}
+
+function openEditContactNumbers() {
+  if (!appState.currentUser || appState.currentUser.role !== 'owner') {
+    showToast('Accès Owner uniquement', 'error'); return;
+  }
+  const c = getContactNumbers();
+  document.getElementById('edit-wa-num').value = c.whatsapp;
+  (c.others || ['','','','']).forEach((n,i) => {
+    const el = document.getElementById('edit-other-' + i);
+    if (el) el.value = n;
+  });
+  document.getElementById('editContactOverlay').classList.add('active');
+}
+
+function saveContactNumbers() {
+  const wa = document.getElementById('edit-wa-num').value.trim();
+  if (!wa) { showToast('Numéro WhatsApp requis', 'error'); return; }
+  const others = [0,1,2,3].map(i => {
+    const el = document.getElementById('edit-other-' + i);
+    return el ? el.value.trim() : '';
+  });
+  setContactNumbers({ whatsapp: wa, others });
+  renderContactNumbers();
+  document.getElementById('editContactOverlay').classList.remove('active');
+  showToast('✅ Numéros mis à jour', 'success');
+}
+
+async function ensureUserDoc(uid, name, email) {
+  try {
+    const snap = await window._fbGetDoc('users', uid);
+    // Détecte si c'est un Owner permanent
+    const role = OWNER_EMAILS.includes(email) ? 'owner' : 'user';
+    if (!snap.exists()) {
+      await window._fbSetDoc('users', uid, { name, email, role, kycStatus:'none', favoris:[] });
+    } else if (OWNER_EMAILS.includes(email) && snap.data().role !== 'owner') {
+      // Force le rôle owner si email reconnu
+      await window._fbSetDoc('users', uid, { ...snap.data(), role: 'owner' });
+    }
+    return (await window._fbGetDoc('users', uid)).data();
+  } catch(e) {
+    const role = OWNER_EMAILS.includes(email) ? 'owner' : 'user';
+    return { name, email, role };
+  }
+}
+
+function showAuthError(id, msg) {
+  const el = document.getElementById(id);
+  if (el) { el.textContent = msg; el.classList.add('show'); }
+}
+function clearAuthErrors() {
+  document.querySelectorAll('.auth-error').forEach(e => e.classList.remove('show'));
+}
+
+async function doLogin() {
+  clearAuthErrors();
   const email = document.getElementById('login-email').value.trim();
   const pass  = document.getElementById('login-pass').value.trim();
-  const found = USERS_DB.find(u => u.email === email && u.password === pass);
-  if (!found) { showToast('Email ou mot de passe incorrect', 'error'); return; }
-  loginAs(found.role, found);
+  if (!email || !pass) { showAuthError('login-error','Remplis tous les champs.'); return; }
+  showToast('Connexion...', '');
+  await initFirebase();
+  try {
+    if (window._fbSignInEmail) {
+      const cred = await window._fbSignInEmail(email, pass);
+      const data = await ensureUserDoc(cred.user.uid, cred.user.displayName || email.split('@')[0], email);
+      appState.currentUser = { uid:cred.user.uid, name:data.name, email, role:data.role||'user', ...data };
+      enterApp(data.role || 'user');
+    } else {
+      const found = USERS_DB.find(u => u.email===email && u.password===pass);
+      if (!found) { showAuthError('login-error','Email ou mot de passe incorrect.'); return; }
+      appState.currentUser = {...found};
+      enterApp(found.role);
+    }
+  } catch(e) {
+    const msgs = {'auth/user-not-found':'Aucun compte avec cet email.','auth/wrong-password':'Mot de passe incorrect.','auth/invalid-email':'Email invalide.','auth/invalid-credential':'Email ou mot de passe incorrect.'};
+    showAuthError('login-error', msgs[e.code] || 'Erreur de connexion.');
+  }
 }
 
-// ---- REGISTER ----
-function doRegister() {
-  // Any new user gets role: 'user' by default
-  showToast('Compte créé ! Redirection...', 'success');
-  setTimeout(() => loginAs('user', { name: 'Nouvel Utilisateur', email: 'nouveau@agprime.com', role: 'user' }), 1200);
+async function doRegister() {
+  clearAuthErrors();
+  const name  = document.getElementById('reg-name').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const pass  = document.getElementById('reg-pass').value.trim();
+  if (!name||!email||!pass) { showAuthError('reg-error','Remplis tous les champs.'); return; }
+  if (pass.length < 6) { showAuthError('reg-error','Mot de passe : min. 6 caractères.'); return; }
+  showToast('Création du compte...', '');
+  await initFirebase();
+  try {
+    if (window._fbCreateUser) {
+      const cred = await window._fbCreateUser(email, pass);
+      await window._fbUpdateProfile(cred.user, { displayName: name });
+      await window._fbSetDoc('users', cred.user.uid, { name, email, role:'user', kycStatus:'none', favoris:[] });
+      appState.currentUser = { uid:cred.user.uid, name, email, role:'user' };
+      enterApp('user');
+    } else {
+      appState.currentUser = { uid:'local_'+Date.now(), name, email, role:'user' };
+      enterApp('user');
+    }
+  } catch(e) {
+    const msgs = {'auth/email-already-in-use':'Un compte existe déjà avec cet email.','auth/weak-password':'Mot de passe trop faible.'};
+    showAuthError('reg-error', msgs[e.code] || 'Erreur création de compte.');
+  }
 }
 
-// ---- DEMO LOGIN ----
-function loginAs(role, userData) {
-  if (role === 'user') {
-    appState.currentUser = userData || USERS_DB[0];
-    document.getElementById('profile-display-name').textContent = appState.currentUser.name;
-    document.getElementById('profile-role-badge').textContent   = '👤 Utilisateur';
+async function doGoogleLogin() {
+  showToast('Connexion Google...', '');
+  await initFirebase();
+  try {
+    if (window._fbGoogleSignIn) {
+      const result = await window._fbGoogleSignIn();
+      const user   = result.user;
+      const data   = await ensureUserDoc(user.uid, user.displayName, user.email);
+      appState.currentUser = { uid:user.uid, name:user.displayName, email:user.email, role:data.role||'user', ...data };
+      enterApp(data.role || 'user');
+    } else { showToast('Google Auth non disponible', 'error'); }
+  } catch(e) {
+    if (e.code !== 'auth/popup-closed-by-user') showToast('Erreur Google', 'error');
+  }
+}
+
+function continuerVisiteur() {
+  appState.currentUser = { uid: null, name: 'Visiteur', role: 'guest' };
+  showPage('app');
+  showView('accueil');
+  renderAnnoncesGrid();
+  renderFlashSales();
+  showToast('👁 Mode visiteur — certaines fonctionnalités sont limitées', '');
+}
+
+function requireAuth(action) {
+  if (appState.currentUser && appState.currentUser.uid) return true;
+  const overlay = document.getElementById('requireAuthOverlay');
+  if (overlay) {
+    document.getElementById('requireAuthIcon').textContent  = '🔒';
+    document.getElementById('requireAuthTitle').textContent = 'Connexion requise';
+    document.getElementById('requireAuthSub').textContent   =
+      action || 'Connectez-vous pour accéder à cette fonctionnalité.';
+    overlay.classList.add('active');
+  }
+  return false;
+}
+
+function closeRequireAuth() {
+  const overlay = document.getElementById('requireAuthOverlay');
+  if (overlay) overlay.classList.remove('active');
+}
+
+function goToLogin() {
+  closeRequireAuth();
+  showPage('auth');
+}
+
+function loginAsVisitor() { continuerVisiteur(); }
+
+function enterApp(role) {
+  if (role === 'admin') {
+    document.getElementById('admin-username').textContent = appState.currentUser.name;
+    document.getElementById('admin-greet').textContent    = appState.currentUser.name;
+    showPage('admin');
+    showToast('Bienvenue Admin ' + appState.currentUser.name, 'success');
+  } else if (role === 'owner') {
+    document.getElementById('owner-username').textContent = appState.currentUser.name;
+    showPage('owner');
+    ownerTab('dashboard', document.querySelector('#page-owner .owner-nav-item'));
+    showToast('👑 Bienvenue Propriétaire', 'success');
+  } else {
+    if (document.getElementById('profile-display-name')) {
+      document.getElementById('profile-display-name').textContent = appState.currentUser.name;
+      document.getElementById('profile-role-badge').textContent = role==='visitor' ? '👁 Visiteur' : '👤 Utilisateur';
+    }
     showPage('app');
     showView('accueil');
     renderAnnoncesGrid();
     renderFlashSales();
     renderConvList();
-    updateProfileAnnonces();
-    showToast('Bienvenue ' + appState.currentUser.name + ' !', 'success');
-  } else if (role === 'admin') {
-    appState.currentUser = userData || USERS_DB[1];
-    document.getElementById('admin-username').textContent = appState.currentUser.name;
-    document.getElementById('admin-greet').textContent    = appState.currentUser.name;
-    showPage('admin');
-    showToast('Panneau Admin — ' + appState.currentUser.name, 'success');
-  } else if (role === 'owner') {
-    // Show secret password modal first (demo button bypasses for convenience)
-    if (userData && userData.role === 'owner') {
-      // Coming from direct login — already authenticated
-      appState.currentUser = userData;
-      document.getElementById('owner-username').textContent = appState.currentUser.name;
-      showPage('owner');
-      ownerTab('dashboard', document.querySelector('#page-owner .owner-nav-item'));
-      showToast('👑 Bienvenue Propriétaire — Accès total activé', 'success');
-    } else {
-      // Demo shortcut — open secret modal
-      openOwnerAccess();
-    }
+    if (role !== 'visitor') updateProfileAnnonces();
+    showToast(role==='visitor' ? 'Mode visiteur — créez un compte pour plus !' : 'Bienvenue ' + appState.currentUser.name + ' !', 'success');
   }
   startTimers();
 }
 
-// ---- LOGOUT ----
-function doLogout() {
+// ---- DÉCONNEXION ----
+async function doLogout() {
+  try { await initFirebase(); if (window._fbSignOut) await window._fbSignOut(); } catch(e) {}
   appState.currentUser = null;
   showPage('auth');
-  showToast('Déconnexion réussie');
+  showToast('Déconnecté', '');
 }
+
+// ---- COMPTE REQUIS (visiteur) ----
+function requireAuth(icon, titre, sub) {
+  if (appState.currentUser && appState.currentUser.role !== 'visitor') return true;
+  document.getElementById('requireAuthIcon').textContent  = icon || '🔒';
+  document.getElementById('requireAuthTitle').textContent = titre || 'Compte requis';
+  document.getElementById('requireAuthSub').textContent   = sub || 'Créez un compte gratuit pour accéder à cette fonctionnalité.';
+  document.getElementById('requireAuthOverlay').classList.add('active');
+  return false;
+}
+function closeRequireAuth() { document.getElementById('requireAuthOverlay').classList.remove('active'); }
+function showForgotPassword() { showToast('Réinitialisation par email — bientôt disponible', ''); }
+
+// ---- LEGACY loginAs ----
+function loginAs(role, userData) {
+  if (role === 'owner') { openOwnerAccess(); return; }
+  appState.currentUser = userData || (role==='admin' ? USERS_DB[1] : USERS_DB[0]);
+  enterApp(role);
+}
+
+// ---- LOGOUT (ancien nom conservé) ----
 
 /* ============================================================
    PAGE ROUTER
@@ -1874,6 +2264,15 @@ function doLogout() {
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
+  if (name !== 'auth') {
+    document.body.classList.remove('auth-locked');
+    const authPage = document.getElementById('page-auth');
+    if (authPage) authPage.style.display = 'none';
+  } else {
+    document.body.classList.add('auth-locked');
+    const authPage = document.getElementById('page-auth');
+    if (authPage) authPage.style.display = '';
+  }
 }
 
 /* ============================================================
@@ -1982,7 +2381,8 @@ function filterAnnonces(el, cat) {
 let pubCat = null;
 
 function openPublish() {
-  pubCat = null;
+  if (!requireAuth('Connectez-vous pour publier une annonce.')) return;
+  if (!requireAuth('📸', 'Publiez votre annonce', 'Créez un compte gratuit pour publier une annonce sur AG Prime.')) return;
   editingAnnonceId = null;
   document.querySelector('.publish-title').textContent = '📸 Publier une annonce';
   document.querySelector('.btn-publish-submit').textContent = '🚀 Soumettre l\'annonce';
@@ -2306,7 +2706,7 @@ function openConv(id) {
 }
 
 function openChatWith(vendeurNom, annonceTitre, annoncePrix, annonceIcon, annonceId) {
-  const convs = getConvs();
+  if (!requireAuth('💬', 'Contactez le vendeur', 'Créez un compte gratuit pour envoyer un message au vendeur.')) return;
   const myName = appState.currentUser?.name || 'Moi';
   let conv = convs.find(c => c.annonceId === annonceId && c.participants.includes(myName));
   if (!conv) {
@@ -2498,7 +2898,7 @@ function carStartChat() {
 }
 
 function favToggle(btn, annonceId) {
-  const isFav = btn.textContent.trim() === '❤️';
+  if (!requireAuth('❤️', 'Sauvegardez vos favoris', 'Créez un compte pour sauvegarder vos annonces préférées.')) return;
   btn.textContent = isFav ? '♡' : '❤️';
   if (!annonceId) return; // legacy cards without id — visual only
   let favs = getFavoris();
@@ -2591,8 +2991,8 @@ function checkOwnerSecret() {
   const val = document.getElementById('ownerSecretInput').value.trim();
   if (val === OWNER_SECRET) {
     closeOwnerAccess();
-    const ownerUser = USERS_DB[2];
-    loginAs('owner', ownerUser);
+    appState.currentUser = { uid:'owner', name:'Propriétaire AG Prime', role:'owner' };
+    enterApp('owner');
   } else {
     showToast('❌ Mot de passe incorrect', 'error');
     document.getElementById('ownerSecretInput').value = '';
@@ -2673,13 +3073,19 @@ function selectBanner(el, idx) {
   document.querySelector('#banner-edit-form div:first-child').textContent = '✏️ Modifier : ' + title;
 }
 
-// SEED FIRESTORE AUTO
-if (!localStorage.getItem('seeded')) {
-  import('https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js').then(async () => {
-    await window.seedFirestore && window.seedFirestore();
-    localStorage.setItem('seeded', '1');
-  });
+function ownerPromoteAdmin(btn, name) {
+  const row = btn.closest('tr');
+  const roleCell = row.querySelectorAll('td')[2];
+  if (roleCell) {
+    roleCell.innerHTML = '<span class="owner-pill owner-pill-gold">admin</span>';
   }
+  btn.closest('td').innerHTML = '<span style="color:var(--owner-gold2);font-size:11px;font-weight:700;">🛡️ Admin</span>';
+  showToast('✅ ' + name + ' promu Administrateur', 'success');
+}
+
+// Initialisation au chargement
+renderContactNumbers();
+
 </script>
 </body>
 </html>
