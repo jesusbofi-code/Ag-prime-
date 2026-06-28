@@ -600,7 +600,43 @@ body.auth-locked{overflow:hidden;}
   .finance-row{grid-template-columns:1fr;}
 }
 
-/* Toast notification */
+/* Admin support & notes */
+.admin-support-row{background:var(--admin-card);border:1px solid var(--admin-border);border-radius:12px;padding:14px;margin-bottom:12px;}
+.admin-reply-area{margin-top:10px;}
+.admin-note-tag{font-size:11px;font-weight:600;color:var(--admin-text2);background:rgba(255,255,255,.05);border:1px solid var(--admin-border);border-radius:6px;padding:3px 8px;cursor:pointer;transition:all .2s;}
+.admin-note-tag:hover{color:var(--orange);border-color:rgba(244,124,32,.3);}
+.btn-whatsapp-contact{background:rgba(37,211,102,.12);color:#25D366;border:1px solid rgba(37,211,102,.25);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-whatsapp-contact:hover{background:rgba(37,211,102,.25);}
+.admin-suspend-btn{background:rgba(243,156,18,.12);color:#f39c12;border:1px solid rgba(243,156,18,.25);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer;}
+.admin-notif-user-row{background:var(--admin-card);border:1px solid var(--admin-border);border-radius:10px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .2s;}
+.admin-notif-user-row:hover{border-color:var(--orange);}
+.admin-notif-user-row.selected{border-color:var(--orange);background:rgba(244,124,32,.05);}
+
+/* Admin toggle */
+.admin-toggle{position:relative;display:inline-block;width:40px;height:22px;flex-shrink:0;}
+.admin-toggle input{opacity:0;width:0;height:0;}
+.admin-toggle-slider{position:absolute;cursor:pointer;inset:0;background:rgba(255,255,255,.1);border-radius:22px;transition:.3s;border:1px solid var(--admin-border);}
+.admin-toggle-slider:before{content:'';position:absolute;width:16px;height:16px;left:2px;bottom:2px;background:#666;border-radius:50%;transition:.3s;}
+.admin-toggle input:checked + .admin-toggle-slider{background:rgba(244,124,32,.2);border-color:var(--orange);}
+.admin-toggle input:checked + .admin-toggle-slider:before{transform:translateX(18px);background:var(--orange);}
+
+/* Commission rows */
+.commission-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--admin-border);}
+.commission-row:last-child{border-bottom:none;}
+.comm-info{flex:1;}
+.comm-name{font-size:13px;font-weight:600;color:var(--admin-text);}
+.comm-detail{font-size:11px;color:var(--admin-text2);margin-top:2px;}
+.comm-amount{font-size:16px;font-weight:800;color:var(--orange);}
+
+/* Owner toggles */
+.owner-toggle{position:relative;display:inline-block;width:46px;height:26px;flex-shrink:0;}
+.owner-toggle input{opacity:0;width:0;height:0;}
+.owner-toggle-slider{position:absolute;cursor:pointer;inset:0;background:rgba(255,255,255,.1);border-radius:26px;transition:.3s;border:1px solid var(--owner-border);}
+.owner-toggle-slider:before{content:'';position:absolute;width:20px;height:20px;left:2px;bottom:2px;background:#888;border-radius:50%;transition:.3s;}
+.owner-toggle input:checked + .owner-toggle-slider{background:rgba(201,168,76,.3);border-color:var(--owner-gold);}
+.owner-toggle input:checked + .owner-toggle-slider:before{transform:translateX(20px);background:var(--owner-gold);}
+
+/* Owner toast */
 .toast{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-80px);background:var(--text);color:var(--bg);padding:10px 20px;border-radius:10px;font-size:13px;font-weight:600;z-index:999;transition:transform .3s;white-space:nowrap;}
 .toast.show{transform:translateX(-50%) translateY(0);}
 .toast.success{background:var(--green);color:#fff;}
@@ -1080,115 +1116,336 @@ body.auth-locked{overflow:hidden;}
   <div class="admin-layout">
     <!-- Sidebar -->
     <div class="admin-sidebar">
+      <div class="admin-sidebar-label" style="font-size:10px;font-weight:700;color:var(--admin-text2);letter-spacing:1.5px;padding:16px 20px 6px;text-transform:uppercase;">Principal</div>
       <div class="admin-nav-item active" onclick="adminTab('dashboard',this)"><span class="nav-ic">📊</span> Tableau de bord</div>
       <div class="admin-nav-item" onclick="adminTab('annonces',this)"><span class="nav-ic">📋</span> Annonces <span class="admin-notif">5</span></div>
-      <div class="admin-nav-item" onclick="adminTab('documents',this)"><span class="nav-ic">📁</span> Documents <span class="admin-notif">3</span></div>
-      <div class="admin-nav-item" onclick="adminTab('messages',this)"><span class="nav-ic">💬</span> Messages <span class="admin-notif">7</span></div>
-      <div class="admin-nav-item" onclick="adminTab('commissions',this)"><span class="nav-ic">💰</span> Commissions</div>
+      <div class="admin-nav-item" onclick="adminTab('signalements',this)"><span class="nav-ic">🚩</span> Signalements <span class="admin-notif">2</span></div>
+      <div class="admin-sidebar-label" style="font-size:10px;font-weight:700;color:var(--admin-text2);letter-spacing:1.5px;padding:16px 20px 6px;text-transform:uppercase;">Vendeurs</div>
+      <div class="admin-nav-item" onclick="adminTab('documents',this)"><span class="nav-ic">📁</span> Documents KYC <span class="admin-notif">3</span></div>
       <div class="admin-nav-item" onclick="adminTab('utilisateurs',this)"><span class="nav-ic">👥</span> Utilisateurs</div>
+      <div class="admin-sidebar-label" style="font-size:10px;font-weight:700;color:var(--admin-text2);letter-spacing:1.5px;padding:16px 20px 6px;text-transform:uppercase;">Support</div>
+      <div class="admin-nav-item" onclick="adminTab('messages',this)"><span class="nav-ic">💬</span> Messages <span class="admin-notif">7</span></div>
+      <div class="admin-nav-item" onclick="adminTab('notifications',this)"><span class="nav-ic">🔔</span> Notifications</div>
+      <div class="admin-nav-item" onclick="adminTab('stats',this)"><span class="nav-ic">📈</span> Statistiques</div>
+      <div class="admin-nav-item" onclick="adminTab('commissions',this)"><span class="nav-ic">💰</span> Commissions</div>
     </div>
 
     <!-- Content -->
     <div class="admin-content">
 
-      <!-- DASHBOARD TAB -->
+      <!-- ===== DASHBOARD ===== -->
       <div id="admin-tab-dashboard" class="admin-tab-content">
         <div style="font-size:20px;font-weight:800;color:var(--admin-text);margin-bottom:20px;">Bonjour, <span style="color:var(--orange);" id="admin-greet">Gestionnaire</span> 👋</div>
-
         <div class="kpi-row">
           <div class="kpi-card"><div class="kpi-icon">📋</div><div class="kpi-value">5</div><div class="kpi-label">Annonces en attente</div><div class="kpi-delta kpi-up">↑ +2 aujourd'hui</div></div>
           <div class="kpi-card"><div class="kpi-icon">👥</div><div class="kpi-value">142</div><div class="kpi-label">Utilisateurs inscrits</div><div class="kpi-delta kpi-up">↑ +8 cette semaine</div></div>
-          <div class="kpi-card"><div class="kpi-icon">💰</div><div class="kpi-value">2.4M</div><div class="kpi-label">Commissions (CFA)</div><div class="kpi-delta kpi-up">↑ +15%</div></div>
+          <div class="kpi-card"><div class="kpi-icon">🚩</div><div class="kpi-value">2</div><div class="kpi-label">Signalements actifs</div><div class="kpi-delta kpi-down">↑ +2 aujourd'hui</div></div>
           <div class="kpi-card"><div class="kpi-icon">📁</div><div class="kpi-value">3</div><div class="kpi-label">Documents à vérifier</div><div class="kpi-delta kpi-down">↓ -1 hier</div></div>
         </div>
-
-        <!-- Aperçu annonces récentes -->
+        <!-- Actions urgentes -->
         <div class="admin-section">
-          <div class="admin-section-title"><span>📋</span> Annonces récentes à valider</div>
+          <div class="admin-section-title"><span>⚡</span> Actions urgentes</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+            <div style="background:rgba(243,156,18,.07);border:1px solid rgba(243,156,18,.2);border-radius:12px;padding:14px;cursor:pointer;" onclick="adminTab('annonces',document.querySelector('[onclick*=annonces]'))">
+              <div style="font-size:20px;margin-bottom:4px;">📋</div>
+              <div style="font-size:12px;font-weight:700;color:var(--admin-text);">5 annonces</div>
+              <div style="font-size:10px;color:var(--admin-text2);">à valider</div>
+            </div>
+            <div style="background:rgba(231,76,60,.07);border:1px solid rgba(231,76,60,.2);border-radius:12px;padding:14px;cursor:pointer;" onclick="adminTab('signalements',document.querySelector('[onclick*=signalements]'))">
+              <div style="font-size:20px;margin-bottom:4px;">🚩</div>
+              <div style="font-size:12px;font-weight:700;color:var(--admin-text);">2 signalements</div>
+              <div style="font-size:10px;color:var(--admin-text2);">à traiter</div>
+            </div>
+            <div style="background:rgba(41,128,185,.07);border:1px solid rgba(41,128,185,.2);border-radius:12px;padding:14px;cursor:pointer;" onclick="adminTab('documents',document.querySelector('[onclick*=documents]'))">
+              <div style="font-size:20px;margin-bottom:4px;">📁</div>
+              <div style="font-size:12px;font-weight:700;color:var(--admin-text);">3 documents</div>
+              <div style="font-size:10px;color:var(--admin-text2);">à vérifier</div>
+            </div>
+          </div>
+        </div>
+        <!-- Activité récente -->
+        <div class="admin-section">
+          <div class="admin-section-title"><span>📈</span> Activité récente</div>
           <table class="annonces-table">
-            <thead><tr><th>Annonce</th><th>Vendeur</th><th>Prix</th><th>Date</th><th>Actions</th></tr></thead>
+            <thead><tr><th>Action</th><th>Utilisateur</th><th>Détail</th><th>Heure</th></tr></thead>
             <tbody>
-              <tr><td><div class="annonce-cell"><div class="annonce-thumb g1">🚗</div><span>Toyota RAV4 2018</span></div></td><td style="color:var(--admin-text2);">Konan K.</td><td style="color:var(--orange);font-weight:700;">15,500,000 CFA</td><td style="color:var(--admin-text2);">Aujourd'hui</td><td><button class="btn-approve" onclick="approveAnnonce(this)">✓ Approuver</button><button class="btn-reject" onclick="rejectAnnonce(this)">✗ Rejeter</button></td></tr>
-              <tr><td><div class="annonce-cell"><div class="annonce-thumb g3">🏡</div><span>Villa Cocody 4P</span></div></td><td style="color:var(--admin-text2);">Amani T.</td><td style="color:var(--orange);font-weight:700;">45,000,000 CFA</td><td style="color:var(--admin-text2);">Hier</td><td><button class="btn-approve" onclick="approveAnnonce(this)">✓ Approuver</button><button class="btn-reject" onclick="rejectAnnonce(this)">✗ Rejeter</button></td></tr>
-              <tr><td><div class="annonce-cell"><div class="annonce-thumb g5">🚘</div><span>Mercedes GLC 2020</span></div></td><td style="color:var(--admin-text2);">Bamba S.</td><td style="color:var(--orange);font-weight:700;">28,000,000 CFA</td><td style="color:var(--admin-text2);">Hier</td><td><button class="btn-approve" onclick="approveAnnonce(this)">✓ Approuver</button><button class="btn-reject" onclick="rejectAnnonce(this)">✗ Rejeter</button></td></tr>
+              <tr><td>🆕 Inscription</td><td style="color:var(--orange);">Yao Pélagie</td><td style="color:var(--admin-text2);">Nouveau compte vendeur</td><td style="color:var(--admin-text2);">12 min</td></tr>
+              <tr><td>📋 Annonce</td><td style="color:var(--orange);">Konan K.</td><td style="color:var(--admin-text2);">Toyota RAV4 soumise</td><td style="color:var(--admin-text2);">1h</td></tr>
+              <tr><td>🚩 Signalement</td><td style="color:var(--orange);">Diallo M.</td><td style="color:var(--admin-text2);">Annonce signalée</td><td style="color:var(--admin-text2);">2h</td></tr>
+              <tr><td>📁 Document</td><td style="color:var(--orange);">Bamba S.</td><td style="color:var(--admin-text2);">CNI soumis</td><td style="color:var(--admin-text2);">Hier</td></tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- ANNONCES TAB -->
+      <!-- ===== ANNONCES ===== -->
       <div id="admin-tab-annonces" class="admin-tab-content" style="display:none;">
-        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:20px;">📋 Gestion des annonces</div>
+        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:16px;">📋 Gestion des annonces</div>
+        <!-- Filtre statut -->
+        <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+          <button class="admin-filter-btn active" onclick="adminFilterAnnonces(this,'all')">Toutes</button>
+          <button class="admin-filter-btn" onclick="adminFilterAnnonces(this,'pending')">En attente</button>
+          <button class="admin-filter-btn" onclick="adminFilterAnnonces(this,'approved')">Approuvées</button>
+          <button class="admin-filter-btn" onclick="adminFilterAnnonces(this,'rejected')">Refusées</button>
+          <button class="admin-filter-btn" onclick="adminFilterAnnonces(this,'suspended')">Suspendues</button>
+        </div>
         <div class="admin-section">
-          <div class="admin-section-title"><span>⏳</span> En attente de validation (5)</div>
           <table class="annonces-table">
-            <thead><tr><th>Annonce</th><th>Vendeur</th><th>Catégorie</th><th>Prix</th><th>Statut</th><th>Actions</th></tr></thead>
+            <thead><tr><th>Annonce</th><th>Vendeur</th><th>Cat.</th><th>Prix</th><th>Statut</th><th>Actions</th></tr></thead>
             <tbody id="annonces-tbody">
-              <tr><td><div class="annonce-cell"><div class="annonce-thumb g1">🚗</div><span>Toyota RAV4 2018</span></div></td><td style="color:var(--admin-text2);">Konan K.</td><td style="color:var(--admin-text2);">Automobile</td><td style="color:var(--orange);font-weight:700;">15,500,000</td><td><span class="pill pill-pending">En attente</span></td><td><button class="btn-approve" onclick="approveAnnonce(this)">✓</button><button class="btn-reject" onclick="rejectAnnonce(this)">✗</button></td></tr>
-              <tr><td><div class="annonce-cell"><div class="annonce-thumb g3">🏡</div><span>Villa Cocody 4P</span></div></td><td style="color:var(--admin-text2);">Amani T.</td><td style="color:var(--admin-text2);">Maison</td><td style="color:var(--orange);font-weight:700;">45,000,000</td><td><span class="pill pill-pending">En attente</span></td><td><button class="btn-approve" onclick="approveAnnonce(this)">✓</button><button class="btn-reject" onclick="rejectAnnonce(this)">✗</button></td></tr>
-              <tr><td><div class="annonce-cell"><div class="annonce-thumb g5">🚘</div><span>Mercedes GLC 2020</span></div></td><td style="color:var(--admin-text2);">Bamba S.</td><td style="color:var(--admin-text2);">Automobile</td><td style="color:var(--orange);font-weight:700;">28,000,000</td><td><span class="pill pill-pending">En attente</span></td><td><button class="btn-approve" onclick="approveAnnonce(this)">✓</button><button class="btn-reject" onclick="rejectAnnonce(this)">✗</button></td></tr>
-              <tr><td><div class="annonce-cell"><div class="annonce-thumb g6">🌿</div><span>Terrain 500m² Bingerville</span></div></td><td style="color:var(--admin-text2);">Diallo M.</td><td style="color:var(--admin-text2);">Terrain</td><td style="color:var(--orange);font-weight:700;">8,500,000</td><td><span class="pill pill-ok">Approuvée</span></td><td><button class="btn-reject" onclick="rejectAnnonce(this)">✗ Retirer</button></td></tr>
-              <tr><td><div class="annonce-cell"><div class="annonce-thumb g4">🏢</div><span>Appart F3 Centre</span></div></td><td style="color:var(--admin-text2);">Yao P.</td><td style="color:var(--admin-text2);">Appart</td><td style="color:var(--orange);font-weight:700;">18,000,000</td><td><span class="pill pill-rejected">Refusée</span></td><td><button class="btn-approve" onclick="approveAnnonce(this)">✓ Réactiver</button></td></tr>
+              <tr data-status="pending"><td><div class="annonce-cell"><div class="annonce-thumb g1">🚗</div><span>Toyota RAV4 2018</span></div></td><td style="color:var(--admin-text2);">Konan K.</td><td style="color:var(--admin-text2);">Auto</td><td style="color:var(--orange);font-weight:700;">$28,500</td><td><span class="pill pill-pending">En attente</span></td><td><button class="btn-approve" onclick="approveAnnonce(this)">✓</button><button class="btn-reject" onclick="rejectAnnonce(this)">✗</button><button class="btn-suspend" onclick="suspendAnnonce(this,'Toyota RAV4')">⏸</button></td></tr>
+              <tr data-status="pending"><td><div class="annonce-cell"><div class="annonce-thumb g3">🏡</div><span>Villa Cocody 4P</span></div></td><td style="color:var(--admin-text2);">Amani T.</td><td style="color:var(--admin-text2);">Maison</td><td style="color:var(--orange);font-weight:700;">$84,600</td><td><span class="pill pill-pending">En attente</span></td><td><button class="btn-approve" onclick="approveAnnonce(this)">✓</button><button class="btn-reject" onclick="rejectAnnonce(this)">✗</button><button class="btn-suspend" onclick="suspendAnnonce(this,'Villa Cocody')">⏸</button></td></tr>
+              <tr data-status="pending"><td><div class="annonce-cell"><div class="annonce-thumb g5">🚘</div><span>Mercedes GLC 2020</span></div></td><td style="color:var(--admin-text2);">Bamba S.</td><td style="color:var(--admin-text2);">Auto</td><td style="color:var(--orange);font-weight:700;">$43,000</td><td><span class="pill pill-pending">En attente</span></td><td><button class="btn-approve" onclick="approveAnnonce(this)">✓</button><button class="btn-reject" onclick="rejectAnnonce(this)">✗</button><button class="btn-suspend" onclick="suspendAnnonce(this,'Mercedes GLC')">⏸</button></td></tr>
+              <tr data-status="approved"><td><div class="annonce-cell"><div class="annonce-thumb g6">🌿</div><span>Terrain Bingerville</span></div></td><td style="color:var(--admin-text2);">Diallo M.</td><td style="color:var(--admin-text2);">Terrain</td><td style="color:var(--orange);font-weight:700;">$13,100</td><td><span class="pill pill-ok">Approuvée</span></td><td><button class="btn-suspend" onclick="suspendAnnonce(this,'Terrain Bingerville')">⏸ Suspendre</button></td></tr>
+              <tr data-status="rejected"><td><div class="annonce-cell"><div class="annonce-thumb g4">🏢</div><span>Appart F3 Centre</span></div></td><td style="color:var(--admin-text2);">Yao P.</td><td style="color:var(--admin-text2);">Appart</td><td style="color:var(--orange);font-weight:700;">$27,700</td><td><span class="pill pill-rejected">Refusée</span></td><td><button class="btn-approve" onclick="approveAnnonce(this)">✓ Réactiver</button></td></tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- DOCUMENTS TAB -->
-      <div id="admin-tab-documents" class="admin-tab-content" style="display:none;">
-        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:20px;">📁 Vérification des documents</div>
+      <!-- ===== SIGNALEMENTS ===== -->
+      <div id="admin-tab-signalements" class="admin-tab-content" style="display:none;">
+        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:16px;">🚩 Signalements</div>
         <div class="admin-section">
-          <div class="admin-section-title"><span>📁</span> Documents soumis</div>
-          <div class="docs-list-admin">
-            <div class="doc-row-admin"><div class="doc-user-avatar">👤</div><div class="doc-user-info"><div class="doc-user-name">Konan Kouamé</div><div class="doc-user-type">CNI + Carte Rose · Automobile</div></div><span class="pill pill-pending" style="margin-right:8px;">En attente</span><div class="doc-actions"><button class="btn-approve" onclick="showToast('Document validé ✅','success')">✓ Valider</button><button class="btn-reject" onclick="showToast('Document refusé','error')">✗</button></div></div>
-            <div class="doc-row-admin"><div class="doc-user-avatar">👤</div><div class="doc-user-info"><div class="doc-user-name">Amani Touré</div><div class="doc-user-type">Assurance + CNI · Maison</div></div><span class="pill pill-pending" style="margin-right:8px;">En attente</span><div class="doc-actions"><button class="btn-approve" onclick="showToast('Document validé ✅','success')">✓ Valider</button><button class="btn-reject" onclick="showToast('Document refusé','error')">✗</button></div></div>
-            <div class="doc-row-admin"><div class="doc-user-avatar">👤</div><div class="doc-user-info"><div class="doc-user-name">Bamba Souleymane</div><div class="doc-user-type">Contrôle technique · Automobile</div></div><span class="pill pill-ok">Validé</span></div>
-            <div class="doc-row-admin"><div class="doc-user-avatar">👤</div><div class="doc-user-info"><div class="doc-user-name">Diallo Moussa</div><div class="doc-user-type">Titre foncier · Terrain</div></div><span class="pill pill-ok">Validé</span></div>
+          <div class="admin-section-title"><span>🚩</span> Annonces signalées par les utilisateurs</div>
+          <div class="admin-signalement-row">
+            <div style="display:flex;align-items:center;gap:10px;flex:1;">
+              <div class="annonce-thumb g1" style="width:36px;height:36px;font-size:16px;flex-shrink:0;">🚗</div>
+              <div>
+                <div style="font-size:13px;font-weight:700;color:var(--admin-text);">Toyota RAV4 2018</div>
+                <div style="font-size:11px;color:var(--admin-text2);">Signalé 2 fois · "Prix suspect, possible arnaque"</div>
+                <div style="font-size:10px;color:var(--admin-text2);margin-top:2px;">Vendeur : Konan K. · Il y a 3h</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:6px;flex-shrink:0;">
+              <button class="btn-suspend" onclick="suspendAnnonce(this,'Toyota RAV4')">⏸ Suspendre</button>
+              <button class="btn-approve" onclick="adminIgnoreSignalement(this)">✓ Ignorer</button>
+            </div>
+          </div>
+          <div class="admin-signalement-row">
+            <div style="display:flex;align-items:center;gap:10px;flex:1;">
+              <div class="annonce-thumb g3" style="width:36px;height:36px;font-size:16px;flex-shrink:0;">🏡</div>
+              <div>
+                <div style="font-size:13px;font-weight:700;color:var(--admin-text);">Villa Cocody 4P</div>
+                <div style="font-size:11px;color:var(--admin-text2);">Signalé 1 fois · "Photos trompeuses"</div>
+                <div style="font-size:10px;color:var(--admin-text2);margin-top:2px;">Vendeur : Amani T. · Hier</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:6px;flex-shrink:0;">
+              <button class="btn-suspend" onclick="suspendAnnonce(this,'Villa Cocody')">⏸ Suspendre</button>
+              <button class="btn-approve" onclick="adminIgnoreSignalement(this)">✓ Ignorer</button>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- MESSAGES TAB -->
-      <div id="admin-tab-messages" class="admin-tab-content" style="display:none;">
-        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:20px;">💬 Messages & Support</div>
+      <!-- ===== DOCUMENTS KYC ===== -->
+      <div id="admin-tab-documents" class="admin-tab-content" style="display:none;">
+        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:16px;">📁 Vérification KYC</div>
         <div class="admin-section">
-          <div class="admin-section-title"><span>💬</span> Messages de support</div>
-          <div class="admin-msg-item"><div class="admin-msg-avatar">👤</div><div class="admin-msg-body"><div class="admin-msg-name">Konan Kouamé</div><div class="admin-msg-text">Bonjour, mon annonce est en attente depuis 3 jours. Pouvez-vous vérifier ?</div></div><div class="admin-msg-time">09:42</div></div>
-          <div class="admin-msg-item"><div class="admin-msg-avatar" style="background:linear-gradient(135deg,#1a4a1a,#2a7a2a);">👤</div><div class="admin-msg-body"><div class="admin-msg-name">Amani Touré</div><div class="admin-msg-text">Je n'arrive pas à uploader mes documents CNI. Le fichier est rejeté.</div></div><div class="admin-msg-time">Hier</div></div>
-          <div class="admin-msg-item"><div class="admin-msg-avatar" style="background:linear-gradient(135deg,#2a1a3a,#4a2a6a);">👤</div><div class="admin-msg-body"><div class="admin-msg-name">Bamba Souleymane</div><div class="admin-msg-text">Mon automobile a été vendue hier. Quand la commission sera-t-elle calculée ?</div></div><div class="admin-msg-time">Lun.</div></div>
-        </div>
-        <div class="admin-section">
-          <div class="admin-section-title"><span>🔔</span> Notifications — Annonces vendues</div>
-          <div class="commission-row"><div class="comm-info"><div class="comm-name">Toyota RAV4 2018 — Vendue</div><div class="comm-detail">Vendeur : Konan K. · Acheteur : Yao P.</div></div><span class="pill pill-sold">Vendue</span></div>
-          <div class="commission-row"><div class="comm-info"><div class="comm-name">Terrain Bingerville — Vendu</div><div class="comm-detail">Vendeur : Diallo M. · Acheteur : Coulibaly R.</div></div><span class="pill pill-sold">Vendu</span></div>
+          <div class="admin-section-title"><span>⏳</span> En attente</div>
+          <div class="docs-list-admin">
+            <div class="doc-row-admin">
+              <div class="doc-user-avatar">👤</div>
+              <div class="doc-user-info">
+                <div class="doc-user-name">Konan Kouamé</div>
+                <div class="doc-user-type">CNI + Carte Rose · Automobile</div>
+                <div style="font-size:10px;color:var(--admin-text2);margin-top:3px;">Soumis il y a 2h</div>
+              </div>
+              <span class="pill pill-pending" style="margin-right:8px;">En attente</span>
+              <div class="doc-actions">
+                <button class="btn-approve" onclick="adminValiderKYC(this,'Konan Kouamé')">✓ Valider</button>
+                <button class="btn-reject" onclick="adminRefuserKYC(this,'Konan Kouamé')">✗</button>
+                <button class="btn-whatsapp-contact" onclick="adminContactWhatsapp('+243000000001','Konan')">💬</button>
+              </div>
+            </div>
+            <div class="doc-row-admin">
+              <div class="doc-user-avatar">👤</div>
+              <div class="doc-user-info">
+                <div class="doc-user-name">Amani Touré</div>
+                <div class="doc-user-type">Assurance + CNI · Maison</div>
+                <div style="font-size:10px;color:var(--admin-text2);margin-top:3px;">Soumis hier</div>
+              </div>
+              <span class="pill pill-pending" style="margin-right:8px;">En attente</span>
+              <div class="doc-actions">
+                <button class="btn-approve" onclick="adminValiderKYC(this,'Amani Touré')">✓ Valider</button>
+                <button class="btn-reject" onclick="adminRefuserKYC(this,'Amani Touré')">✗</button>
+                <button class="btn-whatsapp-contact" onclick="adminContactWhatsapp('+243000000002','Amani')">💬</button>
+              </div>
+            </div>
+            <div class="doc-row-admin">
+              <div class="doc-user-avatar">👤</div>
+              <div class="doc-user-info">
+                <div class="doc-user-name">Bamba Souleymane</div>
+                <div class="doc-user-type">Contrôle technique · Automobile</div>
+              </div>
+              <span class="pill pill-ok">Validé ✅</span>
+            </div>
+            <div class="doc-row-admin">
+              <div class="doc-user-avatar">👤</div>
+              <div class="doc-user-info">
+                <div class="doc-user-name">Diallo Moussa</div>
+                <div class="doc-user-type">Titre foncier · Terrain</div>
+              </div>
+              <span class="pill pill-ok">Validé ✅</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- COMMISSIONS TAB -->
-      <div id="admin-tab-commissions" class="admin-tab-content" style="display:none;">
-        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:20px;">💰 Commissions</div>
-        <div class="admin-section">
-          <div class="admin-section-title"><span>💰</span> Commissions à encaisser</div>
-          <div class="commission-row"><div class="comm-info"><div class="comm-name">Toyota RAV4 2018</div><div class="comm-detail">15,500,000 CFA · Taux : 1%</div></div><div class="comm-amount">155,000 CFA</div></div>
-          <div class="commission-row"><div class="comm-info"><div class="comm-name">Terrain 500m² Bingerville</div><div class="comm-detail">8,500,000 CFA · Taux : 1%</div></div><div class="comm-amount">85,000 CFA</div></div>
-          <div class="commission-row"><div class="comm-info"><div class="comm-name">Honda CR-V 2019</div><div class="comm-detail">19,500,000 CFA · Taux : 1%</div></div><div class="comm-amount">195,000 CFA</div></div>
-          <div style="padding-top:12px;border-top:1px solid var(--admin-border);display:flex;justify-content:space-between;align-items:center;"><span style="font-size:13px;color:var(--admin-text2);font-weight:600;">Total commissions</span><span style="font-size:20px;font-weight:800;color:var(--orange);">435,000 CFA</span></div>
-        </div>
-      </div>
-
-      <!-- UTILISATEURS TAB -->
+      <!-- ===== UTILISATEURS ===== -->
       <div id="admin-tab-utilisateurs" class="admin-tab-content" style="display:none;">
-        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:20px;">👥 Gestion des utilisateurs</div>
+        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:16px;">👥 Utilisateurs</div>
+        <!-- Barre de recherche -->
+        <div style="background:var(--admin-card);border:1px solid var(--admin-border);border-radius:10px;display:flex;align-items:center;gap:8px;padding:10px 14px;margin-bottom:14px;">
+          <span style="color:var(--admin-text2);">🔍</span>
+          <input type="text" placeholder="Rechercher un utilisateur..." oninput="adminSearchUsers(this.value)"
+            style="flex:1;background:transparent;border:none;color:var(--admin-text);font-size:13px;outline:none;font-family:'Poppins',sans-serif;">
+        </div>
         <div class="admin-section">
-          <div class="admin-section-title"><span>👥</span> Utilisateurs inscrits</div>
-          <table class="annonces-table">
-            <thead><tr><th>Utilisateur</th><th>Email</th><th>Rôle</th><th>Annonces</th><th>Actions</th></tr></thead>
-            <tbody>
-              <tr><td><div class="annonce-cell"><div class="admin-avatar" style="width:32px;height:32px;font-size:14px;">👤</div><span>Konan Kouamé</span></div></td><td style="color:var(--admin-text2);">konan@mail.com</td><td><span class="pill pill-ok">user</span></td><td style="color:var(--admin-text2);">3</td><td style="color:var(--admin-text2);font-size:11px;">Géré par Owner</td></tr>
-              <tr><td><div class="annonce-cell"><div class="admin-avatar" style="width:32px;height:32px;font-size:14px;">👤</div><span>Amani Touré</span></div></td><td style="color:var(--admin-text2);">amani@mail.com</td><td><span class="pill pill-ok">user</span></td><td style="color:var(--admin-text2);">1</td><td style="color:var(--admin-text2);font-size:11px;">Géré par Owner</td></tr>
-              <tr><td><div class="annonce-cell"><div class="admin-avatar" style="width:32px;height:32px;font-size:14px;">🛡️</div><span>Admin AG Prime</span></div></td><td style="color:var(--admin-text2);">admin@agprime.com</td><td><span class="pill" style="background:rgba(244,124,32,.15);color:var(--orange);">admin</span></td><td style="color:var(--admin-text2);">—</td><td style="color:var(--admin-text2);font-size:12px;">Gestionnaire</td></tr>
+          <table class="annonces-table" id="admin-users-table">
+            <thead><tr><th>Utilisateur</th><th>Email</th><th>Rôle</th><th>Annonces</th><th>Note</th><th>Actions</th></tr></thead>
+            <tbody id="admin-users-tbody">
+              <tr data-name="Konan Kouamé"><td><div class="annonce-cell"><div class="admin-avatar" style="width:32px;height:32px;font-size:14px;">👤</div><span>Konan Kouamé</span></div></td><td style="color:var(--admin-text2);font-size:11px;">konan@mail.com</td><td><span class="pill pill-ok">user</span></td><td style="color:var(--admin-text2);">3</td><td><span class="admin-note-tag" onclick="adminAddNote(this,'Konan Kouamé')">+ Note</span></td><td><button class="btn-whatsapp-contact" onclick="adminContactWhatsapp('+243000000001','Konan')">💬 WA</button></td></tr>
+              <tr data-name="Amani Touré"><td><div class="annonce-cell"><div class="admin-avatar" style="width:32px;height:32px;font-size:14px;">👤</div><span>Amani Touré</span></div></td><td style="color:var(--admin-text2);font-size:11px;">amani@mail.com</td><td><span class="pill pill-ok">user</span></td><td style="color:var(--admin-text2);">1</td><td><span class="admin-note-tag" onclick="adminAddNote(this,'Amani Touré')">+ Note</span></td><td><button class="btn-whatsapp-contact" onclick="adminContactWhatsapp('+243000000002','Amani')">💬 WA</button></td></tr>
+              <tr data-name="Bamba Souleymane"><td><div class="annonce-cell"><div class="admin-avatar" style="width:32px;height:32px;font-size:14px;">👤</div><span>Bamba Souleymane</span></div></td><td style="color:var(--admin-text2);font-size:11px;">bamba@mail.com</td><td><span class="pill pill-ok">user</span></td><td style="color:var(--admin-text2);">2</td><td><span class="admin-note-tag" style="color:var(--orange);" onclick="adminAddNote(this,'Bamba Souleymane')">📝 Bon vendeur</span></td><td><button class="btn-whatsapp-contact" onclick="adminContactWhatsapp('+243000000003','Bamba')">💬 WA</button></td></tr>
+              <tr data-name="Admin AG Prime"><td><div class="annonce-cell"><div class="admin-avatar" style="width:32px;height:32px;font-size:14px;">🛡️</div><span>Admin AG Prime</span></div></td><td style="color:var(--admin-text2);font-size:11px;">admin@agprime.com</td><td><span class="pill" style="background:rgba(244,124,32,.15);color:var(--orange);">admin</span></td><td style="color:var(--admin-text2);">—</td><td style="color:var(--admin-text2);font-size:11px;">—</td><td style="color:var(--admin-text2);font-size:11px;">Gestionnaire</td></tr>
             </tbody>
           </table>
+        </div>
+      </div>
+
+      <!-- ===== MESSAGES & SUPPORT ===== -->
+      <div id="admin-tab-messages" class="admin-tab-content" style="display:none;">
+        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:16px;">💬 Support utilisateurs</div>
+        <div class="admin-section">
+          <div class="admin-section-title"><span>💬</span> Messages en attente de réponse</div>
+          <div class="admin-support-row" id="support-row-1">
+            <div class="admin-msg-item" style="margin-bottom:0;border:none;padding:0;">
+              <div class="admin-msg-avatar">👤</div>
+              <div class="admin-msg-body">
+                <div class="admin-msg-name">Konan Kouamé <span style="font-size:10px;color:var(--admin-text2);font-weight:400;margin-left:6px;">09:42</span></div>
+                <div class="admin-msg-text">Mon annonce est en attente depuis 3 jours. Pouvez-vous vérifier ?</div>
+              </div>
+            </div>
+            <div class="admin-reply-area" id="reply-area-1" style="display:none;">
+              <textarea placeholder="Votre réponse..." rows="2" style="width:100%;background:rgba(255,255,255,.05);border:1px solid var(--admin-border);border-radius:8px;padding:10px;color:var(--admin-text);font-size:12px;outline:none;font-family:'Poppins',sans-serif;resize:none;box-sizing:border-box;margin-top:10px;" id="reply-text-1"></textarea>
+              <div style="display:flex;gap:8px;margin-top:6px;">
+                <button class="btn-approve" onclick="adminSendReply(1,'Konan Kouamé')">📤 Envoyer</button>
+                <button class="btn-reject" onclick="document.getElementById('reply-area-1').style.display='none'">Annuler</button>
+              </div>
+            </div>
+            <div style="display:flex;gap:6px;margin-top:8px;">
+              <button class="btn-approve" style="font-size:11px;" onclick="document.getElementById('reply-area-1').style.display='block'">💬 Répondre</button>
+              <button class="btn-whatsapp-contact" onclick="adminContactWhatsapp('+243000000001','Konan')">💬 WA</button>
+            </div>
+          </div>
+          <div class="admin-support-row">
+            <div class="admin-msg-item" style="margin-bottom:0;border:none;padding:0;">
+              <div class="admin-msg-avatar" style="background:linear-gradient(135deg,#1a4a1a,#2a7a2a);">👤</div>
+              <div class="admin-msg-body">
+                <div class="admin-msg-name">Amani Touré <span style="font-size:10px;color:var(--admin-text2);font-weight:400;margin-left:6px;">Hier</span></div>
+                <div class="admin-msg-text">Je n'arrive pas à uploader mes documents CNI.</div>
+              </div>
+            </div>
+            <div class="admin-reply-area" id="reply-area-2" style="display:none;">
+              <textarea placeholder="Votre réponse..." rows="2" style="width:100%;background:rgba(255,255,255,.05);border:1px solid var(--admin-border);border-radius:8px;padding:10px;color:var(--admin-text);font-size:12px;outline:none;font-family:'Poppins',sans-serif;resize:none;box-sizing:border-box;margin-top:10px;" id="reply-text-2"></textarea>
+              <div style="display:flex;gap:8px;margin-top:6px;">
+                <button class="btn-approve" onclick="adminSendReply(2,'Amani Touré')">📤 Envoyer</button>
+                <button class="btn-reject" onclick="document.getElementById('reply-area-2').style.display='none'">Annuler</button>
+              </div>
+            </div>
+            <div style="display:flex;gap:6px;margin-top:8px;">
+              <button class="btn-approve" style="font-size:11px;" onclick="document.getElementById('reply-area-2').style.display='block'">💬 Répondre</button>
+              <button class="btn-whatsapp-contact" onclick="adminContactWhatsapp('+243000000002','Amani')">💬 WA</button>
+            </div>
+          </div>
+          <div class="admin-support-row">
+            <div class="admin-msg-item" style="margin-bottom:0;border:none;padding:0;">
+              <div class="admin-msg-avatar" style="background:linear-gradient(135deg,#2a1a3a,#4a2a6a);">👤</div>
+              <div class="admin-msg-body">
+                <div class="admin-msg-name">Bamba Souleymane <span style="font-size:10px;color:var(--admin-text2);font-weight:400;margin-left:6px;">Lun.</span></div>
+                <div class="admin-msg-text">Mon automobile a été vendue. Quand la commission sera calculée ?</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:6px;margin-top:8px;">
+              <button class="btn-approve" style="font-size:11px;" onclick="showToast('Réponse envoyée à Bamba','success')">💬 Répondre</button>
+              <button class="btn-whatsapp-contact" onclick="adminContactWhatsapp('+243000000003','Bamba')">💬 WA</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== NOTIFICATIONS ===== -->
+      <div id="admin-tab-notifications" class="admin-tab-content" style="display:none;">
+        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:16px;">🔔 Notification utilisateur</div>
+        <div class="admin-section">
+          <div class="admin-section-title"><span>👤</span> Choisir l'utilisateur</div>
+          <div class="admin-notif-user-row" onclick="adminSelectNotifUser(this,'Konan Kouamé')">
+            <div class="admin-avatar" style="width:34px;height:34px;font-size:14px;">👤</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--admin-text);">Konan Kouamé</div><div style="font-size:11px;color:var(--admin-text2);">konan@mail.com · 3 annonces</div></div>
+          </div>
+          <div class="admin-notif-user-row" onclick="adminSelectNotifUser(this,'Amani Touré')">
+            <div class="admin-avatar" style="width:34px;height:34px;font-size:14px;">👤</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--admin-text);">Amani Touré</div><div style="font-size:11px;color:var(--admin-text2);">amani@mail.com · 1 annonce</div></div>
+          </div>
+          <div class="admin-notif-user-row" onclick="adminSelectNotifUser(this,'Bamba Souleymane')">
+            <div class="admin-avatar" style="width:34px;height:34px;font-size:14px;">👤</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--admin-text);">Bamba Souleymane</div><div style="font-size:11px;color:var(--admin-text2);">bamba@mail.com · 2 annonces</div></div>
+          </div>
+        </div>
+        <div class="admin-section">
+          <div class="admin-section-title"><span>✏️</span> Message</div>
+          <textarea id="admin-notif-msg" rows="3" placeholder="Votre message pour cet utilisateur..."
+            style="width:100%;background:rgba(255,255,255,.05);border:1px solid var(--admin-border);border-radius:10px;padding:12px;color:var(--admin-text);font-size:13px;outline:none;font-family:'Poppins',sans-serif;resize:none;box-sizing:border-box;margin-bottom:12px;"></textarea>
+          <button class="btn-approve" onclick="adminEnvoyerNotifUser()" style="width:100%;padding:12px;font-size:13px;">🔔 Envoyer la notification</button>
+        </div>
+      </div>
+      <!-- ===== STATISTIQUES ===== -->
+      <div id="admin-tab-stats" class="admin-tab-content" style="display:none;">
+        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:16px;">📈 Statistiques</div>
+        <div class="admin-section">
+          <div class="admin-section-title"><span>🔥</span> Annonces les plus consultées</div>
+          <table class="annonces-table">
+            <thead><tr><th>#</th><th>Annonce</th><th>Vendeur</th><th>Vues</th><th>Favoris</th></tr></thead>
+            <tbody>
+              <tr><td style="font-weight:800;color:var(--orange);">1</td><td><div class="annonce-cell"><div class="annonce-thumb g1">🚗</div><span>Toyota RAV4 2018</span></div></td><td style="color:var(--admin-text2);">Konan K.</td><td style="font-weight:700;color:var(--admin-text);">1,248</td><td style="color:var(--orange);">❤️ 34</td></tr>
+              <tr><td style="font-weight:800;color:var(--admin-text2);">2</td><td><div class="annonce-cell"><div class="annonce-thumb g3">🏡</div><span>Villa Cocody 4P</span></div></td><td style="color:var(--admin-text2);">Amani T.</td><td style="font-weight:700;color:var(--admin-text);">987</td><td style="color:var(--orange);">❤️ 21</td></tr>
+              <tr><td style="font-weight:800;color:var(--admin-text2);">3</td><td><div class="annonce-cell"><div class="annonce-thumb g5">🚘</div><span>Mercedes GLC 2020</span></div></td><td style="color:var(--admin-text2);">Bamba S.</td><td style="font-weight:700;color:var(--admin-text);">756</td><td style="color:var(--orange);">❤️ 18</td></tr>
+              <tr><td style="font-weight:800;color:var(--admin-text2);">4</td><td><div class="annonce-cell"><div class="annonce-thumb g6">🌿</div><span>Terrain Bingerville</span></div></td><td style="color:var(--admin-text2);">Diallo M.</td><td style="font-weight:700;color:var(--admin-text);">543</td><td style="color:var(--orange);">❤️ 12</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="admin-section">
+          <div class="admin-section-title"><span>🔍</span> Recherches les plus fréquentes</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;padding:8px 0;">
+            <span style="background:rgba(244,124,32,.12);color:var(--orange);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;">Toyota 🔥 248x</span>
+            <span style="background:rgba(244,124,32,.08);color:var(--orange);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;">Cocody 186x</span>
+            <span style="background:rgba(244,124,32,.06);color:var(--orange);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;">Terrain 154x</span>
+            <span style="background:rgba(244,124,32,.05);color:var(--orange);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;">Honda CR-V 132x</span>
+            <span style="background:rgba(244,124,32,.04);color:var(--orange);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;">Villa 4P 98x</span>
+            <span style="background:rgba(244,124,32,.03);color:var(--orange);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;">Marcory 87x</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== COMMISSIONS ===== -->
+      <div id="admin-tab-commissions" class="admin-tab-content" style="display:none;">
+        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:16px;">💰 Commissions</div>
+        <div class="admin-section">
+          <div class="admin-section-title"><span>💰</span> À encaisser</div>
+          <div class="commission-row"><div class="comm-info"><div class="comm-name">Toyota RAV4 2018</div><div class="comm-detail">$28,500 · Taux : 1%</div></div><div style="display:flex;align-items:center;gap:10px;"><div class="comm-amount">$285</div><button onclick="adminMarkCommission(this,'Toyota RAV4')" style="background:rgba(39,174,96,.12);color:#27ae60;border:1px solid rgba(39,174,96,.2);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer;">✅ Encaisser</button></div></div>
+          <div class="commission-row"><div class="comm-info"><div class="comm-name">Terrain Bingerville</div><div class="comm-detail">$13,100 · Taux : 1%</div></div><div style="display:flex;align-items:center;gap:10px;"><div class="comm-amount">$131</div><button onclick="adminMarkCommission(this,'Terrain Bingerville')" style="background:rgba(39,174,96,.12);color:#27ae60;border:1px solid rgba(39,174,96,.2);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer;">✅ Encaisser</button></div></div>
+          <div class="commission-row"><div class="comm-info"><div class="comm-name">Honda CR-V 2019</div><div class="comm-detail">$30,000 · Taux : 1%</div></div><div style="display:flex;align-items:center;gap:10px;"><div class="comm-amount">$300</div><button onclick="adminMarkCommission(this,'Honda CR-V')" style="background:rgba(39,174,96,.12);color:#27ae60;border:1px solid rgba(39,174,96,.2);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer;">✅ Encaisser</button></div></div>
+          <div style="padding-top:12px;border-top:1px solid var(--admin-border);display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:var(--admin-text2);font-weight:600;">Total</span>
+            <span style="font-size:20px;font-weight:800;color:var(--orange);">$716</span>
+          </div>
+        </div>
+        <div class="admin-section">
+          <div class="admin-section-title"><span>✅</span> Encaissées ce mois</div>
+          <div class="commission-row"><div class="comm-info"><div class="comm-name">Villa 5P Marcory</div><div class="comm-detail">$100,000 · Taux : 1%</div></div><div class="comm-amount" style="color:#27ae60;">$1,000 ✅</div></div>
+          <div class="commission-row"><div class="comm-info"><div class="comm-name">Mercedes GLC 2020</div><div class="comm-detail">$43,000 · Taux : 1%</div></div><div class="comm-amount" style="color:#27ae60;">$430 ✅</div></div>
         </div>
       </div>
 
@@ -1222,11 +1479,15 @@ body.auth-locked{overflow:hidden;}
       <div class="owner-divider"></div>
       <div class="owner-sidebar-label">Modération</div>
       <div class="owner-nav-item" onclick="ownerTab('annonces',this)"><span class="nav-ic">📋</span> Annonces <span class="owner-notif">5</span></div>
+      <div class="owner-nav-item" onclick="ownerTab('signalements',this)"><span class="nav-ic">🚩</span> Signalements <span class="owner-notif">2</span></div>
       <div class="owner-nav-item" onclick="ownerTab('kyc',this)"><span class="nav-ic">🪪</span> KYC Vendeurs <span class="owner-notif">3</span></div>
       <div class="owner-nav-item" onclick="ownerTab('utilisateurs',this)"><span class="nav-ic">👥</span> Utilisateurs</div>
       <div class="owner-divider"></div>
       <div class="owner-sidebar-label">Plateforme</div>
+      <div class="owner-nav-item" onclick="ownerTab('parametres',this)"><span class="nav-ic">⚙️</span> Paramètres</div>
+      <div class="owner-nav-item" onclick="ownerTab('categories',this)"><span class="nav-ic">🗂️</span> Catégories</div>
       <div class="owner-nav-item" onclick="ownerTab('bannieres',this)"><span class="nav-ic">🖼️</span> Bannières</div>
+      <div class="owner-nav-item" onclick="ownerTab('notification',this)"><span class="nav-ic">📣</span> Notification globale</div>
       <div class="owner-nav-item" onclick="openEditContactNumbers()"><span class="nav-ic">📞</span> Numéros contact</div>
     </div>
 
@@ -1606,6 +1867,176 @@ body.auth-locked{overflow:hidden;}
             <div style="font-size:11px;color:var(--owner-text2);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">📞 Contacter le support</div>
             <div id="owner-preview-wa" style="font-size:14px;font-weight:700;color:#25D366;">💬 WhatsApp : +2430838200845</div>
             <div id="owner-preview-others" style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:6px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---- SIGNALEMENTS ---- -->
+      <div id="owner-tab-signalements" class="owner-tab-content" style="display:none;">
+        <div class="owner-page-title">🚩 Annonces signalées</div>
+        <div class="owner-page-sub">Signalements soumis par les utilisateurs</div>
+        <div class="owner-section">
+          <div class="owner-section-title"><span>🚩</span> En attente de traitement</div>
+          <div class="kyc-row">
+            <div class="kyc-avatar">🚗</div>
+            <div class="kyc-info">
+              <div class="kyc-name">Toyota RAV4 2018 — Prix suspect</div>
+              <div class="kyc-detail">Signalé par 2 utilisateurs · Il y a 3h</div>
+              <div class="kyc-docs"><span class="kyc-doc-tag">💬 "Prix trop bas, arnaque possible"</span></div>
+            </div>
+            <div style="display:flex;gap:6px;flex-direction:column;align-items:flex-end;">
+              <button class="btn-owner-remove" onclick="ownerRemoveAnnonce(this,'Toyota RAV4')">🗑 Retirer</button>
+              <button class="btn-owner-validate" style="font-size:10px;" onclick="showToast('Signalement ignoré','success');this.closest('.kyc-row').style.opacity='.4'">✓ Ignorer</button>
+            </div>
+          </div>
+          <div class="kyc-row">
+            <div class="kyc-avatar">🏡</div>
+            <div class="kyc-info">
+              <div class="kyc-name">Villa Cocody 4P — Contenu inapproprié</div>
+              <div class="kyc-detail">Signalé par 1 utilisateur · Hier</div>
+              <div class="kyc-docs"><span class="kyc-doc-tag">💬 "Photos trompeuses"</span></div>
+            </div>
+            <div style="display:flex;gap:6px;flex-direction:column;align-items:flex-end;">
+              <button class="btn-owner-remove" onclick="ownerRemoveAnnonce(this,'Villa Cocody')">🗑 Retirer</button>
+              <button class="btn-owner-validate" style="font-size:10px;" onclick="showToast('Signalement ignoré','success');this.closest('.kyc-row').style.opacity='.4'">✓ Ignorer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---- PARAMÈTRES PLATEFORME ---- -->
+      <div id="owner-tab-parametres" class="owner-tab-content" style="display:none;">
+        <div class="owner-page-title">⚙️ Paramètres de la plateforme</div>
+        <div class="owner-page-sub">Contrôle total sur le fonctionnement d'AG Prime</div>
+
+        <!-- Mode maintenance -->
+        <div class="owner-section">
+          <div class="owner-section-title"><span>🔧</span> Mode maintenance</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+            <div>
+              <div style="font-size:13px;font-weight:700;color:var(--owner-text);">Fermer l'app au public</div>
+              <div style="font-size:11px;color:var(--owner-text2);margin-top:3px;">Seuls les Owner peuvent accéder pendant la maintenance</div>
+            </div>
+            <label class="owner-toggle">
+              <input type="checkbox" id="toggleMaintenance" onchange="toggleMaintenance(this.checked)">
+              <span class="owner-toggle-slider"></span>
+            </label>
+          </div>
+          <div id="maintenance-warning" style="display:none;background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.25);border-radius:10px;padding:12px;font-size:12px;color:#e74c3c;">
+            ⚠️ L'app est actuellement en maintenance. Les utilisateurs voient un écran d'attente.
+          </div>
+        </div>
+
+        <!-- Taux de commission -->
+        <div class="owner-section">
+          <div class="owner-section-title"><span>💰</span> Taux de commission</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+            <input type="number" id="tauxCommission" value="1" min="0" max="20" step="0.5"
+              style="width:80px;background:rgba(255,255,255,.05);border:1.5px solid var(--owner-border);border-radius:10px;padding:10px;color:var(--owner-gold2);font-size:20px;font-weight:800;text-align:center;outline:none;font-family:'Poppins',sans-serif;">
+            <span style="font-size:20px;font-weight:800;color:var(--owner-gold2);">%</span>
+            <div style="font-size:11px;color:var(--owner-text2);">Prélevé sur chaque vente<br>conclue via AG Prime</div>
+          </div>
+          <button onclick="saveTauxCommission()" style="background:linear-gradient(135deg,var(--owner-gold),#b8860b);color:#000;border:none;border-radius:10px;padding:10px 20px;font-size:13px;font-weight:800;cursor:pointer;">💾 Enregistrer</button>
+        </div>
+
+        <!-- Ventes flash -->
+        <div class="owner-section">
+          <div class="owner-section-title"><span>⚡</span> Ventes Flash</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:13px;font-weight:700;color:var(--owner-text);">Activer les ventes flash</div>
+              <div style="font-size:11px;color:var(--owner-text2);margin-top:3px;">Affiche la section Ventes Flash sur l'accueil</div>
+            </div>
+            <label class="owner-toggle">
+              <input type="checkbox" id="toggleFlash" checked onchange="toggleVentesFlash(this.checked)">
+              <span class="owner-toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Message d'accueil -->
+        <div class="owner-section">
+          <div class="owner-section-title"><span>💬</span> Message d'accueil</div>
+          <textarea id="msgAccueil" rows="3" placeholder="Message affiché aux utilisateurs à la connexion..."
+            style="width:100%;background:rgba(255,255,255,.05);border:1.5px solid var(--owner-border);border-radius:10px;padding:12px;color:var(--owner-text);font-size:13px;outline:none;font-family:'Poppins',sans-serif;resize:none;box-sizing:border-box;margin-bottom:10px;"></textarea>
+          <button onclick="saveMsgAccueil()" style="background:linear-gradient(135deg,var(--owner-gold),#b8860b);color:#000;border:none;border-radius:10px;padding:10px 20px;font-size:13px;font-weight:800;cursor:pointer;">💾 Enregistrer</button>
+        </div>
+      </div>
+
+      <!-- ---- CATÉGORIES ---- -->
+      <div id="owner-tab-categories" class="owner-tab-content" style="display:none;">
+        <div class="owner-page-title">🗂️ Gestion des catégories</div>
+        <div class="owner-page-sub">Activer ou désactiver les catégories visibles sur l'app</div>
+        <div class="owner-section">
+          <div class="owner-section-title"><span>🗂️</span> Catégories actives</div>
+          <div id="owner-categories-list">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--owner-border);">
+              <div style="display:flex;align-items:center;gap:12px;"><span style="font-size:24px;">🚗</span><span style="font-size:14px;font-weight:600;color:var(--owner-text);">Automobiles</span></div>
+              <label class="owner-toggle"><input type="checkbox" checked onchange="toggleCategorie('automobile',this.checked)"><span class="owner-toggle-slider"></span></label>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--owner-border);">
+              <div style="display:flex;align-items:center;gap:12px;"><span style="font-size:24px;">🚚</span><span style="font-size:14px;font-weight:600;color:var(--owner-text);">Camions</span></div>
+              <label class="owner-toggle"><input type="checkbox" checked onchange="toggleCategorie('camion',this.checked)"><span class="owner-toggle-slider"></span></label>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--owner-border);">
+              <div style="display:flex;align-items:center;gap:12px;"><span style="font-size:24px;">🏡</span><span style="font-size:14px;font-weight:600;color:var(--owner-text);">Maisons</span></div>
+              <label class="owner-toggle"><input type="checkbox" checked onchange="toggleCategorie('maison',this.checked)"><span class="owner-toggle-slider"></span></label>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--owner-border);">
+              <div style="display:flex;align-items:center;gap:12px;"><span style="font-size:24px;">🏢</span><span style="font-size:14px;font-weight:600;color:var(--owner-text);">Appartements</span></div>
+              <label class="owner-toggle"><input type="checkbox" checked onchange="toggleCategorie('appart',this.checked)"><span class="owner-toggle-slider"></span></label>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--owner-border);">
+              <div style="display:flex;align-items:center;gap:12px;"><span style="font-size:24px;">🌿</span><span style="font-size:14px;font-weight:600;color:var(--owner-text);">Terrains</span></div>
+              <label class="owner-toggle"><input type="checkbox" checked onchange="toggleCategorie('terrain',this.checked)"><span class="owner-toggle-slider"></span></label>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;">
+              <div style="display:flex;align-items:center;gap:12px;"><span style="font-size:24px;">⚙️</span><span style="font-size:14px;font-weight:600;color:var(--owner-text);">Pièces Auto</span></div>
+              <label class="owner-toggle"><input type="checkbox" checked onchange="toggleCategorie('pieces',this.checked)"><span class="owner-toggle-slider"></span></label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---- NOTIFICATION GLOBALE ---- -->
+      <div id="owner-tab-notification" class="owner-tab-content" style="display:none;">
+        <div class="owner-page-title">📣 Notification globale</div>
+        <div class="owner-page-sub">Envoyer un message à tous les utilisateurs connectés</div>
+        <div class="owner-section">
+          <div class="owner-section-title"><span>📣</span> Rédiger le message</div>
+          <div style="margin-bottom:12px;">
+            <div style="font-size:11px;color:var(--owner-text2);margin-bottom:6px;font-weight:600;text-transform:uppercase;">Titre</div>
+            <input type="text" id="notif-titre" placeholder="Ex : Maintenance prévue ce soir"
+              style="width:100%;background:rgba(255,255,255,.05);border:1.5px solid var(--owner-border);border-radius:10px;padding:12px;color:var(--owner-text);font-size:13px;outline:none;font-family:'Poppins',sans-serif;box-sizing:border-box;">
+          </div>
+          <div style="margin-bottom:16px;">
+            <div style="font-size:11px;color:var(--owner-text2);margin-bottom:6px;font-weight:600;text-transform:uppercase;">Message</div>
+            <textarea id="notif-msg" rows="4" placeholder="Votre message ici..."
+              style="width:100%;background:rgba(255,255,255,.05);border:1.5px solid var(--owner-border);border-radius:10px;padding:12px;color:var(--owner-text);font-size:13px;outline:none;font-family:'Poppins',sans-serif;resize:none;box-sizing:border-box;"></textarea>
+          </div>
+          <div style="display:flex;gap:10px;margin-bottom:14px;">
+            <div style="flex:1;background:var(--owner-card2);border:1px solid var(--owner-border);border-radius:10px;padding:10px;text-align:center;cursor:pointer;" onclick="selectNotifType(this,'info')">
+              <div style="font-size:18px;">ℹ️</div><div style="font-size:11px;color:var(--owner-text2);">Info</div>
+            </div>
+            <div style="flex:1;background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.25);border-radius:10px;padding:10px;text-align:center;cursor:pointer;" onclick="selectNotifType(this,'urgent')">
+              <div style="font-size:18px;">🚨</div><div style="font-size:11px;color:#e74c3c;">Urgent</div>
+            </div>
+            <div style="flex:1;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:10px;text-align:center;cursor:pointer;" onclick="selectNotifType(this,'promo')">
+              <div style="font-size:18px;">🎁</div><div style="font-size:11px;color:var(--owner-gold2);">Promo</div>
+            </div>
+          </div>
+          <button onclick="envoyerNotifGlobale()" style="width:100%;background:linear-gradient(135deg,var(--owner-gold),#b8860b);color:#000;border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:800;cursor:pointer;">📣 Envoyer à tous les utilisateurs</button>
+        </div>
+        <div class="owner-section" id="notif-history-section">
+          <div class="owner-section-title"><span>📜</span> Historique des notifications</div>
+          <div id="notif-history">
+            <div style="padding:10px 0;border-bottom:1px solid var(--owner-border);">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-size:13px;font-weight:600;color:var(--owner-text);">🔧 Maintenance prévue</span>
+                <span style="font-size:10px;color:var(--owner-text2);">Hier</span>
+              </div>
+              <div style="font-size:11px;color:var(--owner-text2);margin-top:3px;">L'app sera indisponible de 2h à 4h du matin.</div>
+            </div>
           </div>
         </div>
       </div>
@@ -3081,6 +3512,224 @@ function ownerPromoteAdmin(btn, name) {
   }
   btn.closest('td').innerHTML = '<span style="color:var(--owner-gold2);font-size:11px;font-weight:700;">🛡️ Admin</span>';
   showToast('✅ ' + name + ' promu Administrateur', 'success');
+}
+
+/* ============================================================
+   ADMIN — FONCTIONS COMPLÈTES
+   ============================================================ */
+
+function adminTab(name, el) {
+  document.querySelectorAll('.admin-tab-content').forEach(t => t.style.display = 'none');
+  const tab = document.getElementById('admin-tab-' + name);
+  if (tab) tab.style.display = 'block';
+  document.querySelectorAll('.admin-nav-item').forEach(n => n.classList.remove('active'));
+  if (el) el.classList.add('active');
+}
+
+// -- Recherche utilisateurs --
+function adminSearchUsers(q) {
+  const rows = document.querySelectorAll('#admin-users-tbody tr');
+  rows.forEach(row => {
+    const name = (row.getAttribute('data-name') || '').toLowerCase();
+    row.style.display = name.includes(q.toLowerCase()) ? '' : 'none';
+  });
+}
+
+// -- Approuver / Refuser annonce --
+function approveAnnonce(btn) {
+  const row = btn.closest('tr');
+  const pill = row.querySelector('.pill');
+  if (pill) { pill.className = 'pill pill-ok'; pill.textContent = 'Approuvée'; }
+  btn.parentElement.innerHTML = '<span style="color:#27ae60;font-size:11px;font-weight:700;">✅ Approuvée</span>';
+  showToast('✅ Annonce approuvée et publiée', 'success');
+}
+
+function rejectAnnonce(btn) {
+  const row = btn.closest('tr');
+  const pill = row.querySelector('.pill');
+  if (pill) { pill.className = 'pill'; pill.style.background='rgba(231,76,60,.12)'; pill.style.color='#e74c3c'; pill.textContent = 'Refusée'; }
+  btn.parentElement.innerHTML = '<span style="color:#e74c3c;font-size:11px;font-weight:700;">❌ Refusée</span>';
+  showToast('Annonce refusée', 'error');
+}
+
+// -- Suspendre temporairement une annonce --
+function adminSuspendAnnonce(btn, titre) {
+  const row = btn.closest('tr');
+  const pill = row.querySelector('.pill');
+  if (pill) { pill.className='pill'; pill.style.background='rgba(243,156,18,.12)'; pill.style.color='#f39c12'; pill.textContent='Suspendue'; }
+  btn.textContent = '▶ Réactiver';
+  btn.onclick = () => adminReactivateAnnonce(btn, titre);
+  showToast('⏸ "' + titre + '" suspendue temporairement', '');
+}
+
+function adminReactivateAnnonce(btn, titre) {
+  const row = btn.closest('tr');
+  const pill = row.querySelector('.pill');
+  if (pill) { pill.className='pill pill-ok'; pill.textContent='Approuvée'; }
+  btn.textContent = '⏸ Suspendre';
+  btn.onclick = () => adminSuspendAnnonce(btn, titre);
+  showToast('▶ "' + titre + '" réactivée', 'success');
+}
+
+// -- Contacter vendeur WhatsApp --
+function adminContactWhatsapp(numero, nom) {
+  const msg = encodeURIComponent('Bonjour ' + nom + ', c\'est l\'équipe AG Prime. Nous vous contactons concernant votre compte.');
+  const clean = numero.replace(/\D/g,'');
+  window.open('https://wa.me/' + clean + '?text=' + msg, '_blank');
+}
+
+// -- Notes internes sur utilisateur --
+function adminAddNote(el, nom) {
+  const note = prompt('Note interne pour ' + nom + ' (visible admins/owner uniquement) :');
+  if (note && note.trim()) {
+    el.textContent = '📝 ' + note.trim();
+    el.style.color = 'var(--orange)';
+    const notes = LS.get('adminNotes', {});
+    notes[nom] = note.trim();
+    LS.set('adminNotes', notes);
+    showToast('📝 Note enregistrée pour ' + nom, 'success');
+  }
+}
+
+// -- Répondre aux messages support --
+function adminSendReply(id, nom) {
+  const textarea = document.getElementById('reply-text-' + id);
+  if (!textarea || !textarea.value.trim()) { showToast('Message vide', 'error'); return; }
+  const area = document.getElementById('reply-area-' + id);
+  const row = document.getElementById('support-row-' + id);
+  if (area) area.style.display = 'none';
+  if (row) {
+    const sentEl = document.createElement('div');
+    sentEl.style.cssText = 'background:rgba(244,124,32,.08);border-radius:8px;padding:8px 12px;margin-top:8px;font-size:12px;color:var(--admin-text);';
+    sentEl.innerHTML = '<span style="font-weight:700;color:var(--orange);">Vous :</span> ' + textarea.value.trim();
+    row.appendChild(sentEl);
+    const btns = row.querySelector('[style*="display:flex"]');
+    if (btns) btns.style.display = 'none';
+  }
+  showToast('📤 Réponse envoyée à ' + nom, 'success');
+}
+
+// -- Notification utilisateur spécifique --
+let adminNotifSelectedUser = null;
+
+function adminSelectNotifUser(el, nom) {
+  document.querySelectorAll('.admin-notif-user-row').forEach(r => r.classList.remove('selected'));
+  el.classList.add('selected');
+  adminNotifSelectedUser = nom;
+}
+
+function adminEnvoyerNotifUser() {
+  if (!adminNotifSelectedUser) { showToast('Sélectionnez un utilisateur', 'error'); return; }
+  const msg = document.getElementById('admin-notif-msg')?.value?.trim();
+  if (!msg) { showToast('Message vide', 'error'); return; }
+  showToast('🔔 Notification envoyée à ' + adminNotifSelectedUser, 'success');
+  if (document.getElementById('admin-notif-msg')) document.getElementById('admin-notif-msg').value = '';
+  adminNotifSelectedUser = null;
+  document.querySelectorAll('.admin-notif-user-row').forEach(r => r.classList.remove('selected'));
+}
+
+// -- Marquer commission comme encaissée --
+function adminMarkCommission(btn, nom) {
+  const row = btn.closest('.commission-row');
+  const amount = row.querySelector('.comm-amount');
+  if (amount) amount.style.color = '#27ae60';
+  btn.textContent = '✅ Encaissée';
+  btn.disabled = true;
+  btn.style.opacity = '.5';
+  showToast('✅ Commission de ' + nom + ' marquée encaissée', 'success');
+}
+
+function suspendAnnonce(btn, titre) { adminSuspendAnnonce(btn, titre); }
+
+/* ============================================================
+   OWNER — NOUVELLES FONCTIONS
+   ============================================================ */
+
+// -- Maintenance --
+function toggleMaintenance(actif) {
+  LS.set('maintenance', actif);
+  const warn = document.getElementById('maintenance-warning');
+  if (warn) warn.style.display = actif ? 'block' : 'none';
+  showToast(actif ? '🔧 Mode maintenance activé' : '✅ App accessible au public', actif ? 'error' : 'success');
+}
+
+// -- Taux commission --
+function saveTauxCommission() {
+  const taux = parseFloat(document.getElementById('tauxCommission').value);
+  if (isNaN(taux) || taux < 0 || taux > 20) { showToast('Taux invalide (0-20%)', 'error'); return; }
+  LS.set('tauxCommission', taux);
+  showToast('✅ Taux de commission : ' + taux + '% enregistré', 'success');
+}
+
+// -- Ventes flash --
+function toggleVentesFlash(actif) {
+  LS.set('flashActif', actif);
+  const section = document.querySelector('.flash-scroll-wrap');
+  const flashTitle = document.querySelector('.flash-title-row');
+  if (section) section.style.display = actif ? '' : 'none';
+  if (flashTitle) flashTitle.style.display = actif ? '' : 'none';
+  showToast(actif ? '⚡ Ventes Flash activées' : 'Ventes Flash désactivées', 'success');
+}
+
+// -- Message d'accueil --
+function saveMsgAccueil() {
+  const msg = document.getElementById('msgAccueil').value.trim();
+  LS.set('msgAccueil', msg);
+  showToast('✅ Message d\'accueil enregistré', 'success');
+}
+
+// -- Catégories --
+function toggleCategorie(key, actif) {
+  const cats = LS.get('catsActives', {automobile:true,camion:true,maison:true,appart:true,terrain:true,pieces:true});
+  cats[key] = actif;
+  LS.set('catsActives', cats);
+  showToast((actif ? '✅ ' : '❌ ') + key + ' ' + (actif ? 'activée' : 'désactivée'), 'success');
+  renderAnnoncesGrid();
+}
+
+// -- Notification globale --
+let notifType = 'info';
+function selectNotifType(el, type) {
+  notifType = type;
+  document.querySelectorAll('#owner-tab-notification [onclick*=selectNotifType]').forEach(e => {
+    e.style.border = '1px solid var(--owner-border)';
+  });
+  el.style.border = '2px solid var(--owner-gold)';
+}
+
+function envoyerNotifGlobale() {
+  const titre = document.getElementById('notif-titre').value.trim();
+  const msg   = document.getElementById('notif-msg').value.trim();
+  if (!titre || !msg) { showToast('Titre et message requis', 'error'); return; }
+  // Sauvegarde dans l'historique
+  const hist = LS.get('notifHistory', []);
+  hist.unshift({ titre, msg, type: notifType, date: new Date().toLocaleDateString('fr-FR') });
+  LS.set('notifHistory', hist);
+  // Affiche comme toast global dans l'app
+  const icons = { info:'ℹ️', urgent:'🚨', promo:'🎁' };
+  showToast(icons[notifType] + ' ' + titre, notifType === 'urgent' ? 'error' : 'success');
+  // Ajoute dans l'historique UI
+  const histEl = document.getElementById('notif-history');
+  if (histEl) {
+    const el = document.createElement('div');
+    el.style.cssText = 'padding:10px 0;border-bottom:1px solid var(--owner-border);';
+    el.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:13px;font-weight:600;color:var(--owner-text);">${icons[notifType]} ${titre}</span><span style="font-size:10px;color:var(--owner-text2);">Maintenant</span></div><div style="font-size:11px;color:var(--owner-text2);margin-top:3px;">${msg}</div>`;
+    histEl.prepend(el);
+  }
+  document.getElementById('notif-titre').value = '';
+  document.getElementById('notif-msg').value = '';
+  showToast('📣 Notification envoyée à tous les utilisateurs !', 'success');
+}
+
+// -- Révoquer admin --
+function ownerRevokeAdmin(btn, name) {
+  const row = btn.closest('tr');
+  const roleCell = row.querySelectorAll('td')[2];
+  if (roleCell) roleCell.innerHTML = '<span class="owner-pill owner-pill-ok">user</span>';
+  btn.closest('td').innerHTML = `
+    <button class="btn-owner-validate" style="font-size:10px;" onclick="ownerPromoteAdmin(this,'${name}')">🛡️ Admin</button>
+    <button class="btn-owner-ban" onclick="openBanModal('${name}')">🚫</button>`;
+  showToast('✅ ' + name + ' repassé en utilisateur', 'success');
 }
 
 // Initialisation au chargement
