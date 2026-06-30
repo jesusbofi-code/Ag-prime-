@@ -1378,10 +1378,6 @@ body.auth-locked{overflow:hidden;}
         </div><!-- end annonces-detail-view -->
 
       </div><!-- end admin-tab-annonces -->
-            </tbody>
-          </table>
-        </div>
-      </div>
 
       <!-- DOCUMENTS TAB -->
       <div id="admin-tab-documents" class="admin-tab-content" style="display:none;">
@@ -2521,14 +2517,16 @@ body.auth-locked{overflow:hidden;}
         <textarea id="pub-desc" class="pub-input pub-textarea" placeholder="Décrivez votre annonce : état général, équipements, historique..."></textarea>
       </div>
 
-      <!-- Zone photo (simulée) -->
+      <!-- Zone photo (Cloudinary) -->
       <div class="pub-step">
         <div class="pub-label">Photos</div>
-        <div class="pub-photo-zone" onclick="showToast('📸 Upload photos — Bientôt disponible','success')">
+        <input type="file" id="pub-photo-input" accept="image/png,image/jpeg,image/webp" multiple style="display:none;" onchange="handlePubPhotoSelect(event)">
+        <div class="pub-photo-zone" id="pub-photo-zone" onclick="document.getElementById('pub-photo-input').click()">
           <div class="pub-photo-icon">📷</div>
-          <div class="pub-photo-text">Ajouter des photos</div>
-          <div class="pub-photo-sub">JPG, PNG — Max 5 photos</div>
+          <div class="pub-photo-text" id="pub-photo-text">Ajouter des photos</div>
+          <div class="pub-photo-sub">JPG, PNG, WEBP — Max 5 photos</div>
         </div>
+        <div id="pub-photo-previews" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;"></div>
       </div>
 
       <button class="btn-publish-submit" onclick="submitPublish()">🚀 Soumettre l'annonce</button>
@@ -3013,24 +3011,6 @@ function continuerVisiteur() {
   showToast('👁 Mode visiteur — certaines fonctionnalités sont limitées', '');
 }
 
-function requireAuth(action) {
-  if (appState.currentUser && appState.currentUser.uid) return true;
-  const overlay = document.getElementById('requireAuthOverlay');
-  if (overlay) {
-    document.getElementById('requireAuthIcon').textContent  = '🔒';
-    document.getElementById('requireAuthTitle').textContent = 'Connexion requise';
-    document.getElementById('requireAuthSub').textContent   =
-      action || 'Connectez-vous pour accéder à cette fonctionnalité.';
-    overlay.classList.add('active');
-  }
-  return false;
-}
-
-function closeRequireAuth() {
-  const overlay = document.getElementById('requireAuthOverlay');
-  if (overlay) overlay.classList.remove('active');
-}
-
 function goToLogin() {
   closeRequireAuth();
   showPage('auth');
@@ -3263,23 +3243,70 @@ function selectCat(el) {
   el.classList.add('active');
 }
 
-function filterAnnonces(el, cat) {
-  if (el) {
-    document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
-    el.classList.add('active');
-  }
-  document.querySelectorAll('#annoncesGrid .grid-card').forEach(c => {
-    c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
-  });
-}
-
 /* ============================================================
    PUBLICATION D'ANNONCE
    ============================================================ */
 let pubCat = null;
 
+/* ======================================================
+   CLOUDINARY — Upload de photos (sans backend, preset unsigned)
+====================================================== */
+const CLOUDINARY_CLOUD_NAME = 'dnozshs1h';
+const CLOUDINARY_UPLOAD_PRESET = 'ag_prime_uploads';
+const CLOUDINARY_UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`;
+let pubPhotoUrls = []; // URLs Cloudinary des photos déjà uploadées pour l'annonce en cours
+
+async function uploadToCloudinary(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+  const res = await fetch(CLOUDINARY_UPLOAD_URL, { method: 'POST', body: formData });
+  if (!res.ok) throw new Error('Échec upload Cloudinary');
+  const data = await res.json();
+  return data.secure_url;
+}
+
+function renderPubPhotoPreviews() {
+  const wrap = document.getElementById('pub-photo-previews');
+  wrap.innerHTML = pubPhotoUrls.map((url, i) => `
+    <div style="position:relative;width:64px;height:64px;">
+      <img src="${url}" style="width:64px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--border);">
+      <div onclick="removePubPhoto(${i})" style="position:absolute;top:-6px;right:-6px;background:#e74c3c;color:#fff;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;">✕</div>
+    </div>
+  `).join('');
+}
+
+function removePubPhoto(index) {
+  pubPhotoUrls.splice(index, 1);
+  renderPubPhotoPreviews();
+}
+
+async function handlePubPhotoSelect(event) {
+  const files = Array.from(event.target.files || []);
+  if (!files.length) return;
+  if (pubPhotoUrls.length + files.length > 5) {
+    showToast('Maximum 5 photos par annonce', 'error');
+    event.target.value = '';
+    return;
+  }
+  const textEl = document.getElementById('pub-photo-text');
+  const originalText = textEl.textContent;
+  for (const file of files) {
+    textEl.textContent = `⏳ Envoi de ${file.name}...`;
+    try {
+      const url = await uploadToCloudinary(file);
+      pubPhotoUrls.push(url);
+      renderPubPhotoPreviews();
+    } catch (e) {
+      showToast('Erreur upload : ' + file.name, 'error');
+    }
+  }
+  textEl.textContent = originalText;
+  event.target.value = '';
+  showToast('📸 Photo(s) ajoutée(s)', 'success');
+}
+
 function openPublish() {
-  if (!requireAuth('Connectez-vous pour publier une annonce.')) return;
   if (!requireAuth('📸', 'Publiez votre annonce', 'Créez un compte gratuit pour publier une annonce sur AG Prime.')) return;
   editingAnnonceId = null;
   document.querySelector('.publish-title').textContent = '📸 Publier une annonce';
@@ -3299,6 +3326,8 @@ function openPublish() {
   if (document.getElementById('pub-couleur')) document.getElementById('pub-couleur').value = '';
   if (document.getElementById('pub-surface')) document.getElementById('pub-surface').value = '';
   if (document.getElementById('pub-pieces'))  document.getElementById('pub-pieces').value  = '';
+  pubPhotoUrls = [];
+  document.getElementById('pub-photo-previews').innerHTML = '';
   document.getElementById('publishOverlay').classList.add('active');
   document.body.style.overflow = 'hidden';
 }
@@ -3343,6 +3372,7 @@ function submitPublish() {
     carb: document.getElementById('pub-carb')?.value || null,
     couleur: document.getElementById('pub-couleur')?.value || null,
     desc: desc || 'Annonce publiée sur AG Prime.',
+    photos: pubPhotoUrls.slice(),
     status: 'pending',
     date: new Date().toISOString().slice(0,10),
     flashDiscount: null,
