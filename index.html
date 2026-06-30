@@ -781,74 +781,29 @@ body.auth-locked{overflow:hidden;}
   </div>
 
   <div class="auth-card">
-    <!-- TABS -->
-    <div class="auth-tabs">
-      <button class="auth-tab active" onclick="authTab('login',this)">Connexion</button>
-      <button class="auth-tab" onclick="authTab('register',this)">Inscription</button>
-    </div>
-
-    <!-- CONNEXION -->
+    <!-- CONNEXION par téléphone (méthode principale) -->
     <div id="login-form">
-      <!-- Google en premier -->
+      <div class="field">
+        <label>Nom et prénom</label>
+        <input type="text" id="auth-name" placeholder="Jean Kouamé" autocomplete="name">
+      </div>
+      <div class="field">
+        <label>Numéro de téléphone</label>
+        <input type="tel" id="auth-phone" placeholder="+225 07 00 00 00 00" autocomplete="tel" onkeydown="if(event.key==='Enter')doPhoneAuth()">
+      </div>
+      <div class="auth-error" id="login-error"></div>
+      <button class="btn-auth" onclick="doPhoneAuth()">Continuer</button>
+
+      <div class="auth-divider"><span>ou</span></div>
+
       <button class="btn-google" onclick="doGoogleLogin()">
         <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.6 33.1 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 3l5.7-5.7C34 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 19.7-8 19.7-20 0-1.3-.1-2.7-.1-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 15.1 18.9 12 24 12c3 0 5.8 1.1 7.9 3l5.7-5.7C34 6.5 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-1.9 13.4-5l-6.2-5.2C29.4 35.6 26.8 36 24 36c-5.2 0-9.6-2.9-11.4-7.1l-6.5 5C9.5 40.1 16.3 44 24 44z"/><path fill="#1976D2" d="M43.6 20H24v8h11.3c-.9 2.5-2.6 4.6-4.9 6l6.2 5.2C40.3 36.5 44 30.7 44 24c0-1.3-.1-2.7-.4-4z"/></svg>
         Continuer avec Google
       </button>
-
-      <!-- Téléphone (placeholder) -->
-      <button class="btn-phone" onclick="showToast('📱 Connexion par téléphone — Bientôt disponible !','')">
-        📱 Continuer avec un numéro
-        <span class="soon-badge">BIENTÔT</span>
-      </button>
-
-      <div class="auth-divider"><span>ou avec email</span></div>
-
-      <div class="field">
-        <label>Email</label>
-        <input type="email" id="login-email" placeholder="votre@email.com" autocomplete="email">
-      </div>
-      <div class="field">
-        <label>Mot de passe</label>
-        <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
-      </div>
-      <div class="auth-error" id="login-error"></div>
-      <button class="btn-auth" onclick="doLogin()">Se connecter</button>
-      <div class="auth-link" onclick="showForgotPassword()">Mot de passe oublié ? <span>Réinitialiser</span></div>
     </div>
 
-    <!-- INSCRIPTION -->
-    <div id="register-form" style="display:none;">
-      <!-- Google en premier -->
-      <button class="btn-google" onclick="doGoogleLogin()">
-        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.6 33.1 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 3l5.7-5.7C34 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 19.7-8 19.7-20 0-1.3-.1-2.7-.1-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 15.1 18.9 12 24 12c3 0 5.8 1.1 7.9 3l5.7-5.7C34 6.5 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-1.9 13.4-5l-6.2-5.2C29.4 35.6 26.8 36 24 36c-5.2 0-9.6-2.9-11.4-7.1l-6.5 5C9.5 40.1 16.3 44 24 44z"/><path fill="#1976D2" d="M43.6 20H24v8h11.3c-.9 2.5-2.6 4.6-4.9 6l6.2 5.2C40.3 36.5 44 30.7 44 24c0-1.3-.1-2.7-.4-4z"/></svg>
-        S'inscrire avec Google
-      </button>
-
-      <!-- Téléphone (placeholder) -->
-      <button class="btn-phone" onclick="showToast('📱 Inscription par téléphone — Bientôt disponible !','')">
-        📱 S'inscrire avec un numéro
-        <span class="soon-badge">BIENTÔT</span>
-      </button>
-
-      <div class="auth-divider"><span>ou avec email</span></div>
-
-      <div class="field">
-        <label>Nom complet</label>
-        <input type="text" id="reg-name" placeholder="Jean Kouamé" autocomplete="name">
-      </div>
-      <div class="field">
-        <label>Email</label>
-        <input type="email" id="reg-email" placeholder="votre@email.com" autocomplete="email">
-      </div>
-      <div class="field">
-        <label>Mot de passe</label>
-        <input type="password" id="reg-pass" placeholder="Min. 6 caractères" autocomplete="new-password" onkeydown="if(event.key==='Enter')doRegister()">
-      </div>
-      <div class="auth-error" id="reg-error"></div>
-      <button class="btn-auth" onclick="doRegister()">Créer mon compte</button>
-    </div>
-
-    <!-- OWNER discret — supprimé, owners se connectent normalement -->
+    <!-- Bouton Owner discret : icône seule, pas de texte -->
+    <button onclick="openOwnerAccess()" aria-label="Accès Owner" style="display:block;margin:18px auto 0;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid var(--border);font-size:14px;cursor:pointer;opacity:.55;">👑</button>
   </div>
 
   <!-- VISITEUR — sous la card -->
@@ -864,7 +819,7 @@ body.auth-locked{overflow:hidden;}
     <div class="require-auth-icon" id="requireAuthIcon">🔒</div>
     <div class="require-auth-title" id="requireAuthTitle">Compte requis</div>
     <div class="require-auth-sub" id="requireAuthSub">Créez un compte gratuit pour accéder à cette fonctionnalité.</div>
-    <button class="btn-require-signup" onclick="closeRequireAuth();showPage('auth');authTab('register',document.querySelectorAll('.auth-tab')[1]);">Créer un compte gratuit</button>
+    <button class="btn-require-signup" onclick="closeRequireAuth();showPage('auth');document.getElementById('auth-name').focus();">Créer un compte gratuit</button>
     <button class="btn-require-cancel" onclick="closeRequireAuth()">Plus tard</button>
   </div>
 </div>
@@ -2850,6 +2805,9 @@ const OWNER_EMAILS = [
   'jesus22bofini@gmail.com',
   'agenceprime1@gmail.com'
 ];
+// Numéros de téléphone (sans espaces, garder le +) qui obtiennent automatiquement le rôle Owner
+const OWNER_PHONES = [
+];
 
 /* ============================================================
    NUMÉROS DE CONTACT — modifiables par Owner uniquement
@@ -2935,6 +2893,45 @@ function clearAuthErrors() {
   document.querySelectorAll('.auth-error').forEach(e => e.classList.remove('show'));
 }
 
+async function doPhoneAuth() {
+  clearAuthErrors();
+  const name  = document.getElementById('auth-name').value.trim();
+  let phone   = document.getElementById('auth-phone').value.trim();
+  if (!name) { showAuthError('login-error','Entrez votre nom et prénom.'); return; }
+  const digits = phone.replace(/\D/g,'');
+  if (digits.length < 8) { showAuthError('login-error','Entrez un numéro de téléphone valide.'); return; }
+  phone = phone.replace(/\s+/g,'');
+  const docId = phone.replace(/[^0-9+]/g,'');
+  showToast('Connexion...', '');
+  await initFirebase();
+  try {
+    if (window._fbGetDoc && window._fbSetDoc) {
+      let snap = await window._fbGetDoc('users', docId);
+      let data;
+      if (snap.exists()) {
+        data = snap.data();
+      } else {
+        data = { name, phone, role: OWNER_PHONES.includes(docId) ? 'owner' : 'user', kycStatus:'none', favoris:[] };
+        await window._fbSetDoc('users', docId, data);
+      }
+      appState.currentUser = { uid: docId, name: data.name, phone: data.phone, role: data.role || 'user', ...data };
+      enterApp(data.role || 'user');
+    } else {
+      let users = LS.get('phoneUsers', []);
+      let found = users.find(u => u.phone === phone);
+      if (!found) {
+        found = { uid:'local_'+Date.now(), name, phone, role: OWNER_PHONES.includes(docId) ? 'owner' : 'user' };
+        users.push(found);
+        LS.set('phoneUsers', users);
+      }
+      appState.currentUser = {...found};
+      enterApp(found.role);
+    }
+  } catch(e) {
+    showAuthError('login-error','Erreur de connexion. Réessayez.');
+  }
+}
+
 async function doLogin() {
   clearAuthErrors();
   const email = document.getElementById('login-email').value.trim();
@@ -3003,7 +3000,8 @@ async function doGoogleLogin() {
 }
 
 function continuerVisiteur() {
-  appState.currentUser = { uid: null, name: 'Visiteur', role: 'guest' };
+  appState.currentUser = { uid: null, name: 'Visiteur', role: 'visitor' };
+  LS.set('session', appState.currentUser);
   showPage('app');
   showView('accueil');
   renderAnnoncesGrid();
@@ -3019,6 +3017,7 @@ function goToLogin() {
 function loginAsVisitor() { continuerVisiteur(); }
 
 function enterApp(role) {
+  LS.set('session', appState.currentUser);
   if (role === 'admin') {
     document.getElementById('admin-username').textContent = appState.currentUser.name;
     document.getElementById('admin-greet').textContent    = appState.currentUser.name;
@@ -3050,6 +3049,7 @@ function enterApp(role) {
 async function doLogout() {
   try { await initFirebase(); if (window._fbSignOut) await window._fbSignOut(); } catch(e) {}
   appState.currentUser = null;
+  LS.set('session', null);
   showPage('auth');
   showToast('Déconnecté', '');
 }
@@ -4841,6 +4841,15 @@ function dashUndoReject(btn) {
 // Initialisation au chargement
 renderContactNumbers();
 updateOwnerFlashKpi();
+
+/* ---- RESTAURATION DE SESSION AU CHARGEMENT ---- */
+(function restoreSession() {
+  const saved = LS.get('session', null);
+  if (saved && saved.role) {
+    appState.currentUser = saved;
+    enterApp(saved.role);
+  }
+})();
 
 </script>
 </body>
