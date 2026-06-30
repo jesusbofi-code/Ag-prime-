@@ -2566,7 +2566,7 @@ body.auth-locked{overflow:hidden;}
     <div class="owner-crown">👑</div>
     <div class="owner-access-title">Accès Propriétaire</div>
     <div class="owner-access-sub">Entrez le mot de passe secret Owner pour accéder au panneau de contrôle exclusif.</div>
-    <input type="password" class="owner-access-input" id="ownerSecretInput" placeholder="••••••" maxlength="10" onkeydown="if(event.key==='Enter')checkOwnerSecret()">
+    <input type="password" class="owner-access-input" id="ownerSecretInput" placeholder="••••••" maxlength="30" onkeydown="if(event.key==='Enter')checkOwnerSecret()">
     <button class="btn-owner-access" onclick="checkOwnerSecret()">🔓 Accéder</button>
     <span class="owner-access-cancel" onclick="closeOwnerAccess()">← Annuler</span>
   </div>
@@ -2902,34 +2902,15 @@ async function doPhoneAuth() {
   if (digits.length < 8) { showAuthError('login-error','Entrez un numéro de téléphone valide.'); return; }
   phone = phone.replace(/\s+/g,'');
   const docId = phone.replace(/[^0-9+]/g,'');
-  showToast('Connexion...', '');
-  await initFirebase();
-  try {
-    if (window._fbGetDoc && window._fbSetDoc) {
-      let snap = await window._fbGetDoc('users', docId);
-      let data;
-      if (snap.exists()) {
-        data = snap.data();
-      } else {
-        data = { name, phone, role: OWNER_PHONES.includes(docId) ? 'owner' : 'user', kycStatus:'none', favoris:[] };
-        await window._fbSetDoc('users', docId, data);
-      }
-      appState.currentUser = { uid: docId, name: data.name, phone: data.phone, role: data.role || 'user', ...data };
-      enterApp(data.role || 'user');
-    } else {
-      let users = LS.get('phoneUsers', []);
-      let found = users.find(u => u.phone === phone);
-      if (!found) {
-        found = { uid:'local_'+Date.now(), name, phone, role: OWNER_PHONES.includes(docId) ? 'owner' : 'user' };
-        users.push(found);
-        LS.set('phoneUsers', users);
-      }
-      appState.currentUser = {...found};
-      enterApp(found.role);
-    }
-  } catch(e) {
-    showAuthError('login-error','Erreur de connexion. Réessayez.');
+  let users = LS.get('phoneUsers', []);
+  let found = users.find(u => u.phone === phone);
+  if (!found) {
+    found = { uid: 'tel_' + docId, name, phone, role: OWNER_PHONES.includes(docId) ? 'owner' : 'user' };
+    users.push(found);
+    LS.set('phoneUsers', users);
   }
+  appState.currentUser = {...found};
+  enterApp(found.role);
 }
 
 async function doLogin() {
@@ -3594,7 +3575,6 @@ function immoStartChat() {
    les numéros renseignés par l'administrateur ou le propriétaire.
    ============================================================ */
 function contactAGPrimeCall() {
-  if (!requireAuth('📞', 'Contactez AG Prime', 'Créez un compte gratuit pour contacter notre équipe au sujet de cette annonce.')) return;
   const c = getContactNumbers();
   const num = (c.others || []).find(n => n && n.trim()) || c.whatsapp;
   if (!num) { showToast('Numéro de contact non configuré', 'error'); return; }
@@ -3602,7 +3582,6 @@ function contactAGPrimeCall() {
 }
 
 function contactAGPrimeWhatsapp(annonce) {
-  if (!requireAuth('💬', 'Contactez AG Prime', 'Créez un compte gratuit pour contacter notre équipe au sujet de cette annonce.')) return;
   const c = getContactNumbers();
   if (!c.whatsapp) { showToast('Numéro WhatsApp non configuré', 'error'); return; }
   const clean = c.whatsapp.replace(/\D/g,'');
@@ -3924,7 +3903,7 @@ function ownerTab(name, el) {
 /* ============================================================
    OWNER SECRET ACCESS
    ============================================================ */
-const OWNER_SECRET = 'owner2024';
+const OWNER_SECRET = 'lechmi2nayarb1';
 
 function openOwnerAccess() {
   document.getElementById('ownerAccessOverlay').classList.add('active');
