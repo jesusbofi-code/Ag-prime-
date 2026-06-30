@@ -600,34 +600,6 @@ body.auth-locked{overflow:hidden;}
   .finance-row{grid-template-columns:1fr;}
 }
 
-/* Admin support & notes */
-.admin-support-row{background:var(--admin-card);border:1px solid var(--admin-border);border-radius:12px;padding:14px;margin-bottom:12px;}
-.admin-reply-area{margin-top:10px;}
-.admin-note-tag{font-size:11px;font-weight:600;color:var(--admin-text2);background:rgba(255,255,255,.05);border:1px solid var(--admin-border);border-radius:6px;padding:3px 8px;cursor:pointer;transition:all .2s;}
-.admin-note-tag:hover{color:var(--orange);border-color:rgba(244,124,32,.3);}
-.btn-whatsapp-contact{background:rgba(37,211,102,.12);color:#25D366;border:1px solid rgba(37,211,102,.25);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;}
-.btn-whatsapp-contact:hover{background:rgba(37,211,102,.25);}
-.admin-suspend-btn{background:rgba(243,156,18,.12);color:#f39c12;border:1px solid rgba(243,156,18,.25);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer;}
-.admin-notif-user-row{background:var(--admin-card);border:1px solid var(--admin-border);border-radius:10px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .2s;}
-.admin-notif-user-row:hover{border-color:var(--orange);}
-.admin-notif-user-row.selected{border-color:var(--orange);background:rgba(244,124,32,.05);}
-
-/* Admin toggle */
-.admin-toggle{position:relative;display:inline-block;width:40px;height:22px;flex-shrink:0;}
-.admin-toggle input{opacity:0;width:0;height:0;}
-.admin-toggle-slider{position:absolute;cursor:pointer;inset:0;background:rgba(255,255,255,.1);border-radius:22px;transition:.3s;border:1px solid var(--admin-border);}
-.admin-toggle-slider:before{content:'';position:absolute;width:16px;height:16px;left:2px;bottom:2px;background:#666;border-radius:50%;transition:.3s;}
-.admin-toggle input:checked + .admin-toggle-slider{background:rgba(244,124,32,.2);border-color:var(--orange);}
-.admin-toggle input:checked + .admin-toggle-slider:before{transform:translateX(18px);background:var(--orange);}
-
-/* Commission rows */
-.commission-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--admin-border);}
-.commission-row:last-child{border-bottom:none;}
-.comm-info{flex:1;}
-.comm-name{font-size:13px;font-weight:600;color:var(--admin-text);}
-.comm-detail{font-size:11px;color:var(--admin-text2);margin-top:2px;}
-.comm-amount{font-size:16px;font-weight:800;color:var(--orange);}
-
 /* Owner toggles */
 .owner-toggle{position:relative;display:inline-block;width:46px;height:26px;flex-shrink:0;}
 .owner-toggle input{opacity:0;width:0;height:0;}
@@ -641,6 +613,41 @@ body.auth-locked{overflow:hidden;}
 .toast.show{transform:translateX(-50%) translateY(0);}
 .toast.success{background:var(--green);color:#fff;}
 .toast.error{background:var(--red);color:#fff;}
+
+/* =================== ANNONCES CARDS & DETAIL =================== */
+.ann-card{background:rgba(255,255,255,.04);border:1px solid var(--admin-border);border-radius:14px;padding:14px;margin-bottom:10px;cursor:pointer;transition:background .15s;}
+.ann-card:active{background:rgba(255,255,255,.08);}
+.ann-card[data-status="approved"]{border-left:3px solid #27ae60;}
+.ann-card[data-status="rejected"]{border-left:3px solid #e74c3c;opacity:.75;}
+.ann-card[data-status="paused"]{border-left:3px solid #f39c12;}
+
+.filtre-btn{background:rgba(255,255,255,.06);border:1px solid var(--admin-border);border-radius:20px;padding:7px 14px;font-size:11px;font-weight:600;color:var(--admin-text2);cursor:pointer;white-space:nowrap;font-family:'Poppins',sans-serif;}
+.filtre-btn.filtre-active{background:var(--orange);border-color:var(--orange);color:#fff;}
+
+.detail-info-bloc{background:rgba(255,255,255,.04);border:1px solid var(--admin-border);border-radius:10px;padding:10px 12px;}
+.detail-info-label{font-size:10px;font-weight:700;color:var(--admin-text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+.detail-info-val{font-size:13px;font-weight:600;color:var(--admin-text);}
+
+/* =================== DASH ANNONCE CARDS (mobile) =================== */
+.dash-annonce-card{background:rgba(255,255,255,.04);border:1px solid var(--admin-border);border-radius:14px;padding:14px;margin-bottom:10px;transition:opacity .25s;}
+.dash-annonce-card[data-status="approved"]{border-color:rgba(39,174,96,.3);}
+.dash-annonce-card[data-status="rejected"]{border-color:rgba(231,76,60,.25);opacity:.7;}
+.dash-annonce-card[data-status="paused"]{border-color:rgba(243,156,18,.3);opacity:.7;}
+
+/* =================== KYC CARDS =================== */
+.kyc-card{background:rgba(201,168,76,.03);border:1px solid rgba(201,168,76,.1);border-radius:14px;padding:14px;margin-bottom:10px;cursor:pointer;transition:background .15s;}
+.kyc-card:active{background:rgba(201,168,76,.07);}
+.kyc-card[data-kstatus="pending"]{border-left:3px solid rgba(243,156,18,.6);}
+.kyc-card[data-kstatus="rejected"]{border-left:3px solid rgba(231,76,60,.5);opacity:.7;}
+
+/* =================== OWNER CARDS =================== */
+.owner-ann-card{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.12);border-radius:14px;padding:14px;margin-bottom:10px;cursor:pointer;transition:background .15s;}
+.owner-ann-card:active{background:rgba(201,168,76,.08);}
+.owner-ann-card[data-status="approved"]{border-left:3px solid var(--owner-gold);}
+.owner-ann-card[data-status="pending"]{border-left:3px solid rgba(243,156,18,.6);}
+.owner-ann-card[data-status="removed"]{border-left:3px solid rgba(231,76,60,.5);}
+.owner-filtre-btn{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:20px;padding:7px 14px;font-size:11px;font-weight:600;color:var(--owner-text2);cursor:pointer;white-space:nowrap;font-family:'Poppins',sans-serif;}
+.owner-filtre-btn.owner-filtre-active{background:var(--owner-gold);border-color:var(--owner-gold);color:#1a1510;}
 
 /* =================== PUBLISH MODAL =================== */
 .publish-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:400;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px);}
@@ -1116,342 +1123,534 @@ body.auth-locked{overflow:hidden;}
   <div class="admin-layout">
     <!-- Sidebar -->
     <div class="admin-sidebar">
-      <div class="admin-sidebar-label" style="font-size:10px;font-weight:700;color:var(--admin-text2);letter-spacing:1.5px;padding:16px 20px 6px;text-transform:uppercase;">Principal</div>
+      <div class="admin-sidebar-label" style="font-size:9px;font-weight:700;color:var(--admin-text2);text-transform:uppercase;letter-spacing:1px;padding:8px 12px 4px;">Principal</div>
       <div class="admin-nav-item active" onclick="adminTab('dashboard',this)"><span class="nav-ic">📊</span> Tableau de bord</div>
       <div class="admin-nav-item" onclick="adminTab('annonces',this)"><span class="nav-ic">📋</span> Annonces <span class="admin-notif">5</span></div>
-      <div class="admin-nav-item" onclick="adminTab('signalements',this)"><span class="nav-ic">🚩</span> Signalements <span class="admin-notif">2</span></div>
-      <div class="admin-sidebar-label" style="font-size:10px;font-weight:700;color:var(--admin-text2);letter-spacing:1.5px;padding:16px 20px 6px;text-transform:uppercase;">Vendeurs</div>
-      <div class="admin-nav-item" onclick="adminTab('documents',this)"><span class="nav-ic">📁</span> Documents KYC <span class="admin-notif">3</span></div>
-      <div class="admin-nav-item" onclick="adminTab('utilisateurs',this)"><span class="nav-ic">👥</span> Utilisateurs</div>
-      <div class="admin-sidebar-label" style="font-size:10px;font-weight:700;color:var(--admin-text2);letter-spacing:1.5px;padding:16px 20px 6px;text-transform:uppercase;">Support</div>
+      <div class="admin-nav-item" onclick="adminTab('signalements',this)"><span class="nav-ic">🚩</span> Signalements <span class="admin-notif">3</span></div>
+      <div class="admin-nav-item" onclick="adminTab('documents',this)"><span class="nav-ic">📁</span> Documents <span class="admin-notif">3</span></div>
       <div class="admin-nav-item" onclick="adminTab('messages',this)"><span class="nav-ic">💬</span> Messages <span class="admin-notif">7</span></div>
-      <div class="admin-nav-item" onclick="adminTab('notifications',this)"><span class="nav-ic">🔔</span> Notifications</div>
-      <div class="admin-nav-item" onclick="adminTab('stats',this)"><span class="nav-ic">📈</span> Statistiques</div>
       <div class="admin-nav-item" onclick="adminTab('commissions',this)"><span class="nav-ic">💰</span> Commissions</div>
+      <div class="admin-sidebar-label" style="font-size:9px;font-weight:700;color:var(--admin-text2);text-transform:uppercase;letter-spacing:1px;padding:8px 12px 4px;margin-top:6px;">Utilisateurs</div>
+      <div class="admin-nav-item" onclick="adminTab('utilisateurs',this)"><span class="nav-ic">👥</span> Utilisateurs</div>
+      <div class="admin-nav-item" onclick="adminTab('visibilite',this)"><span class="nav-ic">👁</span> Visibilité</div>
+      <div class="admin-nav-item" onclick="adminTab('notifications',this)"><span class="nav-ic">🔔</span> Notifications</div>
     </div>
 
     <!-- Content -->
     <div class="admin-content">
 
-      <!-- ===== DASHBOARD ===== -->
+      <!-- DASHBOARD TAB -->
       <div id="admin-tab-dashboard" class="admin-tab-content">
         <div style="font-size:20px;font-weight:800;color:var(--admin-text);margin-bottom:20px;">Bonjour, <span style="color:var(--orange);" id="admin-greet">Gestionnaire</span> 👋</div>
+
         <div class="kpi-row">
           <div class="kpi-card"><div class="kpi-icon">📋</div><div class="kpi-value">5</div><div class="kpi-label">Annonces en attente</div><div class="kpi-delta kpi-up">↑ +2 aujourd'hui</div></div>
           <div class="kpi-card"><div class="kpi-icon">👥</div><div class="kpi-value">142</div><div class="kpi-label">Utilisateurs inscrits</div><div class="kpi-delta kpi-up">↑ +8 cette semaine</div></div>
-          <div class="kpi-card"><div class="kpi-icon">🚩</div><div class="kpi-value">2</div><div class="kpi-label">Signalements actifs</div><div class="kpi-delta kpi-down">↑ +2 aujourd'hui</div></div>
+          <div class="kpi-card" style="cursor:pointer;" onclick="adminTab('signalements',document.querySelector('[onclick*=signalements]'))"><div class="kpi-icon">🚩</div><div class="kpi-value" style="color:#e74c3c;">3</div><div class="kpi-label">Signalements actifs</div><div class="kpi-delta kpi-down" style="color:#e74c3c;">⚠ À traiter</div></div>
           <div class="kpi-card"><div class="kpi-icon">📁</div><div class="kpi-value">3</div><div class="kpi-label">Documents à vérifier</div><div class="kpi-delta kpi-down">↓ -1 hier</div></div>
         </div>
-        <!-- Actions urgentes -->
+
+        <!-- Aperçu annonces récentes -->
         <div class="admin-section">
-          <div class="admin-section-title"><span>⚡</span> Actions urgentes</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
-            <div style="background:rgba(243,156,18,.07);border:1px solid rgba(243,156,18,.2);border-radius:12px;padding:14px;cursor:pointer;" onclick="adminTab('annonces',document.querySelector('[onclick*=annonces]'))">
-              <div style="font-size:20px;margin-bottom:4px;">📋</div>
-              <div style="font-size:12px;font-weight:700;color:var(--admin-text);">5 annonces</div>
-              <div style="font-size:10px;color:var(--admin-text2);">à valider</div>
-            </div>
-            <div style="background:rgba(231,76,60,.07);border:1px solid rgba(231,76,60,.2);border-radius:12px;padding:14px;cursor:pointer;" onclick="adminTab('signalements',document.querySelector('[onclick*=signalements]'))">
-              <div style="font-size:20px;margin-bottom:4px;">🚩</div>
-              <div style="font-size:12px;font-weight:700;color:var(--admin-text);">2 signalements</div>
-              <div style="font-size:10px;color:var(--admin-text2);">à traiter</div>
-            </div>
-            <div style="background:rgba(41,128,185,.07);border:1px solid rgba(41,128,185,.2);border-radius:12px;padding:14px;cursor:pointer;" onclick="adminTab('documents',document.querySelector('[onclick*=documents]'))">
-              <div style="font-size:20px;margin-bottom:4px;">📁</div>
-              <div style="font-size:12px;font-weight:700;color:var(--admin-text);">3 documents</div>
-              <div style="font-size:10px;color:var(--admin-text2);">à vérifier</div>
-            </div>
+          <div class="admin-section-title" style="display:flex;justify-content:space-between;align-items:center;">
+            <span><span>📋</span> Annonces à valider</span>
+            <span onclick="adminTab('annonces',document.querySelector('[onclick*=\'annonces\']'))" style="font-size:11px;color:var(--orange);cursor:pointer;font-weight:600;">Voir tout →</span>
           </div>
-        </div>
-        <!-- Activité récente -->
-        <div class="admin-section">
-          <div class="admin-section-title"><span>📈</span> Activité récente</div>
-          <table class="annonces-table">
-            <thead><tr><th>Action</th><th>Utilisateur</th><th>Détail</th><th>Heure</th></tr></thead>
-            <tbody>
-              <tr><td>🆕 Inscription</td><td style="color:var(--orange);">Yao Pélagie</td><td style="color:var(--admin-text2);">Nouveau compte vendeur</td><td style="color:var(--admin-text2);">12 min</td></tr>
-              <tr><td>📋 Annonce</td><td style="color:var(--orange);">Konan K.</td><td style="color:var(--admin-text2);">Toyota RAV4 soumise</td><td style="color:var(--admin-text2);">1h</td></tr>
-              <tr><td>🚩 Signalement</td><td style="color:var(--orange);">Diallo M.</td><td style="color:var(--admin-text2);">Annonce signalée</td><td style="color:var(--admin-text2);">2h</td></tr>
-              <tr><td>📁 Document</td><td style="color:var(--orange);">Bamba S.</td><td style="color:var(--admin-text2);">CNI soumis</td><td style="color:var(--admin-text2);">Hier</td></tr>
-            </tbody>
-          </table>
+          <!-- Cartes mobiles annonces -->
+          <div id="dash-annonces-cards">
+
+            <div class="dash-annonce-card" data-status="pending">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                <div class="annonce-thumb g1" style="width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">🚗</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:13px;font-weight:700;color:var(--admin-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Toyota RAV4 2018</div>
+                  <div style="font-size:11px;color:var(--admin-text2);">Konan K. · Aujourd'hui</div>
+                </div>
+                <span class="pill pill-pending dash-pill" style="font-size:10px;flex-shrink:0;">En attente</span>
+              </div>
+              <div style="font-size:13px;font-weight:800;color:var(--orange);margin-bottom:10px;">15 500 000 CFA</div>
+              <div class="dash-action-btns" style="display:flex;gap:8px;">
+                <button onclick="dashApprove(this)" style="flex:1;background:rgba(39,174,96,.15);border:1px solid rgba(39,174,96,.35);border-radius:9px;padding:9px;font-size:12px;font-weight:700;color:#27ae60;cursor:pointer;">✓ Approuver</button>
+                <button onclick="dashReject(this)" style="flex:1;background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.3);border-radius:9px;padding:9px;font-size:12px;font-weight:700;color:#e74c3c;cursor:pointer;">✗ Refuser</button>
+                <button onclick="dashPause(this)" style="background:rgba(243,156,18,.12);border:1px solid rgba(243,156,18,.3);border-radius:9px;padding:9px 11px;font-size:13px;cursor:pointer;" title="Pause">⏸</button>
+              </div>
+            </div>
+
+            <div class="dash-annonce-card" data-status="pending">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                <div class="annonce-thumb g3" style="width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">🏡</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:13px;font-weight:700;color:var(--admin-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Villa Cocody 4P</div>
+                  <div style="font-size:11px;color:var(--admin-text2);">Amani T. · Hier</div>
+                </div>
+                <span class="pill pill-pending dash-pill" style="font-size:10px;flex-shrink:0;">En attente</span>
+              </div>
+              <div style="font-size:13px;font-weight:800;color:var(--orange);margin-bottom:10px;">45 000 000 CFA</div>
+              <div class="dash-action-btns" style="display:flex;gap:8px;">
+                <button onclick="dashApprove(this)" style="flex:1;background:rgba(39,174,96,.15);border:1px solid rgba(39,174,96,.35);border-radius:9px;padding:9px;font-size:12px;font-weight:700;color:#27ae60;cursor:pointer;">✓ Approuver</button>
+                <button onclick="dashReject(this)" style="flex:1;background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.3);border-radius:9px;padding:9px;font-size:12px;font-weight:700;color:#e74c3c;cursor:pointer;">✗ Refuser</button>
+                <button onclick="dashPause(this)" style="background:rgba(243,156,18,.12);border:1px solid rgba(243,156,18,.3);border-radius:9px;padding:9px 11px;font-size:13px;cursor:pointer;" title="Pause">⏸</button>
+              </div>
+            </div>
+
+            <div class="dash-annonce-card" data-status="pending">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                <div class="annonce-thumb g5" style="width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">🚘</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:13px;font-weight:700;color:var(--admin-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Mercedes GLC 2020</div>
+                  <div style="font-size:11px;color:var(--admin-text2);">Bamba S. · Hier</div>
+                </div>
+                <span class="pill pill-pending dash-pill" style="font-size:10px;flex-shrink:0;">En attente</span>
+              </div>
+              <div style="font-size:13px;font-weight:800;color:var(--orange);margin-bottom:10px;">28 000 000 CFA</div>
+              <div class="dash-action-btns" style="display:flex;gap:8px;">
+                <button onclick="dashApprove(this)" style="flex:1;background:rgba(39,174,96,.15);border:1px solid rgba(39,174,96,.35);border-radius:9px;padding:9px;font-size:12px;font-weight:700;color:#27ae60;cursor:pointer;">✓ Approuver</button>
+                <button onclick="dashReject(this)" style="flex:1;background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.3);border-radius:9px;padding:9px;font-size:12px;font-weight:700;color:#e74c3c;cursor:pointer;">✗ Refuser</button>
+                <button onclick="dashPause(this)" style="background:rgba(243,156,18,.12);border:1px solid rgba(243,156,18,.3);border-radius:9px;padding:9px 11px;font-size:13px;cursor:pointer;" title="Pause">⏸</button>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
 
-      <!-- ===== ANNONCES ===== -->
+      <!-- ANNONCES TAB -->
       <div id="admin-tab-annonces" class="admin-tab-content" style="display:none;">
-        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:16px;">📋 Gestion des annonces</div>
-        <!-- Filtre statut -->
-        <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
-          <button class="admin-filter-btn active" onclick="adminFilterAnnonces(this,'all')">Toutes</button>
-          <button class="admin-filter-btn" onclick="adminFilterAnnonces(this,'pending')">En attente</button>
-          <button class="admin-filter-btn" onclick="adminFilterAnnonces(this,'approved')">Approuvées</button>
-          <button class="admin-filter-btn" onclick="adminFilterAnnonces(this,'rejected')">Refusées</button>
-          <button class="admin-filter-btn" onclick="adminFilterAnnonces(this,'suspended')">Suspendues</button>
-        </div>
-        <div class="admin-section">
-          <table class="annonces-table">
-            <thead><tr><th>Annonce</th><th>Vendeur</th><th>Cat.</th><th>Prix</th><th>Statut</th><th>Actions</th></tr></thead>
-            <tbody id="annonces-tbody">
-              <tr data-status="pending"><td><div class="annonce-cell"><div class="annonce-thumb g1">🚗</div><span>Toyota RAV4 2018</span></div></td><td style="color:var(--admin-text2);">Konan K.</td><td style="color:var(--admin-text2);">Auto</td><td style="color:var(--orange);font-weight:700;">$28,500</td><td><span class="pill pill-pending">En attente</span></td><td><button class="btn-approve" onclick="approveAnnonce(this)">✓</button><button class="btn-reject" onclick="rejectAnnonce(this)">✗</button><button class="btn-suspend" onclick="suspendAnnonce(this,'Toyota RAV4')">⏸</button></td></tr>
-              <tr data-status="pending"><td><div class="annonce-cell"><div class="annonce-thumb g3">🏡</div><span>Villa Cocody 4P</span></div></td><td style="color:var(--admin-text2);">Amani T.</td><td style="color:var(--admin-text2);">Maison</td><td style="color:var(--orange);font-weight:700;">$84,600</td><td><span class="pill pill-pending">En attente</span></td><td><button class="btn-approve" onclick="approveAnnonce(this)">✓</button><button class="btn-reject" onclick="rejectAnnonce(this)">✗</button><button class="btn-suspend" onclick="suspendAnnonce(this,'Villa Cocody')">⏸</button></td></tr>
-              <tr data-status="pending"><td><div class="annonce-cell"><div class="annonce-thumb g5">🚘</div><span>Mercedes GLC 2020</span></div></td><td style="color:var(--admin-text2);">Bamba S.</td><td style="color:var(--admin-text2);">Auto</td><td style="color:var(--orange);font-weight:700;">$43,000</td><td><span class="pill pill-pending">En attente</span></td><td><button class="btn-approve" onclick="approveAnnonce(this)">✓</button><button class="btn-reject" onclick="rejectAnnonce(this)">✗</button><button class="btn-suspend" onclick="suspendAnnonce(this,'Mercedes GLC')">⏸</button></td></tr>
-              <tr data-status="approved"><td><div class="annonce-cell"><div class="annonce-thumb g6">🌿</div><span>Terrain Bingerville</span></div></td><td style="color:var(--admin-text2);">Diallo M.</td><td style="color:var(--admin-text2);">Terrain</td><td style="color:var(--orange);font-weight:700;">$13,100</td><td><span class="pill pill-ok">Approuvée</span></td><td><button class="btn-suspend" onclick="suspendAnnonce(this,'Terrain Bingerville')">⏸ Suspendre</button></td></tr>
-              <tr data-status="rejected"><td><div class="annonce-cell"><div class="annonce-thumb g4">🏢</div><span>Appart F3 Centre</span></div></td><td style="color:var(--admin-text2);">Yao P.</td><td style="color:var(--admin-text2);">Appart</td><td style="color:var(--orange);font-weight:700;">$27,700</td><td><span class="pill pill-rejected">Refusée</span></td><td><button class="btn-approve" onclick="approveAnnonce(this)">✓ Réactiver</button></td></tr>
+
+        <!-- VUE LISTE -->
+        <div id="annonces-list-view">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+            <button onclick="adminTab('dashboard',document.querySelector('.admin-nav-item'))" style="background:rgba(255,255,255,.07);border:1px solid var(--admin-border);border-radius:10px;width:36px;height:36px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--admin-text);">←</button>
+            <div style="font-size:18px;font-weight:800;color:var(--admin-text);">📋 Gestion des annonces</div>
+          </div>
+
+          <!-- Ventes Flash -->
+          <div class="admin-section" style="margin-bottom:14px;">
+            <div class="admin-section-title"><span>⚡</span> Ventes Flash</div>
+            <div style="font-size:12px;color:var(--admin-text2);margin-bottom:12px;">Mettez en avant une annonce approuvée avec une réduction limitée dans le temps.</div>
+            <button onclick="openFlashPost()" style="width:100%;background:linear-gradient(135deg,var(--owner-gold),#b8860b);color:#000;border:none;border-radius:10px;padding:11px;font-size:13px;font-weight:800;cursor:pointer;">⚡ Poster une vente flash</button>
+          </div>
+
+          <!-- Filtres rapides -->
+          <div style="display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px;">
+            <button onclick="filtrerAnnonces('all',this)" class="filtre-btn filtre-active">Toutes (5)</button>
+            <button onclick="filtrerAnnonces('pending',this)" class="filtre-btn">⏳ En attente (3)</button>
+            <button onclick="filtrerAnnonces('approved',this)" class="filtre-btn">✅ Approuvées (1)</button>
+            <button onclick="filtrerAnnonces('rejected',this)" class="filtre-btn">✗ Refusées (1)</button>
+          </div>
+
+          <!-- Cartes annonces -->
+          <div id="annonces-cards-list">
+
+            <div class="ann-card" data-status="pending" data-id="1" onclick="ouvrirDetailAnnonce(1)">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div class="annonce-thumb g1" style="width:48px;height:48px;border-radius:12px;font-size:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">🚗</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:14px;font-weight:700;color:var(--admin-text);">Toyota RAV4 2018</div>
+                  <div style="font-size:11px;color:var(--admin-text2);margin-top:2px;">Konan Kouamé · Automobile · Aujourd'hui</div>
+                  <div style="font-size:13px;font-weight:800;color:var(--orange);margin-top:4px;">15 500 000 CFA</div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+                  <span class="pill pill-pending ann-pill" style="font-size:10px;">En attente</span>
+                  <span style="font-size:18px;color:var(--admin-text2);">›</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ann-card" data-status="pending" data-id="2" onclick="ouvrirDetailAnnonce(2)">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div class="annonce-thumb g3" style="width:48px;height:48px;border-radius:12px;font-size:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">🏡</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:14px;font-weight:700;color:var(--admin-text);">Villa Cocody 4P</div>
+                  <div style="font-size:11px;color:var(--admin-text2);margin-top:2px;">Amani Touré · Maison · Hier</div>
+                  <div style="font-size:13px;font-weight:800;color:var(--orange);margin-top:4px;">45 000 000 CFA</div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+                  <span class="pill pill-pending ann-pill" style="font-size:10px;">En attente</span>
+                  <span style="font-size:18px;color:var(--admin-text2);">›</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ann-card" data-status="pending" data-id="3" onclick="ouvrirDetailAnnonce(3)">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div class="annonce-thumb g5" style="width:48px;height:48px;border-radius:12px;font-size:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">🚘</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:14px;font-weight:700;color:var(--admin-text);">Mercedes GLC 2020</div>
+                  <div style="font-size:11px;color:var(--admin-text2);margin-top:2px;">Bamba Souleymane · Automobile · Hier</div>
+                  <div style="font-size:13px;font-weight:800;color:var(--orange);margin-top:4px;">28 000 000 CFA</div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+                  <span class="pill pill-pending ann-pill" style="font-size:10px;">En attente</span>
+                  <span style="font-size:18px;color:var(--admin-text2);">›</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ann-card" data-status="approved" data-id="4" onclick="ouvrirDetailAnnonce(4)">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div class="annonce-thumb g6" style="width:48px;height:48px;border-radius:12px;font-size:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">🌿</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:14px;font-weight:700;color:var(--admin-text);">Terrain 500m² Bingerville</div>
+                  <div style="font-size:11px;color:var(--admin-text2);margin-top:2px;">Diallo Moussa · Terrain · Lun.</div>
+                  <div style="font-size:13px;font-weight:800;color:var(--orange);margin-top:4px;">8 500 000 CFA</div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+                  <span class="pill pill-ok ann-pill" style="font-size:10px;">Approuvée</span>
+                  <span style="font-size:18px;color:var(--admin-text2);">›</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ann-card" data-status="rejected" data-id="5" onclick="ouvrirDetailAnnonce(5)">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div class="annonce-thumb g4" style="width:48px;height:48px;border-radius:12px;font-size:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">🏢</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:14px;font-weight:700;color:var(--admin-text);">Appart F3 Centre</div>
+                  <div style="font-size:11px;color:var(--admin-text2);margin-top:2px;">Yao Pélagie · Appartement · Dim.</div>
+                  <div style="font-size:13px;font-weight:800;color:var(--orange);margin-top:4px;">18 000 000 CFA</div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+                  <span class="pill pill-rejected ann-pill" style="font-size:10px;">Refusée</span>
+                  <span style="font-size:18px;color:var(--admin-text2);">›</span>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- end annonces-cards-list -->
+        </div><!-- end annonces-list-view -->
+
+        <!-- VUE DÉTAIL (cachée par défaut) -->
+        <div id="annonces-detail-view" style="display:none;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+            <button onclick="fermerDetailAnnonce()" style="background:rgba(255,255,255,.07);border:1px solid var(--admin-border);border-radius:10px;width:36px;height:36px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--admin-text);">←</button>
+            <div style="font-size:16px;font-weight:800;color:var(--admin-text);" id="detail-titre-header">Détail annonce</div>
+          </div>
+
+          <!-- Visuel annonce -->
+          <div id="detail-thumb-zone" style="border-radius:16px;height:160px;display:flex;align-items:center;justify-content:center;font-size:64px;margin-bottom:16px;"></div>
+
+          <!-- Statut actuel -->
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <span style="font-size:12px;color:var(--admin-text2);">Statut actuel</span>
+            <span id="detail-statut-pill"></span>
+          </div>
+
+          <!-- Infos vendeur -->
+          <div class="admin-section" style="margin-bottom:12px;">
+            <div class="admin-section-title"><span>👤</span> Vendeur</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
+              <div class="detail-info-bloc"><div class="detail-info-label">Nom</div><div class="detail-info-val" id="d-vendeur-nom">—</div></div>
+              <div class="detail-info-bloc"><div class="detail-info-label">Email</div><div class="detail-info-val" id="d-vendeur-email">—</div></div>
+              <div class="detail-info-bloc"><div class="detail-info-label">Téléphone</div><div class="detail-info-val" id="d-vendeur-tel">—</div></div>
+              <div class="detail-info-bloc"><div class="detail-info-label">KYC</div><div class="detail-info-val" id="d-vendeur-kyc">—</div></div>
+            </div>
+          </div>
+
+          <!-- Infos annonce -->
+          <div class="admin-section" style="margin-bottom:12px;">
+            <div class="admin-section-title"><span>📋</span> Informations annonce</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
+              <div class="detail-info-bloc"><div class="detail-info-label">Catégorie</div><div class="detail-info-val" id="d-categorie">—</div></div>
+              <div class="detail-info-bloc"><div class="detail-info-label">Prix</div><div class="detail-info-val" id="d-prix" style="color:var(--orange);font-weight:800;">—</div></div>
+              <div class="detail-info-bloc"><div class="detail-info-label">Localisation</div><div class="detail-info-val" id="d-lieu">—</div></div>
+              <div class="detail-info-bloc"><div class="detail-info-label">Date soumission</div><div class="detail-info-val" id="d-date">—</div></div>
+            </div>
+            <div style="margin-top:12px;">
+              <div class="detail-info-label" style="margin-bottom:6px;">Description</div>
+              <div id="d-description" style="font-size:13px;color:var(--admin-text);line-height:1.6;background:rgba(255,255,255,.04);border-radius:10px;padding:12px;border:1px solid var(--admin-border);">—</div>
+            </div>
+          </div>
+
+          <!-- Caractéristiques spécifiques -->
+          <div class="admin-section" style="margin-bottom:20px;">
+            <div class="admin-section-title"><span>🔍</span> Caractéristiques</div>
+            <div id="d-specs" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;"></div>
+          </div>
+
+          <!-- Boutons d'action -->
+          <div id="detail-action-btns" style="display:flex;flex-direction:column;gap:10px;padding-bottom:20px;">
+            <button onclick="actionDetail('approved')" style="width:100%;background:linear-gradient(135deg,#27ae60,#1e8449);border:none;border-radius:14px;padding:15px;font-size:15px;font-weight:800;color:#fff;cursor:pointer;box-shadow:0 4px 14px rgba(39,174,96,.3);">✅ Approuver l'annonce</button>
+            <button onclick="actionDetail('paused')" style="width:100%;background:rgba(243,156,18,.15);border:1.5px solid rgba(243,156,18,.4);border-radius:14px;padding:15px;font-size:15px;font-weight:800;color:#f39c12;cursor:pointer;">⏸ Mettre en attente</button>
+            <button onclick="actionDetail('rejected')" style="width:100%;background:rgba(231,76,60,.12);border:1.5px solid rgba(231,76,60,.35);border-radius:14px;padding:15px;font-size:15px;font-weight:800;color:#e74c3c;cursor:pointer;">✗ Refuser l'annonce</button>
+          </div>
+
+        </div><!-- end annonces-detail-view -->
+
+      </div><!-- end admin-tab-annonces -->
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- ===== SIGNALEMENTS ===== -->
-      <div id="admin-tab-signalements" class="admin-tab-content" style="display:none;">
-        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:16px;">🚩 Signalements</div>
-        <div class="admin-section">
-          <div class="admin-section-title"><span>🚩</span> Annonces signalées par les utilisateurs</div>
-          <div class="admin-signalement-row">
-            <div style="display:flex;align-items:center;gap:10px;flex:1;">
-              <div class="annonce-thumb g1" style="width:36px;height:36px;font-size:16px;flex-shrink:0;">🚗</div>
-              <div>
-                <div style="font-size:13px;font-weight:700;color:var(--admin-text);">Toyota RAV4 2018</div>
-                <div style="font-size:11px;color:var(--admin-text2);">Signalé 2 fois · "Prix suspect, possible arnaque"</div>
-                <div style="font-size:10px;color:var(--admin-text2);margin-top:2px;">Vendeur : Konan K. · Il y a 3h</div>
-              </div>
-            </div>
-            <div style="display:flex;gap:6px;flex-shrink:0;">
-              <button class="btn-suspend" onclick="suspendAnnonce(this,'Toyota RAV4')">⏸ Suspendre</button>
-              <button class="btn-approve" onclick="adminIgnoreSignalement(this)">✓ Ignorer</button>
-            </div>
-          </div>
-          <div class="admin-signalement-row">
-            <div style="display:flex;align-items:center;gap:10px;flex:1;">
-              <div class="annonce-thumb g3" style="width:36px;height:36px;font-size:16px;flex-shrink:0;">🏡</div>
-              <div>
-                <div style="font-size:13px;font-weight:700;color:var(--admin-text);">Villa Cocody 4P</div>
-                <div style="font-size:11px;color:var(--admin-text2);">Signalé 1 fois · "Photos trompeuses"</div>
-                <div style="font-size:10px;color:var(--admin-text2);margin-top:2px;">Vendeur : Amani T. · Hier</div>
-              </div>
-            </div>
-            <div style="display:flex;gap:6px;flex-shrink:0;">
-              <button class="btn-suspend" onclick="suspendAnnonce(this,'Villa Cocody')">⏸ Suspendre</button>
-              <button class="btn-approve" onclick="adminIgnoreSignalement(this)">✓ Ignorer</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ===== DOCUMENTS KYC ===== -->
+      <!-- DOCUMENTS TAB -->
       <div id="admin-tab-documents" class="admin-tab-content" style="display:none;">
-        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:16px;">📁 Vérification KYC</div>
+        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:20px;">📁 Vérification des documents</div>
         <div class="admin-section">
-          <div class="admin-section-title"><span>⏳</span> En attente</div>
+          <div class="admin-section-title"><span>📁</span> Documents soumis</div>
           <div class="docs-list-admin">
-            <div class="doc-row-admin">
-              <div class="doc-user-avatar">👤</div>
-              <div class="doc-user-info">
-                <div class="doc-user-name">Konan Kouamé</div>
-                <div class="doc-user-type">CNI + Carte Rose · Automobile</div>
-                <div style="font-size:10px;color:var(--admin-text2);margin-top:3px;">Soumis il y a 2h</div>
-              </div>
-              <span class="pill pill-pending" style="margin-right:8px;">En attente</span>
-              <div class="doc-actions">
-                <button class="btn-approve" onclick="adminValiderKYC(this,'Konan Kouamé')">✓ Valider</button>
-                <button class="btn-reject" onclick="adminRefuserKYC(this,'Konan Kouamé')">✗</button>
-                <button class="btn-whatsapp-contact" onclick="adminContactWhatsapp('+243000000001','Konan')">💬</button>
-              </div>
-            </div>
-            <div class="doc-row-admin">
-              <div class="doc-user-avatar">👤</div>
-              <div class="doc-user-info">
-                <div class="doc-user-name">Amani Touré</div>
-                <div class="doc-user-type">Assurance + CNI · Maison</div>
-                <div style="font-size:10px;color:var(--admin-text2);margin-top:3px;">Soumis hier</div>
-              </div>
-              <span class="pill pill-pending" style="margin-right:8px;">En attente</span>
-              <div class="doc-actions">
-                <button class="btn-approve" onclick="adminValiderKYC(this,'Amani Touré')">✓ Valider</button>
-                <button class="btn-reject" onclick="adminRefuserKYC(this,'Amani Touré')">✗</button>
-                <button class="btn-whatsapp-contact" onclick="adminContactWhatsapp('+243000000002','Amani')">💬</button>
-              </div>
-            </div>
-            <div class="doc-row-admin">
-              <div class="doc-user-avatar">👤</div>
-              <div class="doc-user-info">
-                <div class="doc-user-name">Bamba Souleymane</div>
-                <div class="doc-user-type">Contrôle technique · Automobile</div>
-              </div>
-              <span class="pill pill-ok">Validé ✅</span>
-            </div>
-            <div class="doc-row-admin">
-              <div class="doc-user-avatar">👤</div>
-              <div class="doc-user-info">
-                <div class="doc-user-name">Diallo Moussa</div>
-                <div class="doc-user-type">Titre foncier · Terrain</div>
-              </div>
-              <span class="pill pill-ok">Validé ✅</span>
-            </div>
+            <div class="doc-row-admin"><div class="doc-user-avatar">👤</div><div class="doc-user-info"><div class="doc-user-name">Konan Kouamé</div><div class="doc-user-type">CNI + Carte Rose · Automobile</div></div><span class="pill pill-pending" style="margin-right:8px;">En attente</span><div class="doc-actions"><button class="btn-approve" onclick="showToast('Document validé ✅','success')">✓ Valider</button><button class="btn-reject" onclick="showToast('Document refusé','error')">✗</button></div></div>
+            <div class="doc-row-admin"><div class="doc-user-avatar">👤</div><div class="doc-user-info"><div class="doc-user-name">Amani Touré</div><div class="doc-user-type">Assurance + CNI · Maison</div></div><span class="pill pill-pending" style="margin-right:8px;">En attente</span><div class="doc-actions"><button class="btn-approve" onclick="showToast('Document validé ✅','success')">✓ Valider</button><button class="btn-reject" onclick="showToast('Document refusé','error')">✗</button></div></div>
+            <div class="doc-row-admin"><div class="doc-user-avatar">👤</div><div class="doc-user-info"><div class="doc-user-name">Bamba Souleymane</div><div class="doc-user-type">Contrôle technique · Automobile</div></div><span class="pill pill-ok">Validé</span></div>
+            <div class="doc-row-admin"><div class="doc-user-avatar">👤</div><div class="doc-user-info"><div class="doc-user-name">Diallo Moussa</div><div class="doc-user-type">Titre foncier · Terrain</div></div><span class="pill pill-ok">Validé</span></div>
           </div>
         </div>
       </div>
 
-      <!-- ===== UTILISATEURS ===== -->
-      <div id="admin-tab-utilisateurs" class="admin-tab-content" style="display:none;">
-        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:16px;">👥 Utilisateurs</div>
-        <!-- Barre de recherche -->
-        <div style="background:var(--admin-card);border:1px solid var(--admin-border);border-radius:10px;display:flex;align-items:center;gap:8px;padding:10px 14px;margin-bottom:14px;">
-          <span style="color:var(--admin-text2);">🔍</span>
-          <input type="text" placeholder="Rechercher un utilisateur..." oninput="adminSearchUsers(this.value)"
-            style="flex:1;background:transparent;border:none;color:var(--admin-text);font-size:13px;outline:none;font-family:'Poppins',sans-serif;">
+      <!-- MESSAGES TAB -->
+      <div id="admin-tab-messages" class="admin-tab-content" style="display:none;">
+        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:20px;">💬 Messages & Support</div>
+        <div class="admin-section">
+          <div class="admin-section-title"><span>💬</span> Messages de support</div>
+          <div class="admin-msg-item" id="adminmsg-1">
+            <div class="admin-msg-avatar">👤</div>
+            <div class="admin-msg-body" style="flex:1;">
+              <div class="admin-msg-name">Konan Kouamé</div>
+              <div class="admin-msg-text">Bonjour, mon annonce est en attente depuis 3 jours. Pouvez-vous vérifier ?</div>
+              <div style="margin-top:8px;display:flex;gap:8px;align-items:center;">
+                <input id="adminreply-1" placeholder="Répondre à Konan..." style="flex:1;background:rgba(255,255,255,.06);border:1px solid var(--admin-border);border-radius:8px;padding:7px 10px;font-size:12px;color:var(--admin-text);font-family:'Poppins',sans-serif;outline:none;">
+                <button onclick="adminReplyMsg('adminreply-1','Konan Kouamé','adminmsg-1')" style="background:var(--orange);border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;color:#fff;cursor:pointer;">Envoyer</button>
+              </div>
+            </div>
+            <div class="admin-msg-time">09:42</div>
+          </div>
+          <div class="admin-msg-item" id="adminmsg-2">
+            <div class="admin-msg-avatar" style="background:linear-gradient(135deg,#1a4a1a,#2a7a2a);">👤</div>
+            <div class="admin-msg-body" style="flex:1;">
+              <div class="admin-msg-name">Amani Touré</div>
+              <div class="admin-msg-text">Je n'arrive pas à uploader mes documents CNI. Le fichier est rejeté.</div>
+              <div style="margin-top:8px;display:flex;gap:8px;align-items:center;">
+                <input id="adminreply-2" placeholder="Répondre à Amani..." style="flex:1;background:rgba(255,255,255,.06);border:1px solid var(--admin-border);border-radius:8px;padding:7px 10px;font-size:12px;color:var(--admin-text);font-family:'Poppins',sans-serif;outline:none;">
+                <button onclick="adminReplyMsg('adminreply-2','Amani Touré','adminmsg-2')" style="background:var(--orange);border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;color:#fff;cursor:pointer;">Envoyer</button>
+              </div>
+            </div>
+            <div class="admin-msg-time">Hier</div>
+          </div>
+          <div class="admin-msg-item" id="adminmsg-3">
+            <div class="admin-msg-avatar" style="background:linear-gradient(135deg,#2a1a3a,#4a2a6a);">👤</div>
+            <div class="admin-msg-body" style="flex:1;">
+              <div class="admin-msg-name">Bamba Souleymane</div>
+              <div class="admin-msg-text">Mon automobile a été vendue hier. Quand la commission sera-t-elle calculée ?</div>
+              <div style="margin-top:8px;display:flex;gap:8px;align-items:center;">
+                <input id="adminreply-3" placeholder="Répondre à Bamba..." style="flex:1;background:rgba(255,255,255,.06);border:1px solid var(--admin-border);border-radius:8px;padding:7px 10px;font-size:12px;color:var(--admin-text);font-family:'Poppins',sans-serif;outline:none;">
+                <button onclick="adminReplyMsg('adminreply-3','Bamba Souleymane','adminmsg-3')" style="background:var(--orange);border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;color:#fff;cursor:pointer;">Envoyer</button>
+              </div>
+            </div>
+            <div class="admin-msg-time">Lun.</div>
+          </div>
         </div>
         <div class="admin-section">
-          <table class="annonces-table" id="admin-users-table">
-            <thead><tr><th>Utilisateur</th><th>Email</th><th>Rôle</th><th>Annonces</th><th>Note</th><th>Actions</th></tr></thead>
-            <tbody id="admin-users-tbody">
-              <tr data-name="Konan Kouamé"><td><div class="annonce-cell"><div class="admin-avatar" style="width:32px;height:32px;font-size:14px;">👤</div><span>Konan Kouamé</span></div></td><td style="color:var(--admin-text2);font-size:11px;">konan@mail.com</td><td><span class="pill pill-ok">user</span></td><td style="color:var(--admin-text2);">3</td><td><span class="admin-note-tag" onclick="adminAddNote(this,'Konan Kouamé')">+ Note</span></td><td><button class="btn-whatsapp-contact" onclick="adminContactWhatsapp('+243000000001','Konan')">💬 WA</button></td></tr>
-              <tr data-name="Amani Touré"><td><div class="annonce-cell"><div class="admin-avatar" style="width:32px;height:32px;font-size:14px;">👤</div><span>Amani Touré</span></div></td><td style="color:var(--admin-text2);font-size:11px;">amani@mail.com</td><td><span class="pill pill-ok">user</span></td><td style="color:var(--admin-text2);">1</td><td><span class="admin-note-tag" onclick="adminAddNote(this,'Amani Touré')">+ Note</span></td><td><button class="btn-whatsapp-contact" onclick="adminContactWhatsapp('+243000000002','Amani')">💬 WA</button></td></tr>
-              <tr data-name="Bamba Souleymane"><td><div class="annonce-cell"><div class="admin-avatar" style="width:32px;height:32px;font-size:14px;">👤</div><span>Bamba Souleymane</span></div></td><td style="color:var(--admin-text2);font-size:11px;">bamba@mail.com</td><td><span class="pill pill-ok">user</span></td><td style="color:var(--admin-text2);">2</td><td><span class="admin-note-tag" style="color:var(--orange);" onclick="adminAddNote(this,'Bamba Souleymane')">📝 Bon vendeur</span></td><td><button class="btn-whatsapp-contact" onclick="adminContactWhatsapp('+243000000003','Bamba')">💬 WA</button></td></tr>
-              <tr data-name="Admin AG Prime"><td><div class="annonce-cell"><div class="admin-avatar" style="width:32px;height:32px;font-size:14px;">🛡️</div><span>Admin AG Prime</span></div></td><td style="color:var(--admin-text2);font-size:11px;">admin@agprime.com</td><td><span class="pill" style="background:rgba(244,124,32,.15);color:var(--orange);">admin</span></td><td style="color:var(--admin-text2);">—</td><td style="color:var(--admin-text2);font-size:11px;">—</td><td style="color:var(--admin-text2);font-size:11px;">Gestionnaire</td></tr>
+          <div class="admin-section-title"><span>🔔</span> Notifications — Annonces vendues</div>
+          <div class="commission-row"><div class="comm-info"><div class="comm-name">Toyota RAV4 2018 — Vendue</div><div class="comm-detail">Vendeur : Konan K. · Acheteur : Yao P.</div></div><span class="pill pill-sold">Vendue</span></div>
+          <div class="commission-row"><div class="comm-info"><div class="comm-name">Terrain Bingerville — Vendu</div><div class="comm-detail">Vendeur : Diallo M. · Acheteur : Coulibaly R.</div></div><span class="pill pill-sold">Vendu</span></div>
+        </div>
+      </div>
+
+      <!-- COMMISSIONS TAB -->
+      <div id="admin-tab-commissions" class="admin-tab-content" style="display:none;">
+        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:20px;">💰 Commissions</div>
+        <div class="admin-section">
+          <div class="admin-section-title"><span>💰</span> Commissions à encaisser</div>
+          <div class="commission-row"><div class="comm-info"><div class="comm-name">Toyota RAV4 2018</div><div class="comm-detail">15,500,000 CFA · Taux : 1%</div></div><div class="comm-amount">155,000 CFA</div></div>
+          <div class="commission-row"><div class="comm-info"><div class="comm-name">Terrain 500m² Bingerville</div><div class="comm-detail">8,500,000 CFA · Taux : 1%</div></div><div class="comm-amount">85,000 CFA</div></div>
+          <div class="commission-row"><div class="comm-info"><div class="comm-name">Honda CR-V 2019</div><div class="comm-detail">19,500,000 CFA · Taux : 1%</div></div><div class="comm-amount">195,000 CFA</div></div>
+          <div style="padding-top:12px;border-top:1px solid var(--admin-border);display:flex;justify-content:space-between;align-items:center;"><span style="font-size:13px;color:var(--admin-text2);font-weight:600;">Total commissions</span><span style="font-size:20px;font-weight:800;color:var(--orange);">435,000 CFA</span></div>
+        </div>
+      </div>
+
+      <!-- UTILISATEURS TAB -->
+      <div id="admin-tab-utilisateurs" class="admin-tab-content" style="display:none;">
+        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:20px;">👥 Gestion des utilisateurs</div>
+        <div class="admin-section">
+          <div class="admin-section-title"><span>👥</span> Utilisateurs inscrits</div>
+          <table class="annonces-table">
+            <thead><tr><th>Utilisateur</th><th>Email</th><th>Rôle</th><th>Annonces</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td><div class="annonce-cell"><div class="admin-avatar" style="width:32px;height:32px;font-size:14px;">👤</div><span>Konan Kouamé</span></div></td><td style="color:var(--admin-text2);">konan@mail.com</td><td><span class="pill pill-ok">user</span></td><td style="color:var(--admin-text2);">3</td><td>
+                <button class="btn-approve" style="font-size:10px;margin-bottom:4px;" onclick="adminContactWhatsApp('Konan Kouamé','+2250700000001')">📱 WhatsApp</button>
+                <button class="btn-reject" style="font-size:10px;background:rgba(41,128,185,.15);color:#2980b9;border-color:rgba(41,128,185,.3);" onclick="openNoteModal('Konan Kouamé')">📝 Note</button>
+              </td></tr>
+              <tr><td><div class="annonce-cell"><div class="admin-avatar" style="width:32px;height:32px;font-size:14px;">👤</div><span>Amani Touré</span></div></td><td style="color:var(--admin-text2);">amani@mail.com</td><td><span class="pill pill-ok">user</span></td><td style="color:var(--admin-text2);">1</td><td>
+                <button class="btn-approve" style="font-size:10px;margin-bottom:4px;" onclick="adminContactWhatsApp('Amani Touré','+2250700000002')">📱 WhatsApp</button>
+                <button class="btn-reject" style="font-size:10px;background:rgba(41,128,185,.15);color:#2980b9;border-color:rgba(41,128,185,.3);" onclick="openNoteModal('Amani Touré')">📝 Note</button>
+              </td></tr>
+              <tr><td><div class="annonce-cell"><div class="admin-avatar" style="width:32px;height:32px;font-size:14px;">🛡️</div><span>Admin AG Prime</span></div></td><td style="color:var(--admin-text2);">admin@agprime.com</td><td><span class="pill" style="background:rgba(244,124,32,.15);color:var(--orange);">admin</span></td><td style="color:var(--admin-text2);">—</td><td style="color:var(--admin-text2);font-size:12px;">Gestionnaire</td></tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- ===== MESSAGES & SUPPORT ===== -->
-      <div id="admin-tab-messages" class="admin-tab-content" style="display:none;">
-        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:16px;">💬 Support utilisateurs</div>
+      <!-- SIGNALEMENTS TAB -->
+      <div id="admin-tab-signalements" class="admin-tab-content" style="display:none;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+          <button onclick="adminTab('dashboard',document.querySelector('.admin-nav-item'))" style="background:rgba(255,255,255,.07);border:1px solid var(--admin-border);border-radius:10px;width:36px;height:36px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--admin-text);">←</button>
+          <div style="font-size:18px;font-weight:800;color:var(--admin-text);">🚩 Signalements d'annonces</div>
+        </div>
         <div class="admin-section">
-          <div class="admin-section-title"><span>💬</span> Messages en attente de réponse</div>
-          <div class="admin-support-row" id="support-row-1">
-            <div class="admin-msg-item" style="margin-bottom:0;border:none;padding:0;">
-              <div class="admin-msg-avatar">👤</div>
-              <div class="admin-msg-body">
-                <div class="admin-msg-name">Konan Kouamé <span style="font-size:10px;color:var(--admin-text2);font-weight:400;margin-left:6px;">09:42</span></div>
-                <div class="admin-msg-text">Mon annonce est en attente depuis 3 jours. Pouvez-vous vérifier ?</div>
+          <div class="admin-section-title"><span>🚩</span> Annonces signalées (3)</div>
+          <div id="signalements-list">
+            <div class="signalement-row" style="background:rgba(231,76,60,.06);border:1px solid rgba(231,76,60,.15);border-radius:12px;padding:14px;margin-bottom:10px;">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
+                <div style="flex:1;">
+                  <div style="font-size:13px;font-weight:700;color:var(--admin-text);">🚗 Toyota RAV4 2018 — Konan K.</div>
+                  <div style="font-size:11px;color:var(--admin-text2);margin-top:3px;">Signalé par : Yao Pélagie</div>
+                  <div style="font-size:12px;color:#e74c3c;margin-top:5px;background:rgba(231,76,60,.1);border-radius:6px;padding:5px 8px;">Raison : Prix suspect / arnaque possible</div>
+                </div>
+                <span class="pill pill-pending pill-signalement" style="font-size:10px;white-space:nowrap;flex-shrink:0;">En attente</span>
+              </div>
+              <div class="signalement-actions" style="display:flex;gap:8px;margin-top:12px;">
+                <button onclick="traiterSignalement(this,'ignorer')" style="flex:1;background:rgba(39,174,96,.15);border:1px solid rgba(39,174,96,.3);border-radius:8px;padding:8px;font-size:11px;font-weight:700;color:#27ae60;cursor:pointer;">✓ Ignorer</button>
+                <button onclick="traiterSignalement(this,'pause')" style="flex:1;background:rgba(243,156,18,.15);border:1px solid rgba(243,156,18,.3);border-radius:8px;padding:8px;font-size:11px;font-weight:700;color:#f39c12;cursor:pointer;">⏸ Mettre en pause</button>
+                <button onclick="traiterSignalement(this,'retirer')" style="flex:1;background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.3);border-radius:8px;padding:8px;font-size:11px;font-weight:700;color:#e74c3c;cursor:pointer;">✗ Retirer</button>
               </div>
             </div>
-            <div class="admin-reply-area" id="reply-area-1" style="display:none;">
-              <textarea placeholder="Votre réponse..." rows="2" style="width:100%;background:rgba(255,255,255,.05);border:1px solid var(--admin-border);border-radius:8px;padding:10px;color:var(--admin-text);font-size:12px;outline:none;font-family:'Poppins',sans-serif;resize:none;box-sizing:border-box;margin-top:10px;" id="reply-text-1"></textarea>
-              <div style="display:flex;gap:8px;margin-top:6px;">
-                <button class="btn-approve" onclick="adminSendReply(1,'Konan Kouamé')">📤 Envoyer</button>
-                <button class="btn-reject" onclick="document.getElementById('reply-area-1').style.display='none'">Annuler</button>
+            <div class="signalement-row" style="background:rgba(231,76,60,.06);border:1px solid rgba(231,76,60,.15);border-radius:12px;padding:14px;margin-bottom:10px;">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
+                <div style="flex:1;">
+                  <div style="font-size:13px;font-weight:700;color:var(--admin-text);">🏡 Villa Cocody 4P — Amani T.</div>
+                  <div style="font-size:11px;color:var(--admin-text2);margin-top:3px;">Signalé par : Diallo Moussa</div>
+                  <div style="font-size:12px;color:#e74c3c;margin-top:5px;background:rgba(231,76,60,.1);border-radius:6px;padding:5px 8px;">Raison : Photos copiées d'une autre annonce</div>
+                </div>
+                <span class="pill pill-pending pill-signalement" style="font-size:10px;white-space:nowrap;flex-shrink:0;">En attente</span>
+              </div>
+              <div class="signalement-actions" style="display:flex;gap:8px;margin-top:12px;">
+                <button onclick="traiterSignalement(this,'ignorer')" style="flex:1;background:rgba(39,174,96,.15);border:1px solid rgba(39,174,96,.3);border-radius:8px;padding:8px;font-size:11px;font-weight:700;color:#27ae60;cursor:pointer;">✓ Ignorer</button>
+                <button onclick="traiterSignalement(this,'pause')" style="flex:1;background:rgba(243,156,18,.15);border:1px solid rgba(243,156,18,.3);border-radius:8px;padding:8px;font-size:11px;font-weight:700;color:#f39c12;cursor:pointer;">⏸ Mettre en pause</button>
+                <button onclick="traiterSignalement(this,'retirer')" style="flex:1;background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.3);border-radius:8px;padding:8px;font-size:11px;font-weight:700;color:#e74c3c;cursor:pointer;">✗ Retirer</button>
               </div>
             </div>
-            <div style="display:flex;gap:6px;margin-top:8px;">
-              <button class="btn-approve" style="font-size:11px;" onclick="document.getElementById('reply-area-1').style.display='block'">💬 Répondre</button>
-              <button class="btn-whatsapp-contact" onclick="adminContactWhatsapp('+243000000001','Konan')">💬 WA</button>
-            </div>
-          </div>
-          <div class="admin-support-row">
-            <div class="admin-msg-item" style="margin-bottom:0;border:none;padding:0;">
-              <div class="admin-msg-avatar" style="background:linear-gradient(135deg,#1a4a1a,#2a7a2a);">👤</div>
-              <div class="admin-msg-body">
-                <div class="admin-msg-name">Amani Touré <span style="font-size:10px;color:var(--admin-text2);font-weight:400;margin-left:6px;">Hier</span></div>
-                <div class="admin-msg-text">Je n'arrive pas à uploader mes documents CNI.</div>
+            <div class="signalement-row" style="background:rgba(231,76,60,.06);border:1px solid rgba(231,76,60,.15);border-radius:12px;padding:14px;margin-bottom:10px;">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
+                <div style="flex:1;">
+                  <div style="font-size:13px;font-weight:700;color:var(--admin-text);">🚘 Mercedes GLC 2020 — Bamba S.</div>
+                  <div style="font-size:11px;color:var(--admin-text2);margin-top:3px;">Signalé par : Konan Kouamé</div>
+                  <div style="font-size:12px;color:#e74c3c;margin-top:5px;background:rgba(231,76,60,.1);border-radius:6px;padding:5px 8px;">Raison : Contenu inapproprié dans la description</div>
+                </div>
+                <span class="pill pill-pending pill-signalement" style="font-size:10px;white-space:nowrap;flex-shrink:0;">En attente</span>
               </div>
-            </div>
-            <div class="admin-reply-area" id="reply-area-2" style="display:none;">
-              <textarea placeholder="Votre réponse..." rows="2" style="width:100%;background:rgba(255,255,255,.05);border:1px solid var(--admin-border);border-radius:8px;padding:10px;color:var(--admin-text);font-size:12px;outline:none;font-family:'Poppins',sans-serif;resize:none;box-sizing:border-box;margin-top:10px;" id="reply-text-2"></textarea>
-              <div style="display:flex;gap:8px;margin-top:6px;">
-                <button class="btn-approve" onclick="adminSendReply(2,'Amani Touré')">📤 Envoyer</button>
-                <button class="btn-reject" onclick="document.getElementById('reply-area-2').style.display='none'">Annuler</button>
+              <div class="signalement-actions" style="display:flex;gap:8px;margin-top:12px;">
+                <button onclick="traiterSignalement(this,'ignorer')" style="flex:1;background:rgba(39,174,96,.15);border:1px solid rgba(39,174,96,.3);border-radius:8px;padding:8px;font-size:11px;font-weight:700;color:#27ae60;cursor:pointer;">✓ Ignorer</button>
+                <button onclick="traiterSignalement(this,'pause')" style="flex:1;background:rgba(243,156,18,.15);border:1px solid rgba(243,156,18,.3);border-radius:8px;padding:8px;font-size:11px;font-weight:700;color:#f39c12;cursor:pointer;">⏸ Mettre en pause</button>
+                <button onclick="traiterSignalement(this,'retirer')" style="flex:1;background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.3);border-radius:8px;padding:8px;font-size:11px;font-weight:700;color:#e74c3c;cursor:pointer;">✗ Retirer</button>
               </div>
-            </div>
-            <div style="display:flex;gap:6px;margin-top:8px;">
-              <button class="btn-approve" style="font-size:11px;" onclick="document.getElementById('reply-area-2').style.display='block'">💬 Répondre</button>
-              <button class="btn-whatsapp-contact" onclick="adminContactWhatsapp('+243000000002','Amani')">💬 WA</button>
-            </div>
-          </div>
-          <div class="admin-support-row">
-            <div class="admin-msg-item" style="margin-bottom:0;border:none;padding:0;">
-              <div class="admin-msg-avatar" style="background:linear-gradient(135deg,#2a1a3a,#4a2a6a);">👤</div>
-              <div class="admin-msg-body">
-                <div class="admin-msg-name">Bamba Souleymane <span style="font-size:10px;color:var(--admin-text2);font-weight:400;margin-left:6px;">Lun.</span></div>
-                <div class="admin-msg-text">Mon automobile a été vendue. Quand la commission sera calculée ?</div>
-              </div>
-            </div>
-            <div style="display:flex;gap:6px;margin-top:8px;">
-              <button class="btn-approve" style="font-size:11px;" onclick="showToast('Réponse envoyée à Bamba','success')">💬 Répondre</button>
-              <button class="btn-whatsapp-contact" onclick="adminContactWhatsapp('+243000000003','Bamba')">💬 WA</button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ===== NOTIFICATIONS ===== -->
-      <div id="admin-tab-notifications" class="admin-tab-content" style="display:none;">
-        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:16px;">🔔 Notification utilisateur</div>
-        <div class="admin-section">
-          <div class="admin-section-title"><span>👤</span> Choisir l'utilisateur</div>
-          <div class="admin-notif-user-row" onclick="adminSelectNotifUser(this,'Konan Kouamé')">
-            <div class="admin-avatar" style="width:34px;height:34px;font-size:14px;">👤</div>
-            <div><div style="font-size:13px;font-weight:600;color:var(--admin-text);">Konan Kouamé</div><div style="font-size:11px;color:var(--admin-text2);">konan@mail.com · 3 annonces</div></div>
-          </div>
-          <div class="admin-notif-user-row" onclick="adminSelectNotifUser(this,'Amani Touré')">
-            <div class="admin-avatar" style="width:34px;height:34px;font-size:14px;">👤</div>
-            <div><div style="font-size:13px;font-weight:600;color:var(--admin-text);">Amani Touré</div><div style="font-size:11px;color:var(--admin-text2);">amani@mail.com · 1 annonce</div></div>
-          </div>
-          <div class="admin-notif-user-row" onclick="adminSelectNotifUser(this,'Bamba Souleymane')">
-            <div class="admin-avatar" style="width:34px;height:34px;font-size:14px;">👤</div>
-            <div><div style="font-size:13px;font-weight:600;color:var(--admin-text);">Bamba Souleymane</div><div style="font-size:11px;color:var(--admin-text2);">bamba@mail.com · 2 annonces</div></div>
-          </div>
-        </div>
-        <div class="admin-section">
-          <div class="admin-section-title"><span>✏️</span> Message</div>
-          <textarea id="admin-notif-msg" rows="3" placeholder="Votre message pour cet utilisateur..."
-            style="width:100%;background:rgba(255,255,255,.05);border:1px solid var(--admin-border);border-radius:10px;padding:12px;color:var(--admin-text);font-size:13px;outline:none;font-family:'Poppins',sans-serif;resize:none;box-sizing:border-box;margin-bottom:12px;"></textarea>
-          <button class="btn-approve" onclick="adminEnvoyerNotifUser()" style="width:100%;padding:12px;font-size:13px;">🔔 Envoyer la notification</button>
-        </div>
-      </div>
-      <!-- ===== STATISTIQUES ===== -->
-      <div id="admin-tab-stats" class="admin-tab-content" style="display:none;">
-        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:16px;">📈 Statistiques</div>
+      <!-- VISIBILITE TAB -->
+      <div id="admin-tab-visibilite" class="admin-tab-content" style="display:none;">
+        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:20px;">👁 Visibilité & Statistiques</div>
         <div class="admin-section">
           <div class="admin-section-title"><span>🔥</span> Annonces les plus consultées</div>
           <table class="annonces-table">
-            <thead><tr><th>#</th><th>Annonce</th><th>Vendeur</th><th>Vues</th><th>Favoris</th></tr></thead>
+            <thead><tr><th>#</th><th>Annonce</th><th>Vendeur</th><th>Vues</th><th>Tendance</th></tr></thead>
             <tbody>
-              <tr><td style="font-weight:800;color:var(--orange);">1</td><td><div class="annonce-cell"><div class="annonce-thumb g1">🚗</div><span>Toyota RAV4 2018</span></div></td><td style="color:var(--admin-text2);">Konan K.</td><td style="font-weight:700;color:var(--admin-text);">1,248</td><td style="color:var(--orange);">❤️ 34</td></tr>
-              <tr><td style="font-weight:800;color:var(--admin-text2);">2</td><td><div class="annonce-cell"><div class="annonce-thumb g3">🏡</div><span>Villa Cocody 4P</span></div></td><td style="color:var(--admin-text2);">Amani T.</td><td style="font-weight:700;color:var(--admin-text);">987</td><td style="color:var(--orange);">❤️ 21</td></tr>
-              <tr><td style="font-weight:800;color:var(--admin-text2);">3</td><td><div class="annonce-cell"><div class="annonce-thumb g5">🚘</div><span>Mercedes GLC 2020</span></div></td><td style="color:var(--admin-text2);">Bamba S.</td><td style="font-weight:700;color:var(--admin-text);">756</td><td style="color:var(--orange);">❤️ 18</td></tr>
-              <tr><td style="font-weight:800;color:var(--admin-text2);">4</td><td><div class="annonce-cell"><div class="annonce-thumb g6">🌿</div><span>Terrain Bingerville</span></div></td><td style="color:var(--admin-text2);">Diallo M.</td><td style="font-weight:700;color:var(--admin-text);">543</td><td style="color:var(--orange);">❤️ 12</td></tr>
+              <tr><td style="font-size:16px;">🥇</td><td><div class="annonce-cell"><div class="annonce-thumb g1">🚗</div><span>Toyota RAV4 2018</span></div></td><td style="color:var(--admin-text2);">Konan K.</td><td style="font-size:15px;font-weight:800;color:var(--orange);">1 284</td><td style="color:#27ae60;font-weight:700;">↑ +142</td></tr>
+              <tr><td style="font-size:16px;">🥈</td><td><div class="annonce-cell"><div class="annonce-thumb g3">🏡</div><span>Villa Cocody 4P</span></div></td><td style="color:var(--admin-text2);">Amani T.</td><td style="font-size:15px;font-weight:800;color:var(--orange);">987</td><td style="color:#27ae60;font-weight:700;">↑ +89</td></tr>
+              <tr><td style="font-size:16px;">🥉</td><td><div class="annonce-cell"><div class="annonce-thumb g5">🚘</div><span>Mercedes GLC 2020</span></div></td><td style="color:var(--admin-text2);">Bamba S.</td><td style="font-size:15px;font-weight:800;color:var(--orange);">741</td><td style="color:#27ae60;font-weight:700;">↑ +55</td></tr>
+              <tr><td style="color:var(--admin-text2);">4</td><td><div class="annonce-cell"><div class="annonce-thumb g6">🌿</div><span>Terrain Bingerville</span></div></td><td style="color:var(--admin-text2);">Diallo M.</td><td style="font-size:15px;font-weight:800;color:var(--orange);">623</td><td style="color:#e74c3c;font-weight:700;">↓ -12</td></tr>
+              <tr><td style="color:var(--admin-text2);">5</td><td><div class="annonce-cell"><div class="annonce-thumb g4">🏢</div><span>Appart F3 Centre</span></div></td><td style="color:var(--admin-text2);">Yao P.</td><td style="font-size:15px;font-weight:800;color:var(--orange);">487</td><td style="color:#f39c12;font-weight:700;">→ stable</td></tr>
             </tbody>
           </table>
         </div>
-        <div class="admin-section">
+        <div class="admin-section" style="margin-top:16px;">
           <div class="admin-section-title"><span>🔍</span> Recherches les plus fréquentes</div>
-          <div style="display:flex;flex-wrap:wrap;gap:8px;padding:8px 0;">
-            <span style="background:rgba(244,124,32,.12);color:var(--orange);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;">Toyota 🔥 248x</span>
-            <span style="background:rgba(244,124,32,.08);color:var(--orange);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;">Cocody 186x</span>
-            <span style="background:rgba(244,124,32,.06);color:var(--orange);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;">Terrain 154x</span>
-            <span style="background:rgba(244,124,32,.05);color:var(--orange);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;">Honda CR-V 132x</span>
-            <span style="background:rgba(244,124,32,.04);color:var(--orange);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;">Villa 4P 98x</span>
-            <span style="background:rgba(244,124,32,.03);color:var(--orange);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;">Marcory 87x</span>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;">
+            <div style="background:rgba(244,124,32,.12);border:1px solid rgba(244,124,32,.3);border-radius:20px;padding:6px 14px;display:flex;align-items:center;gap:8px;">
+              <span style="font-size:13px;font-weight:600;color:var(--admin-text);">Toyota RAV4</span>
+              <span style="font-size:11px;font-weight:800;color:var(--orange);">×248</span>
+            </div>
+            <div style="background:rgba(244,124,32,.12);border:1px solid rgba(244,124,32,.3);border-radius:20px;padding:6px 14px;display:flex;align-items:center;gap:8px;">
+              <span style="font-size:13px;font-weight:600;color:var(--admin-text);">Villa Cocody</span>
+              <span style="font-size:11px;font-weight:800;color:var(--orange);">×187</span>
+            </div>
+            <div style="background:rgba(244,124,32,.09);border:1px solid rgba(244,124,32,.2);border-radius:20px;padding:6px 14px;display:flex;align-items:center;gap:8px;">
+              <span style="font-size:13px;font-weight:600;color:var(--admin-text);">terrain bingerville</span>
+              <span style="font-size:11px;font-weight:800;color:var(--orange);">×154</span>
+            </div>
+            <div style="background:rgba(244,124,32,.09);border:1px solid rgba(244,124,32,.2);border-radius:20px;padding:6px 14px;display:flex;align-items:center;gap:8px;">
+              <span style="font-size:13px;font-weight:600;color:var(--admin-text);">Mercedes GLC</span>
+              <span style="font-size:11px;font-weight:800;color:var(--orange);">×132</span>
+            </div>
+            <div style="background:rgba(244,124,32,.07);border:1px solid rgba(244,124,32,.15);border-radius:20px;padding:6px 14px;display:flex;align-items:center;gap:8px;">
+              <span style="font-size:13px;font-weight:600;color:var(--admin-text);">appartement abidjan</span>
+              <span style="font-size:11px;font-weight:800;color:var(--orange);">×98</span>
+            </div>
+            <div style="background:rgba(244,124,32,.07);border:1px solid rgba(244,124,32,.15);border-radius:20px;padding:6px 14px;display:flex;align-items:center;gap:8px;">
+              <span style="font-size:13px;font-weight:600;color:var(--admin-text);">camion benne</span>
+              <span style="font-size:11px;font-weight:800;color:var(--orange);">×76</span>
+            </div>
+            <div style="background:rgba(255,255,255,.05);border:1px solid var(--admin-border);border-radius:20px;padding:6px 14px;display:flex;align-items:center;gap:8px;">
+              <span style="font-size:13px;font-weight:600;color:var(--admin-text);">Honda CRV</span>
+              <span style="font-size:11px;font-weight:800;color:var(--admin-text2);">×61</span>
+            </div>
+            <div style="background:rgba(255,255,255,.05);border:1px solid var(--admin-border);border-radius:20px;padding:6px 14px;display:flex;align-items:center;gap:8px;">
+              <span style="font-size:13px;font-weight:600;color:var(--admin-text);">pièces moteur</span>
+              <span style="font-size:11px;font-weight:800;color:var(--admin-text2);">×44</span>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- ===== COMMISSIONS ===== -->
-      <div id="admin-tab-commissions" class="admin-tab-content" style="display:none;">
-        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:16px;">💰 Commissions</div>
+      <!-- NOTIFICATIONS TAB -->
+      <div id="admin-tab-notifications" class="admin-tab-content" style="display:none;">
+        <div style="font-size:18px;font-weight:800;color:var(--admin-text);margin-bottom:20px;">🔔 Envoyer une notification</div>
         <div class="admin-section">
-          <div class="admin-section-title"><span>💰</span> À encaisser</div>
-          <div class="commission-row"><div class="comm-info"><div class="comm-name">Toyota RAV4 2018</div><div class="comm-detail">$28,500 · Taux : 1%</div></div><div style="display:flex;align-items:center;gap:10px;"><div class="comm-amount">$285</div><button onclick="adminMarkCommission(this,'Toyota RAV4')" style="background:rgba(39,174,96,.12);color:#27ae60;border:1px solid rgba(39,174,96,.2);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer;">✅ Encaisser</button></div></div>
-          <div class="commission-row"><div class="comm-info"><div class="comm-name">Terrain Bingerville</div><div class="comm-detail">$13,100 · Taux : 1%</div></div><div style="display:flex;align-items:center;gap:10px;"><div class="comm-amount">$131</div><button onclick="adminMarkCommission(this,'Terrain Bingerville')" style="background:rgba(39,174,96,.12);color:#27ae60;border:1px solid rgba(39,174,96,.2);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer;">✅ Encaisser</button></div></div>
-          <div class="commission-row"><div class="comm-info"><div class="comm-name">Honda CR-V 2019</div><div class="comm-detail">$30,000 · Taux : 1%</div></div><div style="display:flex;align-items:center;gap:10px;"><div class="comm-amount">$300</div><button onclick="adminMarkCommission(this,'Honda CR-V')" style="background:rgba(39,174,96,.12);color:#27ae60;border:1px solid rgba(39,174,96,.2);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;cursor:pointer;">✅ Encaisser</button></div></div>
-          <div style="padding-top:12px;border-top:1px solid var(--admin-border);display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:13px;color:var(--admin-text2);font-weight:600;">Total</span>
-            <span style="font-size:20px;font-weight:800;color:var(--orange);">$716</span>
+          <div class="admin-section-title"><span>👤</span> Notification à un utilisateur spécifique</div>
+          <div style="margin-bottom:12px;">
+            <label style="font-size:11px;font-weight:700;color:var(--admin-text2);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Destinataire</label>
+            <select id="admin-notif-user" style="width:100%;background:rgba(255,255,255,.06);border:1.5px solid var(--admin-border);border-radius:10px;padding:11px 12px;color:var(--admin-text);font-size:13px;font-family:'Poppins',sans-serif;outline:none;">
+              <option value="">— Choisir un utilisateur —</option>
+              <option value="Konan Kouamé">Konan Kouamé (konan@mail.com)</option>
+              <option value="Amani Touré">Amani Touré (amani@mail.com)</option>
+              <option value="Bamba Souleymane">Bamba Souleymane (bamba@mail.com)</option>
+              <option value="Diallo Moussa">Diallo Moussa (diallo@mail.com)</option>
+              <option value="Yao Pélagie">Yao Pélagie (yao@mail.com)</option>
+            </select>
           </div>
+          <div style="margin-bottom:12px;">
+            <label style="font-size:11px;font-weight:700;color:var(--admin-text2);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Titre</label>
+            <input id="admin-notif-titre" placeholder="Ex : Votre annonce a été validée" style="width:100%;background:rgba(255,255,255,.06);border:1.5px solid var(--admin-border);border-radius:10px;padding:11px 12px;color:var(--admin-text);font-size:13px;font-family:'Poppins',sans-serif;outline:none;box-sizing:border-box;">
+          </div>
+          <div style="margin-bottom:16px;">
+            <label style="font-size:11px;font-weight:700;color:var(--admin-text2);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;">Message</label>
+            <textarea id="admin-notif-msg" placeholder="Écrire le message à envoyer à l'utilisateur..." style="width:100%;background:rgba(255,255,255,.06);border:1.5px solid var(--admin-border);border-radius:10px;padding:11px 12px;color:var(--admin-text);font-size:13px;font-family:'Poppins',sans-serif;outline:none;resize:vertical;min-height:80px;box-sizing:border-box;"></textarea>
+          </div>
+          <button onclick="envoyerNotifAdmin()" style="width:100%;background:linear-gradient(135deg,var(--orange),#e06e10);color:#fff;border:none;border-radius:12px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(244,124,32,.3);">🔔 Envoyer la notification</button>
         </div>
-        <div class="admin-section">
-          <div class="admin-section-title"><span>✅</span> Encaissées ce mois</div>
-          <div class="commission-row"><div class="comm-info"><div class="comm-name">Villa 5P Marcory</div><div class="comm-detail">$100,000 · Taux : 1%</div></div><div class="comm-amount" style="color:#27ae60;">$1,000 ✅</div></div>
-          <div class="commission-row"><div class="comm-info"><div class="comm-name">Mercedes GLC 2020</div><div class="comm-detail">$43,000 · Taux : 1%</div></div><div class="comm-amount" style="color:#27ae60;">$430 ✅</div></div>
+        <div class="admin-section" style="margin-top:16px;">
+          <div class="admin-section-title"><span>📜</span> Historique des notifications envoyées</div>
+          <div id="admin-notif-history">
+            <div style="padding:10px 0;border-bottom:1px solid var(--admin-border);">
+              <div style="display:flex;justify-content:space-between;"><span style="font-size:12px;font-weight:700;color:var(--admin-text);">📋 Votre annonce a été validée</span><span style="font-size:10px;color:var(--admin-text2);">Hier</span></div>
+              <div style="font-size:11px;color:var(--admin-text2);margin-top:2px;">À : Konan Kouamé · Bonne nouvelle, votre Toyota RAV4 est maintenant visible.</div>
+            </div>
+            <div style="padding:10px 0;border-bottom:1px solid var(--admin-border);">
+              <div style="display:flex;justify-content:space-between;"><span style="font-size:12px;font-weight:700;color:var(--admin-text);">📁 Document requis</span><span style="font-size:10px;color:var(--admin-text2);">Lun.</span></div>
+              <div style="font-size:11px;color:var(--admin-text2);margin-top:2px;">À : Amani Touré · Merci de soumettre un document CNI lisible.</div>
+            </div>
+          </div>
         </div>
       </div>
 
     </div><!-- end admin-content -->
   </div><!-- end admin-layout -->
 </div><!-- end page-admin -->
+
+<!-- ==================== NOTE INTERNE MODAL ==================== -->
+<div id="noteModalOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:700;align-items:center;justify-content:center;backdrop-filter:blur(4px);">
+  <div style="background:var(--admin-card);border:1px solid var(--admin-border);border-radius:20px;padding:28px 24px;width:90%;max-width:380px;">
+    <div style="font-size:16px;font-weight:800;color:var(--admin-text);margin-bottom:6px;">📝 Note interne</div>
+    <div style="font-size:12px;color:var(--admin-text2);margin-bottom:16px;">Visible uniquement par les admins et l'owner.</div>
+    <div style="font-size:13px;font-weight:700;color:var(--orange);margin-bottom:10px;" id="noteTargetName">—</div>
+    <textarea id="noteContent" placeholder="Écrire une note sur cet utilisateur..." style="width:100%;background:rgba(255,255,255,.05);border:1.5px solid var(--admin-border);border-radius:12px;padding:12px;color:var(--admin-text);font-family:'Poppins',sans-serif;font-size:13px;outline:none;resize:vertical;min-height:90px;box-sizing:border-box;"></textarea>
+    <div style="display:flex;gap:10px;margin-top:14px;">
+      <button onclick="saveNote()" style="flex:1;background:var(--orange);border:none;border-radius:10px;padding:11px;font-size:13px;font-weight:700;color:#fff;cursor:pointer;">💾 Enregistrer</button>
+      <button onclick="closeNoteModal()" style="flex:1;background:rgba(255,255,255,.07);border:1px solid var(--admin-border);border-radius:10px;padding:11px;font-size:13px;color:var(--admin-text2);cursor:pointer;">Annuler</button>
+    </div>
+  </div>
+</div>
 
 <!-- ==================== OWNER PAGE ==================== -->
 <div id="page-owner" class="page">
@@ -1502,7 +1701,12 @@ body.auth-locked{overflow:hidden;}
         <div class="owner-kpi-row">
           <div class="owner-kpi"><div class="owner-kpi-icon">💰</div><div class="owner-kpi-value">8.7M</div><div class="owner-kpi-label">Revenus totaux (CFA)</div><div class="owner-kpi-delta kpi-up" style="color:#27ae60;">↑ +23% ce mois</div></div>
           <div class="owner-kpi"><div class="owner-kpi-icon">👥</div><div class="owner-kpi-value">348</div><div class="owner-kpi-label">Utilisateurs inscrits</div><div class="owner-kpi-delta kpi-up" style="color:#27ae60;">↑ +42 cette semaine</div></div>
-          <div class="owner-kpi"><div class="owner-kpi-icon">📋</div><div class="owner-kpi-value">612</div><div class="owner-kpi-label">Annonces actives</div><div class="owner-kpi-delta kpi-up" style="color:#27ae60;">↑ +18 aujourd'hui</div></div>
+          <div class="owner-kpi" style="cursor:pointer;" onclick="openFlashPost()" title="Cliquer pour poster une vente flash">
+            <div class="owner-kpi-icon">⚡</div>
+            <div class="owner-kpi-value" id="ownerKpiFlashCount">0</div>
+            <div class="owner-kpi-label">Ventes Flash actives</div>
+            <div class="owner-kpi-delta" style="color:var(--owner-gold2);">+ Poster une vente flash</div>
+          </div>
           <div class="owner-kpi"><div class="owner-kpi-icon">🚫</div><div class="owner-kpi-value">4</div><div class="owner-kpi-label">Comptes bannis</div><div class="owner-kpi-delta" style="color:var(--owner-text2);">→ Stable</div></div>
         </div>
 
@@ -1524,15 +1728,55 @@ body.auth-locked{overflow:hidden;}
 
         <div class="owner-section">
           <div class="owner-section-title"><span>📈</span> Activité récente</div>
-          <table class="owner-table">
-            <thead><tr><th>Action</th><th>Utilisateur</th><th>Détail</th><th>Date</th></tr></thead>
-            <tbody>
-              <tr><td>🆕 Inscription</td><td style="color:var(--owner-gold2);">Yao Pélagie</td><td style="color:var(--owner-text2);">Nouveau compte vendeur</td><td style="color:var(--owner-text2);">Il y a 12 min</td></tr>
-              <tr><td>📋 Annonce</td><td style="color:var(--owner-gold2);">Konan K.</td><td style="color:var(--owner-text2);">Toyota RAV4 2018 soumise</td><td style="color:var(--owner-text2);">Il y a 1h</td></tr>
-              <tr><td>✅ Vente</td><td style="color:var(--owner-gold2);">Diallo M.</td><td style="color:var(--owner-text2);">Terrain Bingerville vendu</td><td style="color:var(--owner-text2);">Hier</td></tr>
-              <tr><td>🪪 KYC</td><td style="color:var(--owner-gold2);">Bamba S.</td><td style="color:var(--owner-text2);">Documents soumis</td><td style="color:var(--owner-text2);">Hier</td></tr>
-            </tbody>
-          </table>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+
+            <div style="background:rgba(255,255,255,.03);border:1px solid var(--owner-border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+              <div style="width:38px;height:38px;border-radius:10px;background:rgba(39,174,96,.15);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🆕</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:13px;font-weight:700;color:var(--owner-text);">Inscription</div>
+                <div style="font-size:11px;color:var(--owner-gold2);margin-top:2px;">Yao Pélagie</div>
+                <div style="font-size:11px;color:var(--owner-text2);margin-top:1px;">Nouveau compte vendeur</div>
+              </div>
+              <div style="font-size:11px;color:var(--owner-text2);white-space:nowrap;flex-shrink:0;">Il y a 12 min</div>
+            </div>
+
+            <div style="background:rgba(255,255,255,.03);border:1px solid var(--owner-border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;" onclick="ownerTab('annonces',document.querySelector('[onclick*=annonces]'))">
+              <div style="width:38px;height:38px;border-radius:10px;background:rgba(244,124,32,.15);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">📋</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:13px;font-weight:700;color:var(--owner-text);">Annonce soumise</div>
+                <div style="font-size:11px;color:var(--owner-gold2);margin-top:2px;">Konan Kouamé</div>
+                <div style="font-size:11px;color:var(--owner-text2);margin-top:1px;">Toyota RAV4 2018 — En attente</div>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;">
+                <div style="font-size:11px;color:var(--owner-text2);">Il y a 1h</div>
+                <span style="font-size:18px;color:var(--owner-text2);">›</span>
+              </div>
+            </div>
+
+            <div style="background:rgba(255,255,255,.03);border:1px solid var(--owner-border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+              <div style="width:38px;height:38px;border-radius:10px;background:rgba(39,174,96,.15);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">✅</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:13px;font-weight:700;color:var(--owner-text);">Vente confirmée</div>
+                <div style="font-size:11px;color:var(--owner-gold2);margin-top:2px;">Diallo Moussa</div>
+                <div style="font-size:11px;color:var(--owner-text2);margin-top:1px;">Terrain Bingerville vendu</div>
+              </div>
+              <div style="font-size:11px;color:var(--owner-text2);white-space:nowrap;flex-shrink:0;">Hier</div>
+            </div>
+
+            <div style="background:rgba(255,255,255,.03);border:1px solid var(--owner-border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;" onclick="ownerTab('kyc',document.querySelector('[onclick*=kyc]'))">
+              <div style="width:38px;height:38px;border-radius:10px;background:rgba(243,156,18,.15);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🪪</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:13px;font-weight:700;color:var(--owner-text);">KYC soumis</div>
+                <div style="font-size:11px;color:var(--owner-gold2);margin-top:2px;">Bamba Souleymane</div>
+                <div style="font-size:11px;color:var(--owner-text2);margin-top:1px;">Documents à vérifier</div>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;">
+                <div style="font-size:11px;color:var(--owner-text2);">Hier</div>
+                <span style="font-size:18px;color:var(--owner-text2);">›</span>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
 
@@ -1587,140 +1831,267 @@ body.auth-locked{overflow:hidden;}
         </div>
       </div>
 
-      <!-- ---- ANNONCES ---- -->
+      <!-- ---- ANNONCES OWNER ---- -->
       <div id="owner-tab-annonces" class="owner-tab-content" style="display:none;">
-        <div class="owner-page-title">📋 Modération des annonces</div>
-        <div class="owner-page-sub">Retrait définitif possible sur toute annonce, même approuvée</div>
-        <div class="owner-section">
-          <div class="owner-section-title"><span>📋</span> Toutes les annonces</div>
-          <table class="owner-table">
-            <thead><tr><th>Annonce</th><th>Vendeur</th><th>Catégorie</th><th>Prix</th><th>Statut</th><th>Actions Owner</th></tr></thead>
-            <tbody>
-              <tr>
-                <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(160deg,#1a2a3a,#2d4a6a);display:flex;align-items:center;justify-content:center;font-size:16px;">🚗</div><span>Toyota RAV4 2018</span></div></td>
-                <td style="color:var(--owner-text2);">Konan K.</td><td style="color:var(--owner-text2);">Automobile</td>
-                <td style="color:var(--owner-gold2);font-weight:700;">15,500,000</td>
-                <td><span class="owner-pill owner-pill-ok">Approuvée</span></td>
-                <td><button class="btn-owner-remove" onclick="ownerRemoveAnnonce(this,'Toyota RAV4 2018')">🗑 Retirer</button></td>
-              </tr>
-              <tr>
-                <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(160deg,#1a3a1a,#2a5a2a);display:flex;align-items:center;justify-content:center;font-size:16px;">🏡</div><span>Villa Cocody 4P</span></div></td>
-                <td style="color:var(--owner-text2);">Amani T.</td><td style="color:var(--owner-text2);">Maison</td>
-                <td style="color:var(--owner-gold2);font-weight:700;">45,000,000</td>
-                <td><span class="owner-pill owner-pill-pending">En attente</span></td>
-                <td><button class="btn-owner-remove" onclick="ownerRemoveAnnonce(this,'Villa Cocody 4P')">🗑 Retirer</button></td>
-              </tr>
-              <tr>
-                <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(160deg,#2a1a3a,#4a2a6a);display:flex;align-items:center;justify-content:center;font-size:16px;">🚘</div><span>Mercedes GLC 2020</span></div></td>
-                <td style="color:var(--owner-text2);">Bamba S.</td><td style="color:var(--owner-text2);">Automobile</td>
-                <td style="color:var(--owner-gold2);font-weight:700;">28,000,000</td>
-                <td><span class="owner-pill owner-pill-ok">Approuvée</span></td>
-                <td><button class="btn-owner-remove" onclick="ownerRemoveAnnonce(this,'Mercedes GLC 2020')">🗑 Retirer</button></td>
-              </tr>
-              <tr>
-                <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(160deg,#1a2a1a,#2a4a3a);display:flex;align-items:center;justify-content:center;font-size:16px;">🌿</div><span>Terrain Bingerville</span></div></td>
-                <td style="color:var(--owner-text2);">Diallo M.</td><td style="color:var(--owner-text2);">Terrain</td>
-                <td style="color:var(--owner-gold2);font-weight:700;">8,500,000</td>
-                <td><span class="owner-pill owner-pill-ok">Approuvée</span></td>
-                <td><button class="btn-owner-remove" onclick="ownerRemoveAnnonce(this,'Terrain Bingerville')">🗑 Retirer</button></td>
-              </tr>
-              <tr>
-                <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(160deg,#3a1a1a,#6a2a2a);display:flex;align-items:center;justify-content:center;font-size:16px;">🏢</div><span>Appart F3 Centre</span></div></td>
-                <td style="color:var(--owner-text2);">Yao P.</td><td style="color:var(--owner-text2);">Appart</td>
-                <td style="color:var(--owner-gold2);font-weight:700;">18,000,000</td>
-                <td><span class="owner-pill" style="background:rgba(231,76,60,.15);color:#e74c3c;">Retirée</span></td>
-                <td style="color:var(--owner-text2);font-size:11px;">Déjà retirée</td>
-              </tr>
-            </tbody>
-          </table>
+
+        <!-- VUE LISTE -->
+        <div id="owner-annonces-list">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;">
+            <button onclick="ownerTab('dashboard',document.querySelector('.owner-nav-item'))" style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);border-radius:10px;width:36px;height:36px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--owner-gold);">←</button>
+            <div>
+              <div class="owner-page-title" style="margin-bottom:0;">📋 Modération des annonces</div>
+              <div class="owner-page-sub" style="margin-top:2px;">Retrait définitif — pouvoir exclusif Owner</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;margin:14px 0;overflow-x:auto;padding-bottom:4px;">
+            <button onclick="filtrerOwnerAnnonces('all',this)" class="owner-filtre-btn owner-filtre-active">Toutes (5)</button>
+            <button onclick="filtrerOwnerAnnonces('approved',this)" class="owner-filtre-btn">✅ Approuvées</button>
+            <button onclick="filtrerOwnerAnnonces('pending',this)" class="owner-filtre-btn">⏳ En attente</button>
+            <button onclick="filtrerOwnerAnnonces('removed',this)" class="owner-filtre-btn">🗑 Retirées</button>
+          </div>
+          <div id="owner-annonces-cards">
+            <div class="owner-ann-card" data-status="approved" data-oid="1" onclick="ouvrirOwnerDetail(1)">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(160deg,#1a2a3a,#2d4a6a);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">🚗</div>
+                <div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:700;color:var(--owner-text);">Toyota RAV4 2018</div><div style="font-size:11px;color:var(--owner-text2);margin-top:2px;">Konan Kouamé · Automobile</div><div style="font-size:13px;font-weight:800;color:var(--owner-gold2);margin-top:4px;">15 500 000 CFA</div></div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;"><span class="owner-pill owner-pill-ok owner-ann-pill" style="font-size:10px;">Approuvée</span><span style="font-size:18px;color:var(--owner-text2);">›</span></div>
+              </div>
+            </div>
+            <div class="owner-ann-card" data-status="pending" data-oid="2" onclick="ouvrirOwnerDetail(2)">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(160deg,#1a3a1a,#2a5a2a);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">🏡</div>
+                <div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:700;color:var(--owner-text);">Villa Cocody 4P</div><div style="font-size:11px;color:var(--owner-text2);margin-top:2px;">Amani Touré · Maison</div><div style="font-size:13px;font-weight:800;color:var(--owner-gold2);margin-top:4px;">45 000 000 CFA</div></div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;"><span class="owner-pill owner-pill-pending owner-ann-pill" style="font-size:10px;">En attente</span><span style="font-size:18px;color:var(--owner-text2);">›</span></div>
+              </div>
+            </div>
+            <div class="owner-ann-card" data-status="approved" data-oid="3" onclick="ouvrirOwnerDetail(3)">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(160deg,#2a1a3a,#4a2a6a);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">🚘</div>
+                <div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:700;color:var(--owner-text);">Mercedes GLC 2020</div><div style="font-size:11px;color:var(--owner-text2);margin-top:2px;">Bamba Souleymane · Automobile</div><div style="font-size:13px;font-weight:800;color:var(--owner-gold2);margin-top:4px;">28 000 000 CFA</div></div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;"><span class="owner-pill owner-pill-ok owner-ann-pill" style="font-size:10px;">Approuvée</span><span style="font-size:18px;color:var(--owner-text2);">›</span></div>
+              </div>
+            </div>
+            <div class="owner-ann-card" data-status="approved" data-oid="4" onclick="ouvrirOwnerDetail(4)">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(160deg,#1a2a1a,#2a4a3a);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">🌿</div>
+                <div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:700;color:var(--owner-text);">Terrain Bingerville</div><div style="font-size:11px;color:var(--owner-text2);margin-top:2px;">Diallo Moussa · Terrain</div><div style="font-size:13px;font-weight:800;color:var(--owner-gold2);margin-top:4px;">8 500 000 CFA</div></div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;"><span class="owner-pill owner-pill-ok owner-ann-pill" style="font-size:10px;">Approuvée</span><span style="font-size:18px;color:var(--owner-text2);">›</span></div>
+              </div>
+            </div>
+            <div class="owner-ann-card" data-status="removed" data-oid="5" onclick="ouvrirOwnerDetail(5)" style="opacity:.65;">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(160deg,#3a1a1a,#6a2a2a);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">🏢</div>
+                <div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:700;color:var(--owner-text);">Appart F3 Centre</div><div style="font-size:11px;color:var(--owner-text2);margin-top:2px;">Yao Pélagie · Appartement</div><div style="font-size:13px;font-weight:800;color:var(--owner-gold2);margin-top:4px;">18 000 000 CFA</div></div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;"><span class="owner-ann-pill" style="font-size:10px;background:rgba(231,76,60,.15);color:#e74c3c;padding:3px 8px;border-radius:20px;font-weight:700;">Retirée</span><span style="font-size:18px;color:var(--owner-text2);">›</span></div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- VUE DÉTAIL OWNER -->
+        <div id="owner-annonces-detail" style="display:none;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+            <button onclick="fermerOwnerDetail()" style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);border-radius:10px;width:36px;height:36px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--owner-gold);">←</button>
+            <div style="font-size:16px;font-weight:800;color:var(--owner-text);" id="owner-detail-titre">Détail annonce</div>
+          </div>
+          <div id="owner-detail-thumb" style="border-radius:16px;height:160px;display:flex;align-items:center;justify-content:center;font-size:72px;margin-bottom:16px;"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <span style="font-size:12px;color:var(--owner-text2);">Statut</span>
+            <span id="owner-detail-pill"></span>
+          </div>
+          <div class="owner-section" style="margin-bottom:12px;">
+            <div class="owner-section-title"><span>👤</span> Vendeur</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
+              <div class="detail-info-bloc" style="background:rgba(201,168,76,.05);border-color:rgba(201,168,76,.15);"><div class="detail-info-label">Nom</div><div class="detail-info-val" id="od-nom">—</div></div>
+              <div class="detail-info-bloc" style="background:rgba(201,168,76,.05);border-color:rgba(201,168,76,.15);"><div class="detail-info-label">Téléphone</div><div class="detail-info-val" id="od-tel">—</div></div>
+              <div class="detail-info-bloc" style="background:rgba(201,168,76,.05);border-color:rgba(201,168,76,.15);"><div class="detail-info-label">Catégorie</div><div class="detail-info-val" id="od-cat">—</div></div>
+              <div class="detail-info-bloc" style="background:rgba(201,168,76,.05);border-color:rgba(201,168,76,.15);"><div class="detail-info-label">Prix</div><div class="detail-info-val" id="od-prix" style="color:var(--owner-gold2);font-weight:800;">—</div></div>
+            </div>
+          </div>
+          <div class="owner-section" style="margin-bottom:12px;">
+            <div class="owner-section-title"><span>📋</span> Informations</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
+              <div class="detail-info-bloc" style="background:rgba(201,168,76,.05);border-color:rgba(201,168,76,.15);"><div class="detail-info-label">Localisation</div><div class="detail-info-val" id="od-lieu">—</div></div>
+              <div class="detail-info-bloc" style="background:rgba(201,168,76,.05);border-color:rgba(201,168,76,.15);"><div class="detail-info-label">Date soumission</div><div class="detail-info-val" id="od-date">—</div></div>
+            </div>
+            <div style="margin-top:12px;"><div class="detail-info-label" style="margin-bottom:6px;">Description</div><div id="od-desc" style="font-size:13px;color:var(--owner-text);line-height:1.6;background:rgba(201,168,76,.04);border-radius:10px;padding:12px;border:1px solid rgba(201,168,76,.15);">—</div></div>
+          </div>
+          <div class="owner-section" style="margin-bottom:20px;">
+            <div class="owner-section-title"><span>🔍</span> Caractéristiques</div>
+            <div id="od-specs" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;"></div>
+          </div>
+          <div id="owner-detail-btns" style="display:flex;flex-direction:column;gap:10px;padding-bottom:20px;"></div>
+        </div>
+
       </div>
 
       <!-- ---- KYC VENDEURS ---- -->
       <div id="owner-tab-kyc" class="owner-tab-content" style="display:none;">
-        <div class="owner-page-title">🪪 Vérification KYC</div>
-        <div class="owner-page-sub">Validation personnelle des documents — pouvoir exclusif Owner</div>
 
-        <div class="owner-section">
-          <div class="owner-section-title"><span>⏳</span> Documents en attente <span style="color:var(--owner-text2);font-weight:500;">(3)</span></div>
-          <div class="kyc-row">
-            <div class="kyc-avatar">👤</div>
-            <div class="kyc-info">
-              <div class="kyc-name">Konan Kouamé</div>
-              <div class="kyc-detail">Vendeur automobiles · Soumis il y a 2h</div>
-              <div class="kyc-docs">
-                <span class="kyc-doc-tag">🪪 CNI</span>
-                <span class="kyc-doc-tag">🚗 Carte Rose</span>
-                <span class="kyc-doc-tag">📄 Assurance</span>
-              </div>
-            </div>
-            <span class="owner-pill owner-pill-pending" style="margin-right:10px;">En attente</span>
-            <div style="display:flex;gap:6px;">
-              <button class="btn-owner-validate" onclick="ownerValidateKYC(this,'Konan Kouamé')">✅ Valider</button>
-              <button class="btn-owner-reject" onclick="ownerRejectKYC(this,'Konan Kouamé')">✗</button>
+        <!-- VUE LISTE KYC -->
+        <div id="kyc-list-view">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <button onclick="ownerTab('dashboard',document.querySelector('.owner-nav-item'))" style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);border-radius:10px;width:36px;height:36px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--owner-gold);">←</button>
+            <div>
+              <div class="owner-page-title" style="margin-bottom:0;">🪪 Vérification KYC</div>
+              <div class="owner-page-sub" style="margin-top:2px;">Validation documents — pouvoir exclusif Owner</div>
             </div>
           </div>
-          <div class="kyc-row">
-            <div class="kyc-avatar">👤</div>
-            <div class="kyc-info">
-              <div class="kyc-name">Amani Touré</div>
-              <div class="kyc-detail">Vendeur immobilier · Soumis hier</div>
-              <div class="kyc-docs">
-                <span class="kyc-doc-tag">🪪 CNI</span>
-                <span class="kyc-doc-tag">📋 Titre foncier</span>
-              </div>
-            </div>
-            <span class="owner-pill owner-pill-pending" style="margin-right:10px;">En attente</span>
-            <div style="display:flex;gap:6px;">
-              <button class="btn-owner-validate" onclick="ownerValidateKYC(this,'Amani Touré')">✅ Valider</button>
-              <button class="btn-owner-reject" onclick="ownerRejectKYC(this,'Amani Touré')">✗</button>
-            </div>
-          </div>
-          <div class="kyc-row">
-            <div class="kyc-avatar">👤</div>
-            <div class="kyc-info">
-              <div class="kyc-name">Yao Pélagie</div>
-              <div class="kyc-detail">Vendeur général · Soumis ce matin</div>
-              <div class="kyc-docs">
-                <span class="kyc-doc-tag">🪪 CNI</span>
-              </div>
-            </div>
-            <span class="owner-pill owner-pill-pending" style="margin-right:10px;">En attente</span>
-            <div style="display:flex;gap:6px;">
-              <button class="btn-owner-validate" onclick="ownerValidateKYC(this,'Yao Pélagie')">✅ Valider</button>
-              <button class="btn-owner-reject" onclick="ownerRejectKYC(this,'Yao Pélagie')">✗</button>
-            </div>
-          </div>
-        </div>
 
-        <div class="owner-section">
-          <div class="owner-section-title"><span>✅</span> Vendeurs vérifiés</div>
-          <div class="kyc-row">
-            <div class="kyc-avatar">👤</div>
-            <div class="kyc-info">
-              <div class="kyc-name">Bamba Souleymane</div>
-              <div class="kyc-detail">Vendeur automobiles · Validé il y a 3 jours</div>
-              <div class="kyc-docs">
-                <span class="kyc-doc-tag ok">🪪 CNI ✅</span>
-                <span class="kyc-doc-tag ok">🔧 Contrôle tech. ✅</span>
+          <!-- Filtres -->
+          <div style="display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px;">
+            <button onclick="filtrerKYC('all',this)" class="owner-filtre-btn owner-filtre-active">Tous (5)</button>
+            <button onclick="filtrerKYC('pending',this)" class="owner-filtre-btn">⏳ En attente (3)</button>
+            <button onclick="filtrerKYC('verified',this)" class="owner-filtre-btn">✅ Vérifiés (2)</button>
+            <button onclick="filtrerKYC('rejected',this)" class="owner-filtre-btn">✗ Refusés</button>
+          </div>
+
+          <div id="kyc-cards-list">
+
+            <!-- Konan Kouamé -->
+            <div class="kyc-card" data-kstatus="pending" data-kid="1" onclick="ouvrirKYCDetail(1)">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:46px;height:46px;border-radius:50%;background:rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">👤</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:14px;font-weight:700;color:var(--owner-text);">Konan Kouamé</div>
+                  <div style="font-size:11px;color:var(--owner-text2);margin-top:2px;">Vendeur automobiles · Soumis il y a 2h</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:7px;">
+                    <span style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:6px;padding:3px 8px;font-size:10px;color:var(--owner-gold2);">🪪 CNI</span>
+                    <span style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:6px;padding:3px 8px;font-size:10px;color:var(--owner-gold2);">🚗 Carte Rose</span>
+                    <span style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:6px;padding:3px 8px;font-size:10px;color:var(--owner-gold2);">📄 Assurance</span>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;">
+                  <span class="owner-pill owner-pill-pending kyc-pill" style="font-size:10px;">En attente</span>
+                  <span style="font-size:18px;color:var(--owner-text2);">›</span>
+                </div>
               </div>
             </div>
-            <span class="owner-pill owner-pill-ok">Vérifié</span>
-          </div>
-          <div class="kyc-row">
-            <div class="kyc-avatar">👤</div>
-            <div class="kyc-info">
-              <div class="kyc-name">Diallo Moussa</div>
-              <div class="kyc-detail">Vendeur terrain · Validé il y a 1 semaine</div>
-              <div class="kyc-docs">
-                <span class="kyc-doc-tag ok">🪪 CNI ✅</span>
-                <span class="kyc-doc-tag ok">📋 Titre foncier ✅</span>
+
+            <!-- Amani Touré -->
+            <div class="kyc-card" data-kstatus="pending" data-kid="2" onclick="ouvrirKYCDetail(2)">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:46px;height:46px;border-radius:50%;background:rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">👤</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:14px;font-weight:700;color:var(--owner-text);">Amani Touré</div>
+                  <div style="font-size:11px;color:var(--owner-text2);margin-top:2px;">Vendeur immobilier · Soumis hier</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:7px;">
+                    <span style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:6px;padding:3px 8px;font-size:10px;color:var(--owner-gold2);">🪪 CNI</span>
+                    <span style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:6px;padding:3px 8px;font-size:10px;color:var(--owner-gold2);">📋 Titre foncier</span>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;">
+                  <span class="owner-pill owner-pill-pending kyc-pill" style="font-size:10px;">En attente</span>
+                  <span style="font-size:18px;color:var(--owner-text2);">›</span>
+                </div>
               </div>
             </div>
-            <span class="owner-pill owner-pill-ok">Vérifié</span>
+
+            <!-- Yao Pélagie -->
+            <div class="kyc-card" data-kstatus="pending" data-kid="3" onclick="ouvrirKYCDetail(3)">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:46px;height:46px;border-radius:50%;background:rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">👤</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:14px;font-weight:700;color:var(--owner-text);">Yao Pélagie</div>
+                  <div style="font-size:11px;color:var(--owner-text2);margin-top:2px;">Vendeur général · Soumis ce matin</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:7px;">
+                    <span style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:6px;padding:3px 8px;font-size:10px;color:var(--owner-gold2);">🪪 CNI</span>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;">
+                  <span class="owner-pill owner-pill-pending kyc-pill" style="font-size:10px;">En attente</span>
+                  <span style="font-size:18px;color:var(--owner-text2);">›</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bamba Souleymane -->
+            <div class="kyc-card" data-kstatus="verified" data-kid="4" onclick="ouvrirKYCDetail(4)" style="border-left:3px solid var(--owner-gold);">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:46px;height:46px;border-radius:50%;background:rgba(39,174,96,.12);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">👤</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:14px;font-weight:700;color:var(--owner-text);">Bamba Souleymane</div>
+                  <div style="font-size:11px;color:var(--owner-text2);margin-top:2px;">Vendeur automobiles · Validé il y a 3 jours</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:7px;">
+                    <span style="background:rgba(39,174,96,.1);border:1px solid rgba(39,174,96,.25);border-radius:6px;padding:3px 8px;font-size:10px;color:#27ae60;">🪪 CNI ✅</span>
+                    <span style="background:rgba(39,174,96,.1);border:1px solid rgba(39,174,96,.25);border-radius:6px;padding:3px 8px;font-size:10px;color:#27ae60;">🔧 Contrôle tech. ✅</span>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;">
+                  <span class="owner-pill owner-pill-ok kyc-pill" style="font-size:10px;">Vérifié</span>
+                  <span style="font-size:18px;color:var(--owner-text2);">›</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Diallo Moussa -->
+            <div class="kyc-card" data-kstatus="verified" data-kid="5" onclick="ouvrirKYCDetail(5)" style="border-left:3px solid var(--owner-gold);">
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="width:46px;height:46px;border-radius:50%;background:rgba(39,174,96,.12);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">👤</div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:14px;font-weight:700;color:var(--owner-text);">Diallo Moussa</div>
+                  <div style="font-size:11px;color:var(--owner-text2);margin-top:2px;">Vendeur terrain · Validé il y a 1 semaine</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:7px;">
+                    <span style="background:rgba(39,174,96,.1);border:1px solid rgba(39,174,96,.25);border-radius:6px;padding:3px 8px;font-size:10px;color:#27ae60;">🪪 CNI ✅</span>
+                    <span style="background:rgba(39,174,96,.1);border:1px solid rgba(39,174,96,.25);border-radius:6px;padding:3px 8px;font-size:10px;color:#27ae60;">📋 Titre foncier ✅</span>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;">
+                  <span class="owner-pill owner-pill-ok kyc-pill" style="font-size:10px;">Vérifié</span>
+                  <span style="font-size:18px;color:var(--owner-text2);">›</span>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- end kyc-cards-list -->
+        </div><!-- end kyc-list-view -->
+
+        <!-- VUE DÉTAIL KYC -->
+        <div id="kyc-detail-view" style="display:none;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+            <button onclick="fermerKYCDetail()" style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);border-radius:10px;width:36px;height:36px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--owner-gold);">←</button>
+            <div style="font-size:16px;font-weight:800;color:var(--owner-text);" id="kyc-detail-nom">Dossier KYC</div>
           </div>
-        </div>
-      </div>
+
+          <!-- Avatar + statut -->
+          <div style="display:flex;align-items:center;gap:16px;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.15);border-radius:16px;padding:16px;margin-bottom:16px;">
+            <div id="kyc-detail-avatar" style="width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;flex-shrink:0;"></div>
+            <div style="flex:1;">
+              <div style="font-size:16px;font-weight:800;color:var(--owner-text);" id="kyc-detail-nom2">—</div>
+              <div style="font-size:12px;color:var(--owner-text2);margin-top:3px;" id="kyc-detail-type">—</div>
+              <div style="margin-top:8px;" id="kyc-detail-statut-pill"></div>
+            </div>
+          </div>
+
+          <!-- Infos identité -->
+          <div class="owner-section" style="margin-bottom:12px;">
+            <div class="owner-section-title"><span>👤</span> Identité</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
+              <div class="detail-info-bloc" style="background:rgba(201,168,76,.05);border-color:rgba(201,168,76,.15);"><div class="detail-info-label">Nom complet</div><div class="detail-info-val" id="kd-nom">—</div></div>
+              <div class="detail-info-bloc" style="background:rgba(201,168,76,.05);border-color:rgba(201,168,76,.15);"><div class="detail-info-label">Téléphone</div><div class="detail-info-val" id="kd-tel">—</div></div>
+              <div class="detail-info-bloc" style="background:rgba(201,168,76,.05);border-color:rgba(201,168,76,.15);"><div class="detail-info-label">Email</div><div class="detail-info-val" id="kd-email">—</div></div>
+              <div class="detail-info-bloc" style="background:rgba(201,168,76,.05);border-color:rgba(201,168,76,.15);"><div class="detail-info-label">Date soumission</div><div class="detail-info-val" id="kd-date">—</div></div>
+            </div>
+          </div>
+
+          <!-- Documents soumis -->
+          <div class="owner-section" style="margin-bottom:12px;">
+            <div class="owner-section-title"><span>📁</span> Documents soumis</div>
+            <div id="kd-docs" style="display:flex;flex-direction:column;gap:8px;margin-top:10px;"></div>
+          </div>
+
+          <!-- Note de refus (cachée par défaut) -->
+          <div id="kd-refus-zone" style="display:none;margin-bottom:16px;">
+            <div class="owner-section-title" style="margin-bottom:8px;"><span>📝</span> Motif de refus</div>
+            <textarea id="kd-refus-note" placeholder="Expliquer la raison du refus (ex : CNI illisible, document expiré...)" style="width:100%;background:rgba(231,76,60,.05);border:1.5px solid rgba(231,76,60,.3);border-radius:12px;padding:12px;color:var(--owner-text);font-family:'Poppins',sans-serif;font-size:13px;outline:none;resize:vertical;min-height:70px;box-sizing:border-box;"></textarea>
+          </div>
+
+          <!-- Boutons d'action -->
+          <div id="kyc-action-btns" style="display:flex;flex-direction:column;gap:10px;padding-bottom:24px;"></div>
+
+        </div><!-- end kyc-detail-view -->
+
+      </div><!-- end owner-tab-kyc -->
 
       <!-- ---- UTILISATEURS ---- -->
       <div id="owner-tab-utilisateurs" class="owner-tab-content" style="display:none;">
@@ -1952,6 +2323,7 @@ body.auth-locked{overflow:hidden;}
               <span class="owner-toggle-slider"></span>
             </label>
           </div>
+          <button onclick="openFlashPost()" style="width:100%;margin-top:16px;background:linear-gradient(135deg,var(--owner-gold),#b8860b);color:#000;border:none;border-radius:10px;padding:11px;font-size:13px;font-weight:800;cursor:pointer;">⚡ Poster une vente flash</button>
         </div>
 
         <!-- Message d'accueil -->
@@ -2200,7 +2572,42 @@ body.auth-locked{overflow:hidden;}
   </div>
 </div>
 
-<!-- ==================== OWNER SECRET ACCESS MODAL ==================== -->
+<!-- ==================== POSTER UNE VENTE FLASH (ADMIN + OWNER) ==================== -->
+<div class="owner-modal-overlay" id="flashPostOverlay" style="z-index:650;">
+  <div class="owner-modal" style="max-width:420px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;">
+      <button onclick="closeFlashPost()" style="background:rgba(255,255,255,.07);border:1px solid var(--owner-border);border-radius:10px;width:36px;height:36px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--owner-text);">←</button>
+      <div class="owner-modal-title" style="margin-bottom:0;">⚡ Poster une vente flash</div>
+    </div>
+    <div class="owner-modal-sub">Choisissez une annonce approuvée et appliquez une réduction limitée dans le temps.</div>
+
+    <div style="margin-bottom:14px;">
+      <div style="font-size:11px;color:var(--owner-text2);font-weight:700;margin-bottom:6px;text-transform:uppercase;">Annonce *</div>
+      <select id="flash-select-annonce" onchange="updateFlashPreview()" style="width:100%;background:rgba(255,255,255,.05);border:1.5px solid var(--owner-border);border-radius:10px;padding:10px 14px;color:var(--owner-text);font-size:13px;outline:none;font-family:'Poppins',sans-serif;box-sizing:border-box;">
+        <option value="">Sélectionner une annonce…</option>
+      </select>
+    </div>
+
+    <div style="margin-bottom:6px;">
+      <div style="font-size:11px;color:var(--owner-text2);font-weight:700;margin-bottom:6px;text-transform:uppercase;">Réduction (%) *</div>
+      <input id="flash-discount-input" type="number" min="1" max="99" placeholder="Ex : 30" oninput="updateFlashPreview()" style="width:100%;background:rgba(255,255,255,.05);border:1.5px solid var(--owner-border);border-radius:10px;padding:10px 14px;color:var(--owner-text);font-size:14px;outline:none;font-family:'Poppins',sans-serif;box-sizing:border-box;">
+    </div>
+
+    <div id="flash-price-preview" style="font-size:12px;color:var(--owner-text2);margin:8px 0 16px;min-height:16px;"></div>
+
+    <div class="owner-modal-actions" style="margin-top:0;">
+      <button class="btn-owner-cancel" onclick="closeFlashPost()">Annuler</button>
+      <button class="btn-owner-confirm-ban" style="background:linear-gradient(135deg,var(--owner-gold),#b8860b);color:#000;" onclick="submitFlashSale()">⚡ Publier</button>
+    </div>
+
+    <div style="margin-top:22px;border-top:1px solid var(--owner-border);padding-top:16px;">
+      <div style="font-size:11px;color:var(--owner-text2);font-weight:700;margin-bottom:10px;text-transform:uppercase;">Ventes flash actives</div>
+      <div id="flash-manage-list" style="display:flex;flex-direction:column;gap:8px;max-height:180px;overflow-y:auto;">
+        <div style="font-size:12px;color:var(--owner-text2);">Aucune vente flash active.</div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="owner-access-overlay" id="ownerAccessOverlay">
   <div class="owner-access-card">
     <div class="owner-crown">👑</div>
@@ -2247,15 +2654,14 @@ body.auth-locked{overflow:hidden;}
       </div>
       <div class="detail-desc" id="dDesc">Description de l'annonce.</div>
       <div class="seller-card" style="margin-bottom:12px;">
-        <div class="seller-avatar">👤</div>
+        <div class="seller-avatar">🛡️</div>
         <div class="seller-info">
-          <div class="seller-name" id="dSeller">Vendeur</div>
-          <div class="seller-verified">✅ Vendeur vérifié</div>
-          <div class="seller-rating">⭐ 4.8 · 12 ventes</div>
+          <div class="seller-name">AG Prime</div>
+          <div class="seller-verified">✅ Annonce vérifiée par notre équipe</div>
         </div>
       </div>
       <div class="detail-actions">
-        <button class="btn-call">📞 Appeler</button>
+        <button class="btn-call" onclick="contactAGPrimeCall()">📞 Appeler</button>
         <button class="btn-whatsapp" onclick="closeDetail();carStartChat()">💬 Message</button>
       </div>
     </div>
@@ -2296,15 +2702,14 @@ body.auth-locked{overflow:hidden;}
         <div style="font-size:12px;color:#555;font-weight:600;">Voir sur la carte</div>
       </div>
       <div class="seller-card" style="margin-bottom:18px;">
-        <div class="seller-avatar">👤</div>
+        <div class="seller-avatar">🛡️</div>
         <div class="seller-info">
-          <div class="seller-name" id="immo-seller-name">Vendeur</div>
-          <div class="seller-verified">✅ Vendeur vérifié AG Prime</div>
-          <div class="seller-rating">⭐ 4.9 · Membre depuis 2023</div>
+          <div class="seller-name">AG Prime</div>
+          <div class="seller-verified">✅ Annonce vérifiée par notre équipe</div>
         </div>
       </div>
       <div class="immo-actions">
-        <button class="btn-immo-call">📞 Appeler</button>
+        <button class="btn-immo-call" onclick="contactAGPrimeCall()">📞 Appeler</button>
         <button class="btn-immo-msg" onclick="immoStartChat()">💬 Envoyer un message</button>
       </div>
     </div>
@@ -2643,6 +3048,7 @@ function enterApp(role) {
     document.getElementById('owner-username').textContent = appState.currentUser.name;
     showPage('owner');
     ownerTab('dashboard', document.querySelector('#page-owner .owner-nav-item'));
+    updateOwnerFlashKpi();
     showToast('👑 Bienvenue Propriétaire', 'success');
   } else {
     if (document.getElementById('profile-display-name')) {
@@ -2732,20 +3138,81 @@ function adminTab(name, el) {
 /* ============================================================
    ADMIN ACTIONS
    ============================================================ */
-function approveAnnonce(btn) {
-  const row = btn.closest('tr');
+/* état sauvegardé par row pour undo */
+const _annonceSaved = {};
+
+function _annonceRowId(row) {
+  if (!row.dataset.aId) row.dataset.aId = 'a_' + Date.now() + Math.random().toString(36).slice(2);
+  return row.dataset.aId;
+}
+
+function _saveAnnonceRow(row) {
+  const id  = _annonceRowId(row);
   const pill = row.querySelector('.pill');
+  const act  = row.querySelector('td:last-child');
+  _annonceSaved[id] = {
+    pillClass: pill ? pill.className   : '',
+    pillText:  pill ? pill.textContent : '',
+    actHTML:   act  ? act.innerHTML    : ''
+  };
+  return id;
+}
+
+function _renderAnnonceActions(row, statut) {
+  const act = row.querySelector('td:last-child');
+  if (!act) return;
+  const id = _annonceRowId(row);
+
+  const undoBtn = '<button onclick="undoAnnonceAction(\'' + id + '\')" style="background:rgba(255,255,255,.08);border:1px solid var(--admin-border);border-radius:7px;padding:4px 9px;font-size:11px;font-weight:700;color:var(--admin-text);cursor:pointer;margin-left:4px;">↩</button>';
+
+  if (statut === 'approved') {
+    act.innerHTML =
+      '<button class="btn-reject" onclick="rejectAnnonce(this)">✗ Refuser</button>' +
+      '<button onclick="pauseAnnonce(this)" style="background:rgba(243,156,18,.15);border:1px solid rgba(243,156,18,.3);color:#f39c12;border-radius:7px;padding:4px 8px;font-size:11px;cursor:pointer;margin-left:3px;">⏸</button>' +
+      undoBtn;
+  } else if (statut === 'rejected') {
+    act.innerHTML =
+      '<button class="btn-approve" onclick="approveAnnonce(this)">✓ Réactiver</button>' +
+      undoBtn;
+  } else if (statut === 'paused') {
+    act.innerHTML =
+      '<button class="btn-approve" onclick="approveAnnonce(this)">✓ Approuver</button>' +
+      '<button class="btn-reject" onclick="rejectAnnonce(this)">✗ Refuser</button>' +
+      undoBtn;
+  }
+}
+
+function approveAnnonce(btn) {
+  const row  = btn.closest('tr');
+  const pill = row.querySelector('.pill');
+  _saveAnnonceRow(row);
+
   if (pill) { pill.className = 'pill pill-ok'; pill.textContent = 'Approuvée'; }
-  btn.parentElement.innerHTML = '<span style="color:var(--green);font-size:12px;">✅ Approuvée</span>';
-  showToast('Annonce approuvée ✅', 'success');
+  _renderAnnonceActions(row, 'approved');
+  showToast('✅ Annonce approuvée', 'success');
 }
 
 function rejectAnnonce(btn) {
-  const row = btn.closest('tr');
+  const row  = btn.closest('tr');
   const pill = row.querySelector('.pill');
+  _saveAnnonceRow(row);
+
   if (pill) { pill.className = 'pill pill-rejected'; pill.textContent = 'Refusée'; }
-  btn.parentElement.innerHTML = '<span style="color:var(--red);font-size:12px;">❌ Refusée</span>';
-  showToast('Annonce refusée', 'error');
+  _renderAnnonceActions(row, 'rejected');
+  showToast('❌ Annonce refusée', 'error');
+}
+
+function undoAnnonceAction(id) {
+  const saved = _annonceSaved[id];
+  if (!saved) return;
+  const row  = document.querySelector('tr[data-a-id="' + id + '"]');
+  if (!row) return;
+  const pill = row.querySelector('.pill');
+  const act  = row.querySelector('td:last-child');
+  if (pill) { pill.className = saved.pillClass; pill.textContent = saved.pillText; }
+  if (act)  act.innerHTML = saved.actHTML;
+  delete _annonceSaved[id];
+  showToast('↩ Action annulée', '');
 }
 
 /* ============================================================
@@ -3062,7 +3529,6 @@ function openCarDetail(a) {
   document.getElementById('dCarb').textContent    = a.carb  || '—';
   document.getElementById('dColor').textContent   = a.couleur || '—';
   document.getElementById('dDesc').textContent    = a.desc  || '';
-  document.getElementById('dSeller').textContent  = a.vendeur;
   document.getElementById('detailOverlay').classList.add('active');
   document.body.style.overflow = 'hidden';
 }
@@ -3076,7 +3542,6 @@ function openImmoDetail(a) {
   document.getElementById('immo-surface-val').textContent = a.surface || '—';
   document.getElementById('immo-pieces-val').textContent  = a.pieces ? a.pieces + ' pièces' : '—';
   document.getElementById('immo-annee-val').textContent   = a.annee  || '—';
-  document.getElementById('immo-seller-name').textContent = a.vendeur;
   document.getElementById('immoOverlay').classList.add('active');
   document.body.style.overflow = 'hidden';
 }
@@ -3090,7 +3555,30 @@ function immoStartChat() {
   closeImmo();
   const a = appState.activeAnnonce;
   if (!a) return;
-  openChatWith(a.vendeur, a.titre, formatPriceShort(a.prixUSD), a.icon, a.id);
+  contactAGPrimeWhatsapp(a);
+}
+
+/* ============================================================
+   CONTACT OFFICIEL AG PRIME (acheteur → numéros gérés par Admin/Owner)
+   L'acheteur ne contacte jamais le vendeur directement : uniquement
+   les numéros renseignés par l'administrateur ou le propriétaire.
+   ============================================================ */
+function contactAGPrimeCall() {
+  if (!requireAuth('📞', 'Contactez AG Prime', 'Créez un compte gratuit pour contacter notre équipe au sujet de cette annonce.')) return;
+  const c = getContactNumbers();
+  const num = (c.others || []).find(n => n && n.trim()) || c.whatsapp;
+  if (!num) { showToast('Numéro de contact non configuré', 'error'); return; }
+  window.location.href = 'tel:' + num.replace(/[^\d+]/g,'');
+}
+
+function contactAGPrimeWhatsapp(annonce) {
+  if (!requireAuth('💬', 'Contactez AG Prime', 'Créez un compte gratuit pour contacter notre équipe au sujet de cette annonce.')) return;
+  const c = getContactNumbers();
+  if (!c.whatsapp) { showToast('Numéro WhatsApp non configuré', 'error'); return; }
+  const clean = c.whatsapp.replace(/\D/g,'');
+  const ref = annonce ? (annonce.titre + ' — ' + formatPriceShort(annonce.prixUSD)) : '';
+  const msg = encodeURIComponent('Bonjour AG Prime, je suis intéressé(e) par cette annonce : ' + ref);
+  window.open('https://wa.me/' + clean + '?text=' + msg, '_blank');
 }
 
 /* ============================================================
@@ -3325,7 +3813,7 @@ function carStartChat() {
   const a = appState.activeAnnonce;
   if (!a) return;
   closeDetail();
-  openChatWith(a.vendeur, a.titre, formatPriceShort(a.prixUSD), a.icon, a.id);
+  contactAGPrimeWhatsapp(a);
 }
 
 function favToggle(btn, annonceId) {
@@ -3434,7 +3922,91 @@ function checkOwnerSecret() {
 /* ============================================================
    OWNER ACTIONS
    ============================================================ */
-function ownerRemoveAnnonce(btn, title) {
+/* ============================================================
+   OWNER — ANNONCES DETAIL
+   ============================================================ */
+const OWNER_ANN_DATA = {
+  1:{titre:'Toyota RAV4 2018',emoji:'🚗',bg:'linear-gradient(160deg,#1a2a3a,#2d4a6a)',nom:'Konan Kouamé',tel:'+225 07 00 00 00 01',cat:'Automobile',prix:'15 500 000 CFA',lieu:'Cocody, Abidjan',date:'28 juin 2026',desc:'Véhicule excellent état, première main. Boîte automatique, 4×4, climatisée, 62 000 km. Tous entretiens concessionnaire.',specs:{Marque:'Toyota',Modèle:'RAV4',Année:'2018',Km:'62 000 km',Boîte:'Automatique',Couleur:'Blanc Nacré'}},
+  2:{titre:'Villa Cocody 4P',emoji:'🏡',bg:'linear-gradient(160deg,#1a3a1a,#2a5a2a)',nom:'Amani Touré',tel:'+225 07 00 00 00 02',cat:'Maison',prix:'45 000 000 CFA',lieu:'Cocody Angré',date:'27 juin 2026',desc:'Villa 4 pièces en résidence sécurisée. Salon, 3 chambres, 2 salles de bain, cuisine. Jardin, 2 parkings.',specs:{Type:'Villa',Pièces:'4',Surface:'180 m²',Jardin:'Oui',Parking:'2',Sécurité:'Gardien 24h'}},
+  3:{titre:'Mercedes GLC 2020',emoji:'🚘',bg:'linear-gradient(160deg,#2a1a3a,#4a2a6a)',nom:'Bamba Souleymane',tel:'+225 07 00 00 00 03',cat:'Automobile',prix:'28 000 000 CFA',lieu:'Plateau, Abidjan',date:'27 juin 2026',desc:'GLC 220d full options. Toit panoramique, GPS, caméra recul, sièges chauffants. 38 000 km, 2ème main.',specs:{Marque:'Mercedes',Modèle:'GLC 220d',Année:'2020',Km:'38 000 km',Boîte:'Automatique',Couleur:'Gris Métal'}},
+  4:{titre:'Terrain Bingerville',emoji:'🌿',bg:'linear-gradient(160deg,#1a2a1a,#2a4a3a)',nom:'Diallo Moussa',tel:'+225 07 00 00 00 04',cat:'Terrain',prix:'8 500 000 CFA',lieu:'Bingerville',date:'23 juin 2026',desc:'Terrain viabilisé 500m². Titre foncier. Accès route goudronnée. Eau et électricité disponibles en bordure.',specs:{Surface:'500 m²',Titre:'Foncier',Accès:'Goudronné',Eau:'Oui',Électricité:'Oui',Relief:'Plat'}},
+  5:{titre:'Appart F3 Centre',emoji:'🏢',bg:'linear-gradient(160deg,#3a1a1a,#6a2a2a)',nom:'Yao Pélagie',tel:'+225 07 00 00 00 05',cat:'Appartement',prix:'18 000 000 CFA',lieu:'Centre, Abidjan',date:'22 juin 2026',desc:'F3 au 3ème étage, immeuble sécurisé. Salon, 2 chambres, cuisine, balcon avec vue. Proche transports.',specs:{Type:'F3',Pièces:'3',Surface:'75 m²',Étage:'3ème',Balcon:'Oui',Gardien:'Oui'}}
+};
+const OWNER_ANN_STATUTS = {1:'approved',2:'pending',3:'approved',4:'approved',5:'removed'};
+let currentOwnerAnnId = null;
+
+function ouvrirOwnerDetail(id) {
+  const d = OWNER_ANN_DATA[id];
+  if (!d) return;
+  currentOwnerAnnId = id;
+  document.getElementById('owner-detail-titre').textContent = d.titre;
+  const thumb = document.getElementById('owner-detail-thumb');
+  thumb.style.cssText = 'border-radius:16px;height:160px;display:flex;align-items:center;justify-content:center;font-size:72px;margin-bottom:16px;background:'+d.bg+';';
+  thumb.textContent = d.emoji;
+  const st = OWNER_ANN_STATUTS[id]||'approved';
+  const pillMap = {approved:'<span class="owner-pill owner-pill-ok" style="font-size:12px;">✅ Approuvée</span>',pending:'<span class="owner-pill owner-pill-pending" style="font-size:12px;">⏳ En attente</span>',removed:'<span class="owner-pill" style="font-size:12px;background:rgba(231,76,60,.15);color:#e74c3c;">🗑 Retirée</span>'};
+  document.getElementById('owner-detail-pill').innerHTML = pillMap[st]||pillMap.approved;
+  document.getElementById('od-nom').textContent  = d.nom;
+  document.getElementById('od-tel').textContent  = d.tel;
+  document.getElementById('od-cat').textContent  = d.cat;
+  document.getElementById('od-prix').textContent = d.prix;
+  document.getElementById('od-lieu').textContent = d.lieu;
+  document.getElementById('od-date').textContent = d.date;
+  document.getElementById('od-desc').textContent = d.desc;
+  document.getElementById('od-specs').innerHTML  = Object.entries(d.specs).map(([k,v])=>'<div class="detail-info-bloc" style="background:rgba(201,168,76,.05);border-color:rgba(201,168,76,.15);"><div class="detail-info-label">'+k+'</div><div class="detail-info-val">'+v+'</div></div>').join('');
+  rafraichirOwnerBtns(st);
+  document.getElementById('owner-annonces-list').style.display   = 'none';
+  document.getElementById('owner-annonces-detail').style.display = 'block';
+  document.querySelector('#owner-tab-annonces').scrollTop = 0;
+}
+
+function fermerOwnerDetail() {
+  document.getElementById('owner-annonces-detail').style.display = 'none';
+  document.getElementById('owner-annonces-list').style.display   = 'block';
+  currentOwnerAnnId = null;
+}
+
+function rafraichirOwnerBtns(st) {
+  const zone = document.getElementById('owner-detail-btns');
+  const approuverBtn = '<button onclick="ownerActionAnnonce(\'approved\')" style="width:100%;background:linear-gradient(135deg,#27ae60,#1e8449);border:none;border-radius:14px;padding:15px;font-size:15px;font-weight:800;color:#fff;cursor:pointer;box-shadow:0 4px 14px rgba(39,174,96,.3);">✅ Approuver</button>';
+  const retirerBtn   = '<button onclick="ownerActionAnnonce(\'removed\')" style="width:100%;background:rgba(231,76,60,.15);border:1.5px solid rgba(231,76,60,.4);border-radius:14px;padding:15px;font-size:15px;font-weight:800;color:#e74c3c;cursor:pointer;">🗑 Retirer définitivement</button>';
+  const attentBtn    = '<button onclick="ownerActionAnnonce(\'pending\')" style="width:100%;background:rgba(243,156,18,.1);border:1.5px solid rgba(243,156,18,.35);border-radius:14px;padding:15px;font-size:15px;font-weight:800;color:#f39c12;cursor:pointer;margin-top:10px;">⏸ Remettre en attente</button>';
+  if (st==='removed')  zone.innerHTML = approuverBtn;
+  else if (st==='approved') zone.innerHTML = retirerBtn + attentBtn;
+  else zone.innerHTML = approuverBtn + retirerBtn;
+}
+
+function ownerActionAnnonce(newSt) {
+  if (!currentOwnerAnnId) return;
+  OWNER_ANN_STATUTS[currentOwnerAnnId] = newSt;
+  const pillMap = {approved:'<span class="owner-pill owner-pill-ok" style="font-size:12px;">✅ Approuvée</span>',pending:'<span class="owner-pill owner-pill-pending" style="font-size:12px;">⏳ En attente</span>',removed:'<span class="owner-pill" style="font-size:12px;background:rgba(231,76,60,.15);color:#e74c3c;">🗑 Retirée</span>'};
+  document.getElementById('owner-detail-pill').innerHTML = pillMap[newSt];
+  rafraichirOwnerBtns(newSt);
+  const card = document.querySelector('.owner-ann-card[data-oid="'+currentOwnerAnnId+'"]');
+  if (card) {
+    card.dataset.status = newSt;
+    const pill = card.querySelector('.owner-ann-pill');
+    const pm = {approved:{cls:'owner-pill owner-pill-ok owner-ann-pill',txt:'Approuvée'},pending:{cls:'owner-pill owner-pill-pending owner-ann-pill',txt:'En attente'},removed:{cls:'owner-ann-pill',txt:'Retirée'}};
+    if (pill) { const p=pm[newSt]; pill.className=p.cls; pill.textContent=p.txt; if(newSt==='removed') pill.style.cssText='font-size:10px;background:rgba(231,76,60,.15);color:#e74c3c;padding:3px 8px;border-radius:20px;font-weight:700;'; else pill.style.cssText='font-size:10px;'; }
+    card.style.opacity = newSt==='removed'?'.65':'1';
+  }
+  const msgs = {approved:'✅ Annonce approuvée',pending:'⏸ Remise en attente',removed:'🗑 Annonce retirée définitivement'};
+  const types = {approved:'success',pending:'',removed:'error'};
+  showToast(msgs[newSt], types[newSt]);
+}
+
+function filtrerOwnerAnnonces(statut, btn) {
+  document.querySelectorAll('.owner-filtre-btn').forEach(b=>b.classList.remove('owner-filtre-active'));
+  btn.classList.add('owner-filtre-active');
+  document.querySelectorAll('.owner-ann-card').forEach(c=>{
+    c.style.display = (statut==='all'||c.dataset.status===statut)?'block':'none';
+  });
+}
+
+/* ============================================================
+   OWNER — ACTIONS KYC
+   ============================================================ */
+function ownerRemoveAnnonceOld(btn, title) {
   const row = btn.closest('tr');
   const statusCell = row.querySelector('.owner-pill');
   if (statusCell) {
@@ -3445,6 +4017,140 @@ function ownerRemoveAnnonce(btn, title) {
   }
   btn.parentElement.innerHTML = '<span style="color:var(--owner-text2);font-size:11px;">Retirée</span>';
   showToast('🗑 "' + title + '" retirée de la plateforme', 'error');
+}
+
+/* ============================================================
+   OWNER — KYC DETAIL SYSTEM
+   ============================================================ */
+const KYC_DATA = {
+  1:{nom:'Konan Kouamé',tel:'+225 07 00 00 00 01',email:'konan@mail.com',type:'Vendeur automobiles',date:'28 juin 2026, 08h14',docs:[{icon:'🪪',label:'Carte Nationale d\'Identité',note:'Recto-verso'},  {icon:'🚗',label:'Carte Rose',note:'Véhicule principal'},{icon:'📄',label:'Attestation d\'assurance',note:'Valide jusqu\'en déc. 2026'}]},
+  2:{nom:'Amani Touré',tel:'+225 07 00 00 00 02',email:'amani@mail.com',type:'Vendeur immobilier',date:'27 juin 2026, 14h32',docs:[{icon:'🪪',label:'Carte Nationale d\'Identité',note:'Recto-verso'},{icon:'📋',label:'Titre foncier',note:'Propriété enregistrée'}]},
+  3:{nom:'Yao Pélagie',tel:'+225 07 00 00 00 05',email:'yao@mail.com',type:'Vendeur général',date:'29 juin 2026, 06h50',docs:[{icon:'🪪',label:'Carte Nationale d\'Identité',note:'Recto uniquement'}]},
+  4:{nom:'Bamba Souleymane',tel:'+225 07 00 00 00 03',email:'bamba@mail.com',type:'Vendeur automobiles',date:'25 juin 2026',docs:[{icon:'🪪',label:'CNI',note:'✅ Validée'},{icon:'🔧',label:'Contrôle technique',note:'✅ Validé'}]},
+  5:{nom:'Diallo Moussa',tel:'+225 07 00 00 00 04',email:'diallo@mail.com',type:'Vendeur terrain',date:'21 juin 2026',docs:[{icon:'🪪',label:'CNI',note:'✅ Validée'},{icon:'📋',label:'Titre foncier',note:'✅ Validé'}]}
+};
+const KYC_STATUTS = {1:'pending',2:'pending',3:'pending',4:'verified',5:'verified'};
+let currentKYCId = null;
+
+function ouvrirKYCDetail(id) {
+  const d = KYC_DATA[id];
+  if (!d) return;
+  currentKYCId = id;
+  const st = KYC_STATUTS[id] || 'pending';
+
+  document.getElementById('kyc-detail-nom').textContent  = d.nom;
+  document.getElementById('kyc-detail-nom2').textContent = d.nom;
+  document.getElementById('kyc-detail-type').textContent = d.type;
+  document.getElementById('kd-nom').textContent   = d.nom;
+  document.getElementById('kd-tel').textContent   = d.tel;
+  document.getElementById('kd-email').textContent = d.email;
+  document.getElementById('kd-date').textContent  = d.date;
+
+  const avatarEl = document.getElementById('kyc-detail-avatar');
+  avatarEl.textContent = '👤';
+  avatarEl.style.background = st==='verified' ? 'rgba(39,174,96,.15)' : 'rgba(201,168,76,.15)';
+
+  rafraichirKYCPill(st);
+  rafraichirKYCBtns(st);
+
+  // Documents
+  const docsEl = document.getElementById('kd-docs');
+  docsEl.innerHTML = d.docs.map(doc =>
+    '<div style="background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.15);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">' +
+      '<span style="font-size:22px;">' + doc.icon + '</span>' +
+      '<div><div style="font-size:13px;font-weight:700;color:var(--owner-text);">' + doc.label + '</div>' +
+      '<div style="font-size:11px;color:var(--owner-text2);margin-top:2px;">' + doc.note + '</div></div>' +
+    '</div>'
+  ).join('');
+
+  document.getElementById('kd-refus-zone').style.display = 'none';
+  document.getElementById('kyc-list-view').style.display   = 'none';
+  document.getElementById('kyc-detail-view').style.display = 'block';
+  document.querySelector('#owner-tab-kyc').scrollTop = 0;
+}
+
+function fermerKYCDetail() {
+  document.getElementById('kyc-detail-view').style.display = 'none';
+  document.getElementById('kyc-list-view').style.display   = 'block';
+  currentKYCId = null;
+}
+
+function rafraichirKYCPill(st) {
+  const pillMap = {
+    pending:  '<span class="owner-pill owner-pill-pending" style="font-size:12px;">⏳ En attente</span>',
+    verified: '<span class="owner-pill owner-pill-ok" style="font-size:12px;">✅ Vérifié</span>',
+    rejected: '<span class="owner-pill" style="font-size:12px;background:rgba(231,76,60,.15);color:#e74c3c;">✗ Refusé</span>'
+  };
+  document.getElementById('kyc-detail-statut-pill').innerHTML = pillMap[st] || pillMap.pending;
+}
+
+function rafraichirKYCBtns(st) {
+  const zone = document.getElementById('kyc-action-btns');
+  if (st === 'verified') {
+    zone.innerHTML =
+      '<button onclick="actionKYC(\'rejected\')" style="width:100%;background:rgba(231,76,60,.12);border:1.5px solid rgba(231,76,60,.35);border-radius:14px;padding:15px;font-size:15px;font-weight:800;color:#e74c3c;cursor:pointer;">✗ Révoquer la vérification</button>';
+  } else if (st === 'rejected') {
+    zone.innerHTML =
+      '<button onclick="actionKYC(\'verified\')" style="width:100%;background:linear-gradient(135deg,#27ae60,#1e8449);border:none;border-radius:14px;padding:15px;font-size:15px;font-weight:800;color:#fff;cursor:pointer;box-shadow:0 4px 14px rgba(39,174,96,.3);">✅ Valider quand même</button>' +
+      '<button onclick="actionKYC(\'pending\')" style="width:100%;background:rgba(243,156,18,.1);border:1.5px solid rgba(243,156,18,.3);border-radius:14px;padding:15px;font-size:15px;font-weight:800;color:#f39c12;cursor:pointer;">↩ Remettre en attente</button>';
+  } else {
+    zone.innerHTML =
+      '<button onclick="actionKYC(\'verified\')" style="width:100%;background:linear-gradient(135deg,#27ae60,#1e8449);border:none;border-radius:14px;padding:15px;font-size:15px;font-weight:800;color:#fff;cursor:pointer;box-shadow:0 4px 14px rgba(39,174,96,.3);">✅ Valider le dossier KYC</button>' +
+      '<button onclick="afficherRefusKYC()" style="width:100%;background:rgba(231,76,60,.12);border:1.5px solid rgba(231,76,60,.35);border-radius:14px;padding:15px;font-size:15px;font-weight:800;color:#e74c3c;cursor:pointer;">✗ Refuser le dossier</button>';
+  }
+}
+
+function afficherRefusKYC() {
+  const zone = document.getElementById('kd-refus-zone');
+  zone.style.display = zone.style.display==='none' ? 'block' : 'none';
+  if (zone.style.display==='block') {
+    document.getElementById('kyc-action-btns').innerHTML =
+      '<button onclick="confirmerRefusKYC()" style="width:100%;background:rgba(231,76,60,.15);border:1.5px solid rgba(231,76,60,.4);border-radius:14px;padding:15px;font-size:15px;font-weight:800;color:#e74c3c;cursor:pointer;">✗ Confirmer le refus</button>' +
+      '<button onclick="afficherRefusKYC()" style="width:100%;background:rgba(255,255,255,.06);border:1px solid var(--owner-border);border-radius:14px;padding:15px;font-size:14px;color:var(--owner-text2);cursor:pointer;">Annuler</button>';
+  }
+}
+
+function confirmerRefusKYC() {
+  actionKYC('rejected');
+  document.getElementById('kd-refus-zone').style.display = 'none';
+}
+
+function actionKYC(newSt) {
+  if (!currentKYCId) return;
+  KYC_STATUTS[currentKYCId] = newSt;
+  rafraichirKYCPill(newSt);
+  rafraichirKYCBtns(newSt);
+
+  // Mettre à jour la carte liste
+  const card = document.querySelector('.kyc-card[data-kid="'+currentKYCId+'"]');
+  if (card) {
+    card.dataset.kstatus = newSt;
+    const pill = card.querySelector('.kyc-pill');
+    const pillMap = {verified:{cls:'owner-pill owner-pill-ok kyc-pill',txt:'Vérifié'},pending:{cls:'owner-pill owner-pill-pending kyc-pill',txt:'En attente'},rejected:{cls:'kyc-pill',txt:'Refusé',style:'font-size:10px;background:rgba(231,76,60,.15);color:#e74c3c;padding:3px 10px;border-radius:20px;font-weight:700;'}};
+    if (pill) {
+      const p = pillMap[newSt];
+      pill.className = p.cls||'kyc-pill';
+      pill.textContent = p.txt;
+      pill.style.cssText = p.style||'font-size:10px;';
+    }
+    card.style.opacity = newSt==='rejected'?'.7':'1';
+    if (newSt==='verified') card.style.borderLeft='3px solid var(--owner-gold)';
+    else if (newSt==='rejected') card.style.borderLeft='3px solid rgba(231,76,60,.5)';
+    else card.style.borderLeft='3px solid rgba(243,156,18,.6)';
+    const avatar = card.querySelector('div[style*="border-radius:50%"]');
+    if (avatar) avatar.style.background = newSt==='verified'?'rgba(39,174,96,.12)':'rgba(201,168,76,.15)';
+  }
+  const msgs  = {verified:'✅ Dossier KYC validé',pending:'↩ Remis en attente',rejected:'✗ Dossier KYC refusé'};
+  const types = {verified:'success',pending:'',rejected:'error'};
+  showToast(msgs[newSt], types[newSt]);
+}
+
+function filtrerKYC(statut, btn) {
+  document.querySelectorAll('.owner-filtre-btn').forEach(b=>b.classList.remove('owner-filtre-active'));
+  btn.classList.add('owner-filtre-active');
+  document.querySelectorAll('.kyc-card').forEach(c=>{
+    c.style.display = (statut==='all'||c.dataset.kstatus===statut)?'block':'none';
+  });
 }
 
 function ownerValidateKYC(btn, name) {
@@ -3515,133 +4221,6 @@ function ownerPromoteAdmin(btn, name) {
 }
 
 /* ============================================================
-   ADMIN — FONCTIONS COMPLÈTES
-   ============================================================ */
-
-function adminTab(name, el) {
-  document.querySelectorAll('.admin-tab-content').forEach(t => t.style.display = 'none');
-  const tab = document.getElementById('admin-tab-' + name);
-  if (tab) tab.style.display = 'block';
-  document.querySelectorAll('.admin-nav-item').forEach(n => n.classList.remove('active'));
-  if (el) el.classList.add('active');
-}
-
-// -- Recherche utilisateurs --
-function adminSearchUsers(q) {
-  const rows = document.querySelectorAll('#admin-users-tbody tr');
-  rows.forEach(row => {
-    const name = (row.getAttribute('data-name') || '').toLowerCase();
-    row.style.display = name.includes(q.toLowerCase()) ? '' : 'none';
-  });
-}
-
-// -- Approuver / Refuser annonce --
-function approveAnnonce(btn) {
-  const row = btn.closest('tr');
-  const pill = row.querySelector('.pill');
-  if (pill) { pill.className = 'pill pill-ok'; pill.textContent = 'Approuvée'; }
-  btn.parentElement.innerHTML = '<span style="color:#27ae60;font-size:11px;font-weight:700;">✅ Approuvée</span>';
-  showToast('✅ Annonce approuvée et publiée', 'success');
-}
-
-function rejectAnnonce(btn) {
-  const row = btn.closest('tr');
-  const pill = row.querySelector('.pill');
-  if (pill) { pill.className = 'pill'; pill.style.background='rgba(231,76,60,.12)'; pill.style.color='#e74c3c'; pill.textContent = 'Refusée'; }
-  btn.parentElement.innerHTML = '<span style="color:#e74c3c;font-size:11px;font-weight:700;">❌ Refusée</span>';
-  showToast('Annonce refusée', 'error');
-}
-
-// -- Suspendre temporairement une annonce --
-function adminSuspendAnnonce(btn, titre) {
-  const row = btn.closest('tr');
-  const pill = row.querySelector('.pill');
-  if (pill) { pill.className='pill'; pill.style.background='rgba(243,156,18,.12)'; pill.style.color='#f39c12'; pill.textContent='Suspendue'; }
-  btn.textContent = '▶ Réactiver';
-  btn.onclick = () => adminReactivateAnnonce(btn, titre);
-  showToast('⏸ "' + titre + '" suspendue temporairement', '');
-}
-
-function adminReactivateAnnonce(btn, titre) {
-  const row = btn.closest('tr');
-  const pill = row.querySelector('.pill');
-  if (pill) { pill.className='pill pill-ok'; pill.textContent='Approuvée'; }
-  btn.textContent = '⏸ Suspendre';
-  btn.onclick = () => adminSuspendAnnonce(btn, titre);
-  showToast('▶ "' + titre + '" réactivée', 'success');
-}
-
-// -- Contacter vendeur WhatsApp --
-function adminContactWhatsapp(numero, nom) {
-  const msg = encodeURIComponent('Bonjour ' + nom + ', c\'est l\'équipe AG Prime. Nous vous contactons concernant votre compte.');
-  const clean = numero.replace(/\D/g,'');
-  window.open('https://wa.me/' + clean + '?text=' + msg, '_blank');
-}
-
-// -- Notes internes sur utilisateur --
-function adminAddNote(el, nom) {
-  const note = prompt('Note interne pour ' + nom + ' (visible admins/owner uniquement) :');
-  if (note && note.trim()) {
-    el.textContent = '📝 ' + note.trim();
-    el.style.color = 'var(--orange)';
-    const notes = LS.get('adminNotes', {});
-    notes[nom] = note.trim();
-    LS.set('adminNotes', notes);
-    showToast('📝 Note enregistrée pour ' + nom, 'success');
-  }
-}
-
-// -- Répondre aux messages support --
-function adminSendReply(id, nom) {
-  const textarea = document.getElementById('reply-text-' + id);
-  if (!textarea || !textarea.value.trim()) { showToast('Message vide', 'error'); return; }
-  const area = document.getElementById('reply-area-' + id);
-  const row = document.getElementById('support-row-' + id);
-  if (area) area.style.display = 'none';
-  if (row) {
-    const sentEl = document.createElement('div');
-    sentEl.style.cssText = 'background:rgba(244,124,32,.08);border-radius:8px;padding:8px 12px;margin-top:8px;font-size:12px;color:var(--admin-text);';
-    sentEl.innerHTML = '<span style="font-weight:700;color:var(--orange);">Vous :</span> ' + textarea.value.trim();
-    row.appendChild(sentEl);
-    const btns = row.querySelector('[style*="display:flex"]');
-    if (btns) btns.style.display = 'none';
-  }
-  showToast('📤 Réponse envoyée à ' + nom, 'success');
-}
-
-// -- Notification utilisateur spécifique --
-let adminNotifSelectedUser = null;
-
-function adminSelectNotifUser(el, nom) {
-  document.querySelectorAll('.admin-notif-user-row').forEach(r => r.classList.remove('selected'));
-  el.classList.add('selected');
-  adminNotifSelectedUser = nom;
-}
-
-function adminEnvoyerNotifUser() {
-  if (!adminNotifSelectedUser) { showToast('Sélectionnez un utilisateur', 'error'); return; }
-  const msg = document.getElementById('admin-notif-msg')?.value?.trim();
-  if (!msg) { showToast('Message vide', 'error'); return; }
-  showToast('🔔 Notification envoyée à ' + adminNotifSelectedUser, 'success');
-  if (document.getElementById('admin-notif-msg')) document.getElementById('admin-notif-msg').value = '';
-  adminNotifSelectedUser = null;
-  document.querySelectorAll('.admin-notif-user-row').forEach(r => r.classList.remove('selected'));
-}
-
-// -- Marquer commission comme encaissée --
-function adminMarkCommission(btn, nom) {
-  const row = btn.closest('.commission-row');
-  const amount = row.querySelector('.comm-amount');
-  if (amount) amount.style.color = '#27ae60';
-  btn.textContent = '✅ Encaissée';
-  btn.disabled = true;
-  btn.style.opacity = '.5';
-  showToast('✅ Commission de ' + nom + ' marquée encaissée', 'success');
-}
-
-function suspendAnnonce(btn, titre) { adminSuspendAnnonce(btn, titre); }
-
-/* ============================================================
    OWNER — NOUVELLES FONCTIONS
    ============================================================ */
 
@@ -3669,6 +4248,122 @@ function toggleVentesFlash(actif) {
   if (section) section.style.display = actif ? '' : 'none';
   if (flashTitle) flashTitle.style.display = actif ? '' : 'none';
   showToast(actif ? '⚡ Ventes Flash activées' : 'Ventes Flash désactivées', 'success');
+}
+
+/* ============================================================
+   POSTER UNE VENTE FLASH (Admin + Owner)
+   ============================================================ */
+function updateOwnerFlashKpi() {
+  const el = document.getElementById('ownerKpiFlashCount');
+  if (!el) return;
+  const count = getAnnonces().filter(a => a.status === 'approved' && a.flashDiscount).length;
+  el.textContent = count;
+}
+
+function populateFlashAnnonceSelect() {
+  const sel = document.getElementById('flash-select-annonce');
+  if (!sel) return;
+  const current = sel.value;
+  const annonces = getAnnonces().filter(a => a.status === 'approved');
+  sel.innerHTML = '<option value="">Sélectionner une annonce…</option>' +
+    annonces.map(a => {
+      const prixRef = (a.flashDiscount && a.prixUSDold) ? a.prixUSDold : a.prixUSD;
+      const label = a.titre + ' — ' + prixRef.toLocaleString('fr-FR') + ' $' + (a.flashDiscount ? ' (déjà en flash -' + a.flashDiscount + '%)' : '');
+      return '<option value="' + a.id + '">' + label + '</option>';
+    }).join('');
+  if (current && annonces.some(a => a.id === current)) sel.value = current;
+}
+
+function openFlashPost() {
+  populateFlashAnnonceSelect();
+  document.getElementById('flash-discount-input').value = '';
+  document.getElementById('flash-price-preview').textContent = '';
+  renderFlashManageList();
+  updateOwnerFlashKpi();
+  document.getElementById('flashPostOverlay').classList.add('active');
+}
+
+function closeFlashPost() {
+  document.getElementById('flashPostOverlay').classList.remove('active');
+}
+
+function updateFlashPreview() {
+  const id = document.getElementById('flash-select-annonce').value;
+  const discount = parseFloat(document.getElementById('flash-discount-input').value);
+  const preview = document.getElementById('flash-price-preview');
+  if (!preview) return;
+  if (!id || !discount || discount <= 0 || discount >= 100) { preview.innerHTML = ''; return; }
+  const annonce = getAnnonces().find(a => a.id === id);
+  if (!annonce) { preview.innerHTML = ''; return; }
+  const base = (annonce.flashDiscount && annonce.prixUSDold) ? annonce.prixUSDold : annonce.prixUSD;
+  const nouveauPrix = Math.round(base * (1 - discount / 100));
+  preview.innerHTML = 'Prix actuel : <strong style="color:var(--owner-text);">' + base.toLocaleString('fr-FR') + ' $</strong> → Prix flash : <strong style="color:var(--owner-gold2);">' + nouveauPrix.toLocaleString('fr-FR') + ' $</strong>';
+}
+
+function submitFlashSale() {
+  const id = document.getElementById('flash-select-annonce').value;
+  const discount = parseFloat(document.getElementById('flash-discount-input').value);
+  if (!id) { showToast('Choisissez une annonce', 'error'); return; }
+  if (!discount || discount <= 0 || discount >= 100) { showToast('Réduction invalide (1-99%)', 'error'); return; }
+  const annonces = getAnnonces();
+  const annonce = annonces.find(a => a.id === id);
+  if (!annonce) { showToast('Annonce introuvable', 'error'); return; }
+  const base = (annonce.flashDiscount && annonce.prixUSDold) ? annonce.prixUSDold : annonce.prixUSD;
+  annonce.prixUSDold = base;
+  annonce.prixUSD = Math.round(base * (1 - discount / 100));
+  annonce.flashDiscount = Math.round(discount);
+  setAnnonces(annonces);
+  renderFlashSales();
+  renderAnnoncesGrid();
+  populateFlashAnnonceSelect();
+  renderFlashManageList();
+  updateOwnerFlashKpi();
+  document.getElementById('flash-discount-input').value = '';
+  document.getElementById('flash-price-preview').innerHTML = '';
+  showToast('⚡ Vente flash publiée : ' + annonce.titre, 'success');
+}
+
+function renderFlashManageList() {
+  const list = document.getElementById('flash-manage-list');
+  if (!list) return;
+  const flash = getAnnonces().filter(a => a.status === 'approved' && a.flashDiscount);
+  if (flash.length === 0) {
+    list.innerHTML = '<div style="font-size:12px;color:var(--owner-text2);">Aucune vente flash active.</div>';
+    return;
+  }
+  list.innerHTML = flash.map(a => `
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(255,255,255,.04);border:1px solid var(--owner-border);border-radius:10px;padding:8px 10px;">
+      <div onclick="voirInfoFlashAnnonce('${a.id}')" style="flex:1;min-width:0;cursor:pointer;display:flex;align-items:center;gap:6px;">
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:12px;font-weight:700;color:var(--owner-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${a.icon} ${a.titre}</div>
+          <div style="font-size:11px;color:var(--owner-text2);">-${a.flashDiscount}% · ${a.prixUSD.toLocaleString('fr-FR')} $</div>
+        </div>
+        <span style="font-size:16px;color:var(--owner-text2);flex-shrink:0;">›</span>
+      </div>
+      <button onclick="event.stopPropagation();retirerFlashSale('${a.id}')" style="background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.3);border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;color:#e74c3c;cursor:pointer;flex-shrink:0;">Retirer</button>
+    </div>
+  `).join('');
+}
+
+function voirInfoFlashAnnonce(id) {
+  closeFlashPost();
+  openAnnonceDetail(id);
+}
+
+function retirerFlashSale(id) {
+  const annonces = getAnnonces();
+  const annonce = annonces.find(a => a.id === id);
+  if (!annonce) return;
+  if (annonce.prixUSDold) annonce.prixUSD = annonce.prixUSDold;
+  annonce.prixUSDold = null;
+  annonce.flashDiscount = null;
+  setAnnonces(annonces);
+  renderFlashSales();
+  renderAnnoncesGrid();
+  populateFlashAnnonceSelect();
+  renderFlashManageList();
+  updateOwnerFlashKpi();
+  showToast('✗ Vente flash retirée', '');
 }
 
 // -- Message d'accueil --
@@ -3732,8 +4427,390 @@ function ownerRevokeAdmin(btn, name) {
   showToast('✅ ' + name + ' repassé en utilisateur', 'success');
 }
 
+/* ============================================================
+   ANNONCES — LISTE / DÉTAIL / FILTRES
+   ============================================================ */
+const ANNONCES_DATA = {
+  1: {
+    titre:'Toyota RAV4 2018', emoji:'🚗', gradient:'g1',
+    vendeur:'Konan Kouamé', email:'konan@mail.com', tel:'+225 07 00 00 00 01', kyc:'✅ Validé',
+    categorie:'Automobile', prix:'15 500 000 CFA', lieu:'Cocody, Abidjan', date:'28 juin 2026',
+    description:'Véhicule en excellent état, première main. Toyota RAV4 2018, boîte automatique, climatisée, 4×4, 62 000 km. Tous les entretiens faits chez le concessionnaire. Disponible pour essai.',
+    specs:{Marque:'Toyota',Modèle:'RAV4',Année:'2018',Kilométrage:'62 000 km',Boîte:'Automatique',Carburant:'Essence',Couleur:'Blanc Nacré',Places:'5'}
+  },
+  2: {
+    titre:'Villa Cocody 4P', emoji:'🏡', gradient:'g3',
+    vendeur:'Amani Touré', email:'amani@mail.com', tel:'+225 07 00 00 00 02', kyc:'✅ Validé',
+    categorie:'Maison', prix:'45 000 000 CFA', lieu:'Cocody Angré, Abidjan', date:'27 juin 2026',
+    description:'Belle villa de 4 pièces dans une résidence sécurisée. Salon spacieux, 3 chambres, 2 salles de bain, cuisine équipée. Jardin privatif, 2 places de parking. Quartier calme, proche écoles et commerces.',
+    specs:{Type:'Villa',Pièces:'4',Surface:'180 m²',Étage:'RDC',Parking:'2 places',Jardin:'Oui',Sécurité:'Gardien 24h',Eau:'Oui'}
+  },
+  3: {
+    titre:'Mercedes GLC 2020', emoji:'🚘', gradient:'g5',
+    vendeur:'Bamba Souleymane', email:'bamba@mail.com', tel:'+225 07 00 00 00 03', kyc:'⚠️ En attente',
+    categorie:'Automobile', prix:'28 000 000 CFA', lieu:'Plateau, Abidjan', date:'27 juin 2026',
+    description:'Mercedes GLC 220d 2020, full options. Toit panoramique, GPS intégré, caméra de recul, sièges chauffants. 38 000 km, 2ème main, carnet d\'entretien complet. Couleur gris métallisé.',
+    specs:{Marque:'Mercedes',Modèle:'GLC 220d',Année:'2020',Kilométrage:'38 000 km',Boîte:'Automatique',Carburant:'Diesel',Couleur:'Gris Métallisé',Places:'5'}
+  },
+  4: {
+    titre:'Terrain 500m² Bingerville', emoji:'🌿', gradient:'g6',
+    vendeur:'Diallo Moussa', email:'diallo@mail.com', tel:'+225 07 00 00 00 04', kyc:'✅ Validé',
+    categorie:'Terrain', prix:'8 500 000 CFA', lieu:'Bingerville', date:'23 juin 2026',
+    description:'Terrain viabilisé de 500m² situé à Bingerville, quartier résidentiel en développement. Titre foncier disponible. Accès route goudronnée. Idéal construction villa. Électricité et eau disponibles en bordure.',
+    specs:{Surface:'500 m²',Type:'Viabilisé',Titre:'Foncier',Accès:'Route goudronnée',Eau:'Disponible',Électricité:'Disponible',Clôture:'Non',Relief:'Plat'}
+  },
+  5: {
+    titre:'Appart F3 Centre', emoji:'🏢', gradient:'g4',
+    vendeur:'Yao Pélagie', email:'yao@mail.com', tel:'+225 07 00 00 00 05', kyc:'✅ Validé',
+    categorie:'Appartement', prix:'18 000 000 CFA', lieu:'Centre, Abidjan', date:'22 juin 2026',
+    description:'Appartement F3 au 3ème étage d\'un immeuble sécurisé. Salon, 2 chambres, cuisine ouverte, salle de bain. Balcon avec vue dégagée. Proche transports et commerces. Immeuble avec gardien.',
+    specs:{Type:'F3',Pièces:'3',Surface:'75 m²',Étage:'3ème',Balcon:'Oui',Ascenseur:'Non',Gardien:'Oui',Meublé:'Non'}
+  }
+};
+
+const STATUTS_ANNONCES = {1:'pending',2:'pending',3:'pending',4:'approved',5:'rejected'};
+let currentDetailId = null;
+
+function ouvrirDetailAnnonce(id) {
+  const d = ANNONCES_DATA[id];
+  if (!d) return;
+  currentDetailId = id;
+
+  // Remplir les données
+  document.getElementById('detail-titre-header').textContent = d.titre;
+
+  const thumbZone = document.getElementById('detail-thumb-zone');
+  thumbZone.className = d.gradient;
+  thumbZone.style.cssText = 'border-radius:16px;height:160px;display:flex;align-items:center;justify-content:center;font-size:72px;margin-bottom:16px;';
+  thumbZone.textContent = d.emoji;
+
+  const statut = STATUTS_ANNONCES[id] || 'pending';
+  const pillMap = {
+    pending:  '<span class="pill pill-pending" style="font-size:12px;">⏳ En attente</span>',
+    approved: '<span class="pill pill-ok" style="font-size:12px;">✅ Approuvée</span>',
+    rejected: '<span class="pill pill-rejected" style="font-size:12px;">✗ Refusée</span>',
+    paused:   '<span class="pill" style="background:rgba(243,156,18,.15);color:#f39c12;font-size:12px;">⏸ En pause</span>'
+  };
+  document.getElementById('detail-statut-pill').innerHTML = pillMap[statut] || pillMap.pending;
+
+  document.getElementById('d-vendeur-nom').textContent   = d.vendeur;
+  document.getElementById('d-vendeur-email').textContent = d.email;
+  document.getElementById('d-vendeur-tel').textContent   = d.tel;
+  document.getElementById('d-vendeur-kyc').innerHTML     = d.kyc;
+  document.getElementById('d-categorie').textContent     = d.categorie;
+  document.getElementById('d-prix').textContent          = d.prix;
+  document.getElementById('d-lieu').textContent          = d.lieu;
+  document.getElementById('d-date').textContent          = d.date;
+  document.getElementById('d-description').textContent   = d.description;
+
+  // Specs dynamiques
+  const specsEl = document.getElementById('d-specs');
+  specsEl.innerHTML = Object.entries(d.specs).map(([k,v]) =>
+    '<div class="detail-info-bloc"><div class="detail-info-label">'+k+'</div><div class="detail-info-val">'+v+'</div></div>'
+  ).join('');
+
+  // Adapter les boutons selon le statut actuel
+  rafraichirBoutonsDetail(statut);
+
+  // Basculer les vues
+  document.getElementById('annonces-list-view').style.display   = 'none';
+  document.getElementById('annonces-detail-view').style.display = 'block';
+  document.getElementById('annonces-detail-view').scrollTop = 0;
+  document.querySelector('#admin-tab-annonces').scrollTop = 0;
+}
+
+function fermerDetailAnnonce() {
+  document.getElementById('annonces-detail-view').style.display = 'none';
+  document.getElementById('annonces-list-view').style.display   = 'block';
+  currentDetailId = null;
+}
+
+function rafraichirBoutonsDetail(statut) {
+  const zone = document.getElementById('detail-action-btns');
+  const btns = {
+    approved: '<button onclick="actionDetail(\'rejected\')" style="width:100%;background:rgba(231,76,60,.12);border:1.5px solid rgba(231,76,60,.35);border-radius:14px;padding:15px;font-size:15px;font-weight:800;color:#e74c3c;cursor:pointer;">✗ Retirer / Refuser</button><button onclick="actionDetail(\'paused\')" style="width:100%;background:rgba(243,156,18,.12);border:1.5px solid rgba(243,156,18,.35);border-radius:14px;padding:15px;font-size:15px;font-weight:800;color:#f39c12;cursor:pointer;margin-top:10px;">⏸ Mettre en attente</button>',
+    rejected: '<button onclick="actionDetail(\'approved\')" style="width:100%;background:linear-gradient(135deg,#27ae60,#1e8449);border:none;border-radius:14px;padding:15px;font-size:15px;font-weight:800;color:#fff;cursor:pointer;box-shadow:0 4px 14px rgba(39,174,96,.3);">✅ Réactiver / Approuver</button><button onclick="actionDetail(\'paused\')" style="width:100%;background:rgba(243,156,18,.12);border:1.5px solid rgba(243,156,18,.35);border-radius:14px;padding:15px;font-size:15px;font-weight:800;color:#f39c12;cursor:pointer;margin-top:10px;">⏸ Mettre en attente</button>',
+    paused:   '<button onclick="actionDetail(\'approved\')" style="width:100%;background:linear-gradient(135deg,#27ae60,#1e8449);border:none;border-radius:14px;padding:15px;font-size:15px;font-weight:800;color:#fff;cursor:pointer;box-shadow:0 4px 14px rgba(39,174,96,.3);">✅ Approuver</button><button onclick="actionDetail(\'rejected\')" style="width:100%;background:rgba(231,76,60,.12);border:1.5px solid rgba(231,76,60,.35);border-radius:14px;padding:15px;font-size:15px;font-weight:800;color:#e74c3c;cursor:pointer;margin-top:10px;">✗ Refuser</button>',
+    pending:  '<button onclick="actionDetail(\'approved\')" style="width:100%;background:linear-gradient(135deg,#27ae60,#1e8449);border:none;border-radius:14px;padding:15px;font-size:15px;font-weight:800;color:#fff;cursor:pointer;box-shadow:0 4px 14px rgba(39,174,96,.3);">✅ Approuver l\'annonce</button><button onclick="actionDetail(\'paused\')" style="width:100%;background:rgba(243,156,18,.12);border:1.5px solid rgba(243,156,18,.4);border-radius:14px;padding:15px;font-size:15px;font-weight:800;color:#f39c12;cursor:pointer;margin-top:10px;">⏸ Mettre en attente</button><button onclick="actionDetail(\'rejected\')" style="width:100%;background:rgba(231,76,60,.12);border:1.5px solid rgba(231,76,60,.35);border-radius:14px;padding:15px;font-size:15px;font-weight:800;color:#e74c3c;cursor:pointer;margin-top:10px;">✗ Refuser l\'annonce</button>'
+  };
+  zone.innerHTML = btns[statut] || btns.pending;
+}
+
+function actionDetail(newStatut) {
+  if (!currentDetailId) return;
+  STATUTS_ANNONCES[currentDetailId] = newStatut;
+
+  // Mettre à jour le pill dans le détail
+  const pillMap = {
+    pending:  '<span class="pill pill-pending" style="font-size:12px;">⏳ En attente</span>',
+    approved: '<span class="pill pill-ok" style="font-size:12px;">✅ Approuvée</span>',
+    rejected: '<span class="pill pill-rejected" style="font-size:12px;">✗ Refusée</span>',
+    paused:   '<span class="pill" style="background:rgba(243,156,18,.15);color:#f39c12;font-size:12px;">⏸ En pause</span>'
+  };
+  document.getElementById('detail-statut-pill').innerHTML = pillMap[newStatut];
+
+  // Mettre à jour la carte dans la liste
+  const card = document.querySelector('.ann-card[data-id="'+currentDetailId+'"]');
+  if (card) {
+    card.dataset.status = newStatut;
+    const pill = card.querySelector('.ann-pill');
+    const pillsMap2 = {
+      pending:  {cls:'pill pill-pending ann-pill', txt:'En attente'},
+      approved: {cls:'pill pill-ok ann-pill', txt:'Approuvée'},
+      rejected: {cls:'pill pill-rejected ann-pill', txt:'Refusée'},
+      paused:   {cls:'pill ann-pill', txt:'En pause'}
+    };
+    if (pill) { const p = pillsMap2[newStatut]; pill.className=p.cls; pill.textContent=p.txt; if(newStatut==='paused') pill.style.cssText='background:rgba(243,156,18,.15);color:#f39c12;font-size:10px;'; else pill.style.cssText='font-size:10px;'; }
+  }
+
+  // Adapter les boutons
+  rafraichirBoutonsDetail(newStatut);
+
+  const msgs = {approved:'✅ Annonce approuvée', paused:'⏸ Annonce mise en attente', rejected:'✗ Annonce refusée'};
+  const types = {approved:'success', paused:'', rejected:'error'};
+  showToast(msgs[newStatut], types[newStatut]);
+}
+
+function filtrerAnnonces(statut, btn) {
+  document.querySelectorAll('.filtre-btn').forEach(b => b.classList.remove('filtre-active'));
+  btn.classList.add('filtre-active');
+  document.querySelectorAll('.ann-card').forEach(card => {
+    card.style.display = (statut === 'all' || card.dataset.status === statut) ? 'block' : 'none';
+  });
+}
+
+/* ============================================================
+   ADMIN — NOUVELLES FONCTIONS
+   ============================================================ */
+
+// -- Pause annonce (mise en pause temporaire) --
+function pauseAnnonce(btn) {
+  const row = btn.closest('tr');
+  if (!row) return;
+  const statusCell = row.querySelector('td:nth-child(5)');
+  const isPaused   = statusCell && statusCell.innerHTML.includes('En pause');
+
+  if (isPaused) {
+    // Reprendre → approuver
+    if (statusCell) statusCell.innerHTML = '<span class="pill pill-ok">Approuvée</span>';
+    _renderAnnonceActions(row, 'approved');
+    showToast('▶️ Annonce réactivée', 'success');
+  } else {
+    _saveAnnonceRow(row);
+    if (statusCell) statusCell.innerHTML = '<span class="pill" style="background:rgba(243,156,18,.15);color:#f39c12;">En pause</span>';
+    _renderAnnonceActions(row, 'paused');
+    showToast('⏸ Annonce mise en pause', '');
+  }
+}
+
+// -- Répondre aux messages depuis l'admin --
+function adminReplyMsg(inputId, userName, msgContainerId) {
+  const input = document.getElementById(inputId);
+  const val = input ? input.value.trim() : '';
+  if (!val) { showToast('Écrivez un message d\'abord', 'error'); return; }
+  const container = document.getElementById(msgContainerId);
+  if (container) {
+    const replyDiv = document.createElement('div');
+    replyDiv.style.cssText = 'background:rgba(244,124,32,.12);border:1px solid rgba(244,124,32,.25);border-radius:10px;padding:8px 12px;margin-top:8px;font-size:12px;color:var(--admin-text);position:relative;';
+    const now = new Date();
+    const heure = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+    replyDiv.innerHTML = '<div style="font-size:10px;color:var(--orange);font-weight:700;margin-bottom:3px;">🛡️ Admin · ' + heure + '</div>' + val;
+    container.appendChild(replyDiv);
+    input.value = '';
+    showToast('✅ Réponse envoyée à ' + userName, 'success');
+  }
+}
+
+// -- Contacter vendeur via WhatsApp --
+function adminContactWhatsApp(name, phone) {
+  const msg = encodeURIComponent('Bonjour ' + name + ', je vous contacte de la part de AG Prime. Comment puis-je vous aider ?');
+  window.open('https://wa.me/' + phone.replace(/[^0-9]/g,'') + '?text=' + msg, '_blank');
+  showToast('📱 Ouverture WhatsApp pour ' + name, 'success');
+}
+
+// -- Note interne --
+let noteTarget = null;
+const adminNotes = {};
+
+function openNoteModal(name) {
+  noteTarget = name;
+  document.getElementById('noteTargetName').textContent = '👤 ' + name;
+  document.getElementById('noteContent').value = adminNotes[name] || '';
+  document.getElementById('noteModalOverlay').style.display = 'flex';
+  setTimeout(() => document.getElementById('noteContent').focus(), 150);
+}
+
+function closeNoteModal() {
+  document.getElementById('noteModalOverlay').style.display = 'none';
+  noteTarget = null;
+}
+
+function saveNote() {
+  const content = document.getElementById('noteContent').value.trim();
+  if (!content) { showToast('Note vide', 'error'); return; }
+  if (noteTarget) adminNotes[noteTarget] = content;
+  closeNoteModal();
+  showToast('📝 Note enregistrée pour ' + noteTarget, 'success');
+}
+
+// -- Traiter signalement --
+const _sigSaved = {};
+
+function traiterSignalement(btn, action) {
+  const row = btn.closest('.signalement-row');
+  if (!row) return;
+
+  // ID unique par ligne
+  if (!row.dataset.sigId) row.dataset.sigId = 'sig_' + Date.now() + Math.random().toString(36).slice(2);
+  const id = row.dataset.sigId;
+
+  const btnArea = row.querySelector('.signalement-actions');
+  const pillEl  = row.querySelector('.pill-signalement');
+
+  // Sauvegarde en mémoire (évite les conflits de quotes HTML)
+  _sigSaved[id] = {
+    pillHTML: pillEl  ? pillEl.outerHTML  : '',
+    btnsHTML: btnArea ? btnArea.innerHTML : ''
+  };
+
+  const pills = {
+    ignorer: '<span class="pill pill-ok pill-signalement" style="font-size:10px;white-space:nowrap;flex-shrink:0;">Ignoré</span>',
+    pause:   '<span class="pill pill-signalement" style="background:rgba(243,156,18,.15);color:#f39c12;font-size:10px;white-space:nowrap;flex-shrink:0;">Mis en pause</span>',
+    retirer: '<span class="pill pill-rejected pill-signalement" style="font-size:10px;white-space:nowrap;flex-shrink:0;">Retiré</span>'
+  };
+  const msgs       = { ignorer: '✓ Signalement ignoré', pause: '⏸ Mise en pause', retirer: '✗ Annonce retirée' };
+  const toastTypes = { ignorer: 'success', pause: '', retirer: 'error' };
+
+  if (pillEl) pillEl.outerHTML = pills[action];
+  if (btnArea) btnArea.innerHTML =
+    '<div style="display:flex;align-items:center;gap:10px;padding-top:4px;">' +
+      '<span style="font-size:11px;color:var(--admin-text2);">' + msgs[action] + '</span>' +
+      '<button onclick="annulerTraitement(\'' + id + '\')" style="background:rgba(255,255,255,.08);border:1px solid var(--admin-border);border-radius:7px;padding:5px 12px;font-size:11px;font-weight:700;color:var(--admin-text);cursor:pointer;">↩ Annuler</button>' +
+    '</div>';
+
+  row.style.opacity = '.65';
+  showToast(msgs[action], toastTypes[action]);
+}
+
+function annulerTraitement(id) {
+  const saved = _sigSaved[id];
+  if (!saved) return;
+  const row = document.querySelector('.signalement-row[data-sig-id="' + id + '"]');
+  if (!row) return;
+
+  const btnArea = row.querySelector('.signalement-actions');
+  const pillEl  = row.querySelector('.pill-signalement');
+
+  if (pillEl  && saved.pillHTML) pillEl.outerHTML  = saved.pillHTML;
+  if (btnArea && saved.btnsHTML) btnArea.innerHTML = saved.btnsHTML;
+
+  row.style.opacity = '1';
+  delete _sigSaved[id];
+  showToast('↩ Action annulée — signalement réouvert', '');
+}
+
+// -- Notification individuelle admin --
+function envoyerNotifAdmin() {
+  const user = document.getElementById('admin-notif-user').value;
+  const titre = document.getElementById('admin-notif-titre').value.trim();
+  const msg = document.getElementById('admin-notif-msg').value.trim();
+  if (!user) { showToast('Choisissez un destinataire', 'error'); return; }
+  if (!titre || !msg) { showToast('Titre et message requis', 'error'); return; }
+  const hist = document.getElementById('admin-notif-history');
+  if (hist) {
+    const now = new Date();
+    const heure = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+    const el = document.createElement('div');
+    el.style.cssText = 'padding:10px 0;border-bottom:1px solid var(--admin-border);';
+    el.innerHTML = '<div style="display:flex;justify-content:space-between;"><span style="font-size:12px;font-weight:700;color:var(--admin-text);">🔔 ' + titre + '</span><span style="font-size:10px;color:var(--admin-text2);">' + heure + '</span></div><div style="font-size:11px;color:var(--admin-text2);margin-top:2px;">À : ' + user + ' · ' + msg + '</div>';
+    hist.prepend(el);
+  }
+  document.getElementById('admin-notif-titre').value = '';
+  document.getElementById('admin-notif-msg').value = '';
+  document.getElementById('admin-notif-user').value = '';
+  showToast('🔔 Notification envoyée à ' + user, 'success');
+}
+
+// -- Actions cartes annonces dashboard --
+function dashApprove(btn) {
+  const card = btn.closest('.dash-annonce-card');
+  if (!card) return;
+  const pill = card.querySelector('.dash-pill');
+  const btns = card.querySelector('.dash-action-btns');
+  if (pill) { pill.className = 'pill pill-ok dash-pill'; pill.style.fontSize='10px'; pill.textContent = 'Approuvée ✅'; }
+  card.dataset.status = 'approved';
+  if (btns) btns.innerHTML =
+    '<button onclick="dashUndoApprove(this)" style="flex:1;background:rgba(255,255,255,.06);border:1px solid var(--admin-border);border-radius:9px;padding:8px;font-size:11px;font-weight:700;color:var(--admin-text2);cursor:pointer;">↩ Annuler</button>';
+  showToast('✅ Annonce approuvée', 'success');
+}
+
+function dashReject(btn) {
+  const card = btn.closest('.dash-annonce-card');
+  if (!card) return;
+  const pill = card.querySelector('.dash-pill');
+  const btns = card.querySelector('.dash-action-btns');
+  if (pill) { pill.className = 'pill pill-rejected dash-pill'; pill.style.fontSize='10px'; pill.textContent = 'Refusée ✗'; }
+  card.dataset.status = 'rejected';
+  if (btns) btns.innerHTML =
+    '<button onclick="dashUndoReject(this)" style="flex:1;background:rgba(255,255,255,.06);border:1px solid var(--admin-border);border-radius:9px;padding:8px;font-size:11px;font-weight:700;color:var(--admin-text2);cursor:pointer;">↩ Annuler</button>';
+  showToast('✗ Annonce refusée', 'error');
+}
+
+function dashPause(btn) {
+  const card = btn.closest('.dash-annonce-card');
+  if (!card) return;
+  const pill = card.querySelector('.dash-pill');
+  const btns = card.querySelector('.dash-action-btns');
+  const isPaused = card.dataset.status === 'paused';
+  if (isPaused) {
+    if (pill) { pill.className = 'pill pill-pending dash-pill'; pill.style.fontSize='10px'; pill.textContent = 'En attente'; }
+    card.dataset.status = 'pending';
+    if (btns) btns.innerHTML =
+      '<button onclick="dashApprove(this)" style="flex:1;background:rgba(39,174,96,.15);border:1px solid rgba(39,174,96,.35);border-radius:9px;padding:9px;font-size:12px;font-weight:700;color:#27ae60;cursor:pointer;">✓ Approuver</button>' +
+      '<button onclick="dashReject(this)" style="flex:1;background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.3);border-radius:9px;padding:9px;font-size:12px;font-weight:700;color:#e74c3c;cursor:pointer;">✗ Refuser</button>' +
+      '<button onclick="dashPause(this)" style="background:rgba(243,156,18,.12);border:1px solid rgba(243,156,18,.3);border-radius:9px;padding:9px 11px;font-size:13px;cursor:pointer;" title="Pause">⏸</button>';
+    showToast('▶️ Annonce réactivée', 'success');
+  } else {
+    if (pill) { pill.className = 'pill dash-pill'; pill.style.cssText='background:rgba(243,156,18,.15);color:#f39c12;font-size:10px;flex-shrink:0;'; pill.textContent = 'En pause ⏸'; }
+    card.dataset.status = 'paused';
+    if (btns) btns.innerHTML =
+      '<button onclick="dashPause(this)" style="flex:1;background:rgba(39,174,96,.15);border:1px solid rgba(39,174,96,.35);border-radius:9px;padding:9px;font-size:12px;font-weight:700;color:#27ae60;cursor:pointer;">▶️ Réactiver</button>' +
+      '<button onclick="dashReject(this)" style="flex:1;background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.3);border-radius:9px;padding:9px;font-size:12px;font-weight:700;color:#e74c3c;cursor:pointer;">✗ Refuser</button>';
+    showToast('⏸ Annonce mise en pause', '');
+  }
+}
+
+function dashUndoApprove(btn) {
+  const card = btn.closest('.dash-annonce-card');
+  if (!card) return;
+  const pill = card.querySelector('.dash-pill');
+  if (pill) { pill.className = 'pill pill-pending dash-pill'; pill.style.fontSize='10px'; pill.textContent = 'En attente'; }
+  card.dataset.status = 'pending';
+  const btns = card.querySelector('.dash-action-btns');
+  if (btns) btns.innerHTML =
+    '<button onclick="dashApprove(this)" style="flex:1;background:rgba(39,174,96,.15);border:1px solid rgba(39,174,96,.35);border-radius:9px;padding:9px;font-size:12px;font-weight:700;color:#27ae60;cursor:pointer;">✓ Approuver</button>' +
+    '<button onclick="dashReject(this)" style="flex:1;background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.3);border-radius:9px;padding:9px;font-size:12px;font-weight:700;color:#e74c3c;cursor:pointer;">✗ Refuser</button>' +
+    '<button onclick="dashPause(this)" style="background:rgba(243,156,18,.12);border:1px solid rgba(243,156,18,.3);border-radius:9px;padding:9px 11px;font-size:13px;cursor:pointer;" title="Pause">⏸</button>';
+  showToast('↩ Approbation annulée', '');
+}
+
+function dashUndoReject(btn) {
+  const card = btn.closest('.dash-annonce-card');
+  if (!card) return;
+  const pill = card.querySelector('.dash-pill');
+  if (pill) { pill.className = 'pill pill-pending dash-pill'; pill.style.fontSize='10px'; pill.textContent = 'En attente'; }
+  card.dataset.status = 'pending';
+  const btns = card.querySelector('.dash-action-btns');
+  if (btns) btns.innerHTML =
+    '<button onclick="dashApprove(this)" style="flex:1;background:rgba(39,174,96,.15);border:1px solid rgba(39,174,96,.35);border-radius:9px;padding:9px;font-size:12px;font-weight:700;color:#27ae60;cursor:pointer;">✓ Approuver</button>' +
+    '<button onclick="dashReject(this)" style="flex:1;background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.3);border-radius:9px;padding:9px;font-size:12px;font-weight:700;color:#e74c3c;cursor:pointer;">✗ Refuser</button>' +
+    '<button onclick="dashPause(this)" style="background:rgba(243,156,18,.12);border:1px solid rgba(243,156,18,.3);border-radius:9px;padding:9px 11px;font-size:13px;cursor:pointer;" title="Pause">⏸</button>';
+  showToast('↩ Refus annulé', '');
+}
+
 // Initialisation au chargement
 renderContactNumbers();
+updateOwnerFlashKpi();
 
 </script>
 </body>
